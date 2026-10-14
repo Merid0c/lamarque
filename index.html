@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>La Marque</title>
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#1e6fff">
+<meta name="theme-color" content="#111111">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -37,7 +37,14 @@ nav button.on{color:var(--ac)}
 #bar .inf{font-size:12px;opacity:.8;flex:1;white-space:nowrap}#bar button{width:auto;margin:0;padding:10px 9px;font-size:14px;background:#333;white-space:nowrap}
 .dots{display:flex;gap:3px;flex:2;justify-content:center}.dots i{width:14px;height:14px;border-radius:50%;border:2px solid #fff4}
 @media (orientation:landscape){#live{flex-direction:row;flex-wrap:wrap}.z{flex:1 1 50%;height:calc(100% - 64px)}.z .sc{font-size:min(54vh,24vw)}.z .n{font-size:min(8vh,4vw)}.z .ss{font-size:min(6vh,3vw)}#bar{flex:0 0 100%;height:64px}#bar .inf{font-size:14px}.dots{flex:2 1 auto;order:0;padding:0;gap:6px}.dots i{width:22px;height:22px}}
-.z{position:relative}
+.z{position:relative;padding-top:max(env(safe-area-inset-top,0px),0px)}
+#tmr{position:absolute;top:calc(4px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);background:#000a;color:#fff;font-size:13px;font-weight:700;padding:2px 10px;border-radius:12px;z-index:4;pointer-events:none;font-variant-numeric:tabular-nums}
+@media (orientation:landscape){.z{padding-top:26px}.z .n{margin-top:0}}
+.stars{display:flex;gap:4px;justify-content:center;margin:6px 0}.stars b{font-size:38px;line-height:1;cursor:pointer;color:#f5a623;padding:2px}
+#tuto{position:fixed;inset:0;z-index:30;background:var(--bg);display:flex;flex-direction:column;padding:24px 20px calc(20px + env(safe-area-inset-bottom,0px));overflow:auto}
+#tuto .c{flex:1;display:flex;flex-direction:column;justify-content:center;max-width:520px;margin:0 auto;width:100%}
+#tuto h1{font-size:26px}#tuto p,#tuto li{font-size:16px;line-height:1.45}#tuto .em{font-size:64px;text-align:center}
+#tuto .pg{display:flex;gap:6px;justify-content:center;margin:12px 0}#tuto .pg i{width:9px;height:9px;border-radius:50%;background:var(--bd)}#tuto .pg i.on{background:var(--ac)}
 .q{position:absolute;inset:0;background:inherit;display:flex;flex-direction:column;gap:8px;padding:8px;z-index:2}
 .q .g{flex:1;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:8px;min-height:0}
 .q button{margin:0;width:auto;min-width:0;min-height:0;padding:4px;background:#0007;color:#fff;border-radius:14px;font-size:clamp(13px,3.6vmin,20px);font-weight:700;line-height:1.15;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
@@ -64,6 +71,9 @@ details.fu ul{padding-left:18px;margin:8px 0 4px}details.fu li{margin:6px 0}
 <div id="live" style="display:none"></div>
 <div id="toast"></div>
 <script>
+const APP_V='2.4',FMT=2;
+const DEMO='LM2:H4sIAAAAAAACA62Yy27bOBSGX8U4awYQKUuyuGuTdNXOFE2RTeAFGdOJMLZkS3KLQeAHmJeZl-iLDUiRFC_yRAkqwJB1JQ__j_851AuwwwEofGZfWHs8CUDwAyhB0Au274A-vEC1AQp9L7oeENRsL4DCr3-Op-ogFt-Hs4-sBwp3oq6atgMEnWBdUwMFkpD8iiSkAARs8wMoRvC4fQL6Aj-Bpgg6oCRDsAGKMwRCNS37s93C-bxG8Fx1vdML0fVXmACCE1BclInesOyw08ufqqEN64XpA06G5xoV7W3dt-zXv7XYi7pfVHUv2lqG_tjs5WVA8NyoOG8AQSs6oHAvwxre2-2AJjLIXg7QA8kQLtdrOQpA4eNOnOSbOFD4s2X1k3xvdwT6AIxzxvXG9Cb_DUf2nLoKawR9CxSfkRc7jmPHUexpHHtiY_8susX1c3WoRDdGfP3M9oeqqWvW_1_w6WTwxRrJPcFyXyCSzRkMMwwqbB4Oi7sBAjNAXP0Yc0fKPG3OcPmAewMfm_Juty2bdtYjo0dJKBuOlgi2nf7Ddw3QEsFWXVohYI8CKE4RsP4voCRFsG1OPdAcwXZb7dSQcalfLqNQ7zsHkiaxpMkMSZPck_R709Zs86qmt1bTG61pEmr6unhrGVzEZlJGgSTlnEBSG8h9s9uJvxfXuxNf_NG0m9mA3vizM_UAJUSCiSWY6AEXw54kbwCVjXwxlz7u4KsvS_hc7EYuAwzNWyTe4xVuiORhU-rSiLb_Vqel8Wb58nWg0SrWaPWaRkl5RUbYPtwtPlU70b8ZNDJoQya0SbQmGSKp3JP52qiQwyF2ju1YaSfhni2E3uM_Moz22MTkqLstMhYINHk_Gy2fcy5tp6p7xW5fiXhaFbFkxQzJcOn5w1dWb9jbHf_97kCCMPI4jHxOGMQL40P1tHuHyZHLvhCwh0vtEwThaQbvq2bA3zDoTtYgOcWqa6am-PHxU3NY24O1G3lmCkMzB2zCjFFjHu5Oi7ZH5ud2gV_IisQmwTHnyQpuSIOJToyFzpiZTqGlToYywQ3pUVYvQ17MgryYZDEw2Qxg1HMDMHd71j0vluS9dQ72cUk0JrrewSu5zxFZzk4jgcEwTxPHaayLWC-_XCE5DAzC2yTFfRu0GDl1lZtpnOzD_bNOs5dwyCwEKwOGxGGQttBcpIaL0pRUqQak0GCsDBckpGEZ07B8lYbVFfFd8Js4nqra9Y_mdBBTzhGgEGQt1ymiCiNDmEw7h2j7oAD2q9noBPOqWu7hMJYjbg6y81YjxAPwAvwchR3bcBhy3SDoqEmPXnE99jckZWAhRxqZ1NTVVnPlChYiU2orLpYanJVxGEsZCetpVU4GpKRzSPETzdcdq_vftULKXMdQTjJnuRhDYOpN5k1JVXFOTdYADl_l6GYeNndhwqvxJ8bJ7WwvjbDETGojcG5kzZy0MNx6cbrHa_yEzBARZ-9Y597OWUYk_mTHK32ML5Wq35pTtNz1Ck3X_3213CLSmjK_WIP6KT8igEePOOnFXT57RcOYB9QyIoBAT1NiNFeu35k_djbbRbGpAnSqt9DkmojczPOQg_h7R4JncKDWOSMHNy17auruN9UB2C5RkP74Y8rH2bM6XhdMYODqOvmUX2g6y0nvmwi74A2qagy-lcQ3hmxMGbvUq3RyvBa3cEx7rBI6rzTIDC6l9X5TNObn8_r8H7YdUqCgFAAA:FIN';
+const FIRST=(()=>{try{return localStorage.getItem('vs_teams')===null&&!(JSON.parse(localStorage.getItem('vs_pf')||'{}')||{}).tuto&&!navigator.webdriver}catch(e){return false}})();
 const $=s=>document.querySelector(s);
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const C={Bleu:'#1e6fff',Rouge:'#e53935',Vert:'#1faa59',Orange:'#fb8c00',Violet:'#8e44ad',Jaune:'#f5c400'};
@@ -79,41 +89,67 @@ const T=()=>teams.find(t=>t.id===cur);
 function sync(){if($('#live').style.display==='none')unwake();team=T()||{name:'',cat:'',season:''};if(team.id&&!team.cfg)team.cfg={...P.ff,p:'ff'};cfg=team.cfg||{...P.ff,p:'ff'}}
 const ok=m=>cur==='all'||m.t===cur;
 const tr=m=>m.tr!==undefined?!!m.tr:(m.w||3)===1;
-const pts=m=>{if(tr(m))return 0;if(m.ff)return m.ff===2?4:0;const w=m.w||3;if(m.tie)return m.res==='V'?3:2;return m.res==='V'?(w<2||m.sl<w-1?4:3):(w>1&&m.sw===w-1?2:1)};
+const pts=m=>{if(tr(m))return 0;if(m.ff)return m.ff===2?3:0;return m.res==='V'?3:((m.sw||0)>=2?2:1)};
 const rl=m=>m.ff?(m.ff===2?'Forfait adverse':'Forfait'):(m.res==='V'?'Victoire':'Défaite')+' '+m.sw+'-'+m.sl;
 const BM=`<button class="s" onclick="nav('manual')">+ Saisir un match non suivi</button>`;
-const sel=a=>teams.length?`<select style="margin-bottom:10px" onchange="cur=this.value;sv('vs_cur',cur);render()">${teams.map(t=>`<option value="${t.id}" ${cur===t.id?'selected':''}>${esc(t.name)}</option>`).join('')}${a&&teams.length>1?`<option value="all" ${cur==='all'?'selected':''}>Toutes mes équipes</option>`:''}</select>`:'';
+const sel=a=>teams.length?`<select style="margin-bottom:10px" onchange="cur=this.value;fm.r=null;sv('vs_cur',cur);render()">${teams.map(t=>`<option value="${t.id}" ${cur===t.id?'selected':''}>${esc(t.name)}</option>`).join('')}${a&&teams.length>1?`<option value="all" ${cur==='all'?'selected':''}>Toutes mes équipes</option>`:''}</select>`:'';
 const bars=rows=>{const mx=Math.max(1,...rows.map(r=>r[1]));return rows.map(r=>`<div style="display:flex;align-items:center;gap:8px;margin:6px 0"><span style="width:92px;font-size:13px">${r[0]}</span><div style="flex:1;background:var(--bg);border-radius:6px"><div style="width:${100*r[1]/mx}%;min-width:3px;height:22px;border-radius:6px;background:${r[2]}"></div></div><b>${r[1]}</b></div>`).join('')};
 const tt=()=>`<h2>Par équipe</h2><div class="card">${teams.map(t=>{const L=hist.filter(m=>m.t===t.id&&!tr(m)),w=L.filter(m=>m.res==='V').length;return `<div class="it"><b>${esc(t.name)}</b><span class="mut">${L.length} m · ${w} V · ${L.reduce((a,m)=>a+pts(m),0)} pts</span></div>`}).join('')}</div>`;
-const tm=()=>`<h2>Mes équipes</h2><div class="card">${teams.map(t=>`<div class="it" onclick="cur='${t.id}';sv('vs_cur',cur);render()"><b>${esc(t.name)||'(sans nom)'}</b><span class="${t.id===cur?'V':'mut'}">${t.id===cur?'● active':'choisir'}</span></div>`).join('')}<label>Nouvelle équipe</label><div class="row"><input id="nt" placeholder="Nom de l'équipe"><button style="margin:0;flex:0 0 100px" onclick="addT()">Ajouter</button></div>${T()?`<button class="d" onclick="delT(this)">Supprimer l'équipe active</button>`:''}</div>`;
-let view='match',detail=null,form={cA:'Rouge',cB:'Bleu',home:'D',date:new Date().toISOString().slice(0,10),opp:'',comp:''};
+const tm=()=>`<h2>Mes équipes</h2><div class="card">${teams.map(t=>`<div class="it" onclick="cur='${t.id}';fm.r=null;delete fm.adv;delete fm.tr;sv('vs_cur',cur);render()"><b>${esc(t.name)||'(sans nom)'}</b><span class="${t.id===cur?'V':'mut'}">${t.id===cur?'● active':'choisir'}</span></div>`).join('')}<label>Nouvelle équipe</label><div class="row"><input id="nt" placeholder="Nom de l'équipe"><button style="margin:0;flex:0 0 100px" onclick="addT()">Ajouter</button></div>${T()?`<details class="fu"><summary>Actions avancées</summary><div class="mut">Équipe active : <b>${esc(T().name)}</b></div><button class="s" onclick="dupT()">Dupliquer (réglages, sans les matchs)</button><button class="d" onclick="rstT(this)">Réinitialiser (efface ses matchs)</button><button class="d" onclick="delT(this)">Supprimer l'équipe et ses matchs</button></details>`:''}</div>`;
+let view='match',detail=null,fm=Object.assign({cA:'Rouge',cB:'Bleu',home:'D',opp:'',comp:''},ld('vs_fm',{}),{date:new Date().toISOString().slice(0,10),r:null});
+const nk=x=>nn(x).replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim();
+function retH(){const o=nk(fm.opp);if(o.length<3||!team.id)return '';
+ const L=hist.filter(m=>m.t===team.id).sort((a,b)=>(b.date||'').localeCompare(a.date||'')).find(m=>{const n=nk(m.opp);return n&&(n===o||(Math.min(n.length,o.length)>=4&&(n.includes(o)||o.includes(n))))});
+ if(!L)return '';const r=L.ff?(L.ff===2?'Forfait adverse':'Forfait'):(L.res==='V'?'Victoire':'Défaite')+' '+L.sw+'-'+L.sl;
+ return `<div class="mut" style="margin-top:6px">↩ Dernière rencontre${L.opp!==fm.opp.trim()?' ('+esc(L.opp)+')':''} : <b class="${L.res}">${r}</b> le ${(L.date||'').split('-').reverse().join('/')}${L.home==='E'?' (extérieur)':L.home==='D'?' (domicile)':''}${tr(L)?' · entraînement':''}</div>`}
+function prevVs(m){const o=nk(m.opp);if(o.length<3)return null;
+ const L=hist.filter(x=>x!==m&&x.id!==m.id&&x.t===m.t&&(x.date||'')<(m.date||'')&&(()=>{const n=nk(x.opp);return n&&(n===o||(Math.min(n.length,o.length)>=4&&(n.includes(o)||o.includes(n))))})()).sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+ const x=L[0];if(!x)return null;const r=x.ff?(x.ff===2?'Forfait adverse':'Forfait'):(x.res==='V'?'Victoire':'Défaite')+' '+x.sw+'-'+x.sl;
+ return{r,res:x.res,txt:'Rencontre précédente : '+r+' le '+(x.date||'').split('-').reverse().join('/')}}
+function retUp(){const e=document.getElementById('ret');if(e)e.innerHTML=retH()}
+function sfm(){try{localStorage.setItem('vs_fm',JSON.stringify({...fm,r:null}))}catch(e){}}
+addEventListener('input',()=>{if(typeof fm!=='undefined')sfm()});addEventListener('change',()=>{if(typeof fm!=='undefined')sfm()});
 const tc=c=>c==='Jaune'?'#111':'#fff';
 function toast(m){const t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(toast.h);toast.h=setTimeout(()=>t.style.display='none',1400)}
-function nav(v){view=v;detail=null;if(v!=='manual')mf={};if(v!=='hist'&&v!=='stats'&&cur==='all'){cur=teams[0]?teams[0].id:'';sv('vs_cur',cur)}render()}
+function nav(v){view=v;detail=null;rateNew=null;if(v!=='manual')mf={};if(v!=='hist'&&v!=='stats'&&cur==='all'){cur=teams[0]?teams[0].id:'';sv('vs_cur',cur)}render()}
 function render(){sync();hsync();
  $('#nav').innerHTML=[['match','Match'],['hist','Historique'],['stats','Saison'],['set','Réglages']].map(([k,l])=>`<button class="${view===k?'on':''}" onclick="nav('${k}')">${l}</button>`).join('');
  const a=$('#app');
- if(view==='match')a.innerHTML=vMatch();else if(view==='hist')a.innerHTML=detail!==null?vDetail():vHist();else if(view==='stats')a.innerHTML=vStats();else if(view==='manual')a.innerHTML=vManual();else a.innerHTML=vSet();const fz=$('#frz');if(fz)fz.scrollLeft=fz.scrollWidth;
+ if(view==='match')a.innerHTML=vMatch();else if(view==='hist')a.innerHTML=detail!==null?vDetail():vHist();else if(view==='stats')a.innerHTML=vStats();else if(view==='manual')a.innerHTML=vManual();else a.innerHTML=vSet();frI();
 }
-function sw(k){return `<div class="sw">${Object.keys(C).map(c=>`<i class="${form[k]===c?'on':''}" style="background:${C[c]}" onclick="form.${k}='${c}';render()"></i>`).join('')}</div>`}
+function sw(k){return `<div class="sw">${Object.keys(C).map(c=>`<i class="${fm[k]===c?'on':''}" style="background:${C[c]}" onclick="fm.${k}='${c}';sfm();render()"></i>`).join('')}</div>`}
 function vMatch(){
  return `<h1>🏐 La Marque</h1>${sel(0)}${rap()}`+(live?`<div class="card"><b>Match en cours</b><div class="mut">${esc(live.team)} vs ${esc(live.opp)}</div><button onclick="showLive()">Reprendre le match</button><button class="s" onclick="aband(this)">Abandonner ce match</button></div><h2>Nouveau match</h2>`:'<h2>Nouveau match</h2>')+
  `<div class="card"><div class="mut">Mon équipe : <b>${esc(team.name)||'à renseigner dans Réglages'}</b></div>
- <label>Adversaire</label><input value="${esc(form.opp)}" oninput="form.opp=this.value">
- <div class="row"><div><label>Date</label><input type="date" value="${form.date}" oninput="form.date=this.value"></div><div><label>Lieu</label><select onchange="form.home=this.value"><option value="D" ${form.home==='D'?'selected':''}>Domicile</option><option value="E" ${form.home==='E'?'selected':''}>Extérieur</option></select></div></div>
- <label>Compétition</label><input value="${esc(form.comp)}" oninput="form.comp=this.value">
+ <label>Adversaire</label><input value="${esc(fm.opp)}" oninput="fm.opp=this.value;retUp()"><div id="ret">${retH()}</div>
+ <div class="row"><div><label>Date</label><input type="date" value="${fm.date}" oninput="fm.date=this.value"></div><div><label>Lieu</label><select onchange="fm.home=this.value"><option value="D" ${fm.home==='D'?'selected':''}>Domicile</option><option value="E" ${fm.home==='E'?'selected':''}>Extérieur</option></select></div></div>
+ <label>Compétition</label><input value="${esc(fm.comp)}" oninput="fm.comp=this.value">
  <label>Couleur de mon équipe</label>${sw('cA')}<label>Couleur de l'adversaire</label>${sw('cB')}
- <div class="mut" style="margin-top:10px">Règles : ${cfg.w} sets gagnants, ${cfg.s} pts, décisif ${cfg.d} pts, écart ${cfg.e}</div>
- <label><input type="checkbox" style="width:auto" ${(form.tr===undefined?cfg.w===1:form.tr)?'checked':''} onchange="form.tr=this.checked"> Entraînement (points non comptés au classement)</label><label><input type="checkbox" style="width:auto" ${(form.adv===undefined?!!team.adv:form.adv)?'checked':''} onchange="form.adv=this.checked"> Mode avancé : qualifier les points (attaque, ace, fautes…)</label><button onclick="start(this)">Démarrer le match</button><button class="s" onclick="nav('manual')">Saisir un match non suivi</button></div>`;
+ <details class="fu" ${fm.ro?'open':''} ontoggle="fm.ro=this.open"><summary>Règles de ce match · <span class="mut">${fr().w} set${fr().w>1?'s':''} gagnant${fr().w>1?'s':''} · ${fr().s} pts${fr().w>1?' · décisif '+fr().d:''}</span></summary><select onchange="fpre(this.value)">${[['ff','FFVolley classique'],['loisir','Loisir'],['perso','Personnalisé']].map(x=>`<option value="${x[0]}" ${fr().p===x[0]?'selected':''}>${x[1]}</option>`).join('')}</select><div class="row"><div><label>Sets gagnants</label><select onchange="fset('w',+this.value)">${[1,2,3].map(v=>`<option ${fr().w===v?'selected':''}>${v}</option>`).join('')}</select></div><div><label>Points par set</label><input type="number" inputmode="numeric" value="${fr().s}" oninput="fset('s',+this.value)"></div></div><div class="row"><div><label>Points du set décisif</label><input type="number" inputmode="numeric" value="${fr().d}" oninput="fset('d',+this.value)"></div><div><label>Écart minimum</label><input type="number" inputmode="numeric" value="${fr().e}" oninput="fset('e',+this.value)"></div></div><div class="mut" style="margin-top:6px">Pré-rempli d'après les réglages de l'équipe. Ce que tu changes ici ne vaut que pour ce match.</div></details>
+ <label><input type="checkbox" style="width:auto" ${(fm.tr===undefined?fr().w===1:fm.tr)?'checked':''} onchange="fm.tr=this.checked"> Entraînement (points non comptés au championnat)</label><label><input type="checkbox" style="width:auto" ${(fm.adv===undefined?!!team.adv:fm.adv)?'checked':''} onchange="fm.adv=this.checked"> Mode avancé : qualifier les points (attaque, ace, fautes…)</label><button onclick="start(this)">Démarrer le match</button><button class="s" onclick="nav('manual')">Saisir un match non suivi</button></div>`;
 }
 function vHist(){
  if(!hist.some(ok))return `<h1>Historique</h1>${sel(1)}${BM}<div class="card mut" style="margin-top:10px">Aucun match enregistré.</div>`;
  return `<h1>Historique</h1>${sel(1)}${frise()}${BM}<div class="card" style="margin-top:10px">${hist.map((m,i)=>!ok(m)?'':`<div class="it" style="${tr(m)?'opacity:.55;border-left:3px dashed var(--mut);padding-left:8px':''}" onclick="detail=${i};render()"><div><b>${esc(m.opp)}</b><div class="mut">${m.date}${m.comp?' · '+esc(m.comp):''}</div></div><div class="${tr(m)?'mut':m.res}">${rl(m)}<div class="mut" style="text-align:right">${tr(m)?'Entraînement':(m.int?'interrompu'+(m.tie?' · écart '+fd(m):'')+' · ':'')+pts(m)+' pt'+(pts(m)>1?'s':'')}</div></div></div>`).join('')}</div>`;
 }
+function ana(m){const sets=m.sets||[];if(!sets.length)return[];const out=[],q=m.adv&&m.q?m.q:null,tn=nm(m.t)||'Nous';
+ if(q){const top=L=>L.map(x=>[x[3],q[x[0]]||0]).sort((a,b)=>b[1]-a[1])[0],a=top(QW),b=top(QL);
+  if(a&&a[1]>0)out.push('Point fort : '+a[0].toLowerCase()+' ('+a[1]+' point'+(a[1]>1?'s marqués':' marqué')+')');
+  if(b&&b[1]>0)out.push('Point faible : '+b[0].toLowerCase()+' ('+b[1]+' point'+(b[1]>1?'s perdus':' perdu')+')')}
+ const sq=m.sq||[];let best=[0,'',0];
+ sets.forEach((s,i)=>{const z=sq[i];if(!z||z.length!==s[0]+s[1])return;let r=0,p='';for(const c of z){if(c===p)r++;else{r=1;p=c}if(r>best[0])best=[r,c,i+1]}});
+ if(best[0]>=3)out.push('Plus longue série : '+best[0]+' points d\'affilée pour '+(best[1]==='a'?tn:m.opp)+' (set '+best[2]+')');
+ return out}
+const anaH=m=>{const a=ana(m);return a.length?`<h2>Lecture rapide</h2><div class="card">${a.map(l=>`<div style="margin:6px 0">• ${esc(l)}</div>`).join('')}</div>`:''};
+const notesH=m=>(m.notes&&m.notes.length)?`<h2>Notes pendant le match</h2><div class="card">${m.notes.map(n=>`<div style="margin:6px 0"><span class="mut">Set ${n.s} · ${n.sc} · ${fmt(n.t)}</span><br>${esc(n.x)}</div>`).join('')}</div>`:'';
+function rate(m){const k=hist.indexOf(m),st=m.stars||0,fresh=rateNew===m.id;
+ return `<div class="card" style="margin:12px 0;background:var(--bg);${fresh?'border-color:var(--ac)':''}"><b>${fresh?'Comment s\'est passé ce match ? (facultatif)':'Ressenti du match'}</b><div class="stars">${[1,2,3,4,5].map(n=>`<b onclick="setStar(${k},${n})">${n<=st?'★':'☆'}</b>`).join('')}</div><textarea rows="3" placeholder="Un commentaire pour garder une trace (facultatif)" oninput="hist[${k}].note=this.value;hist[${k}].u=Date.now();sv('vs_hist',hist)">${esc(m.note||'')}</textarea></div>`}
+let rateNew=null;
+function setStar(k,n){const m=hist[k];m.stars=m.stars===n?0:n;m.u=Date.now();sv('vs_hist',hist);render()}
 function vDetail(){
  const m=hist[detail];
- return `<h1>${esc(m.opp)}</h1><div class="card">${phTop(m)}<div class="mut">${m.date} · ${m.home==='D'?'Domicile':'Extérieur'}${m.comp?' · '+esc(m.comp):''}</div><div class="big ${tr(m)?'mut':m.res}">${rl(m)}</div><div class="mut">${tr(m)?'Entraînement (hors classement)':pts(m)+' point'+(pts(m)>1?'s':'')+' au classement'}</div>${m.int?'<div class="card" style="margin-top:10px;background:var(--bg)"><b>Match interrompu</b>'+(m.tie?'<div>Départagé à la différence de points : <b class="'+m.res+'">'+fd(m)+'</b> ('+pd(m).a+' - '+pd(m).b+')</div>':'')+'</div>':''}${m.sets.map((s,i)=>`<div class="it"><span>Set ${i+1}</span><b>${s[0]} - ${s[1]}</b></div>`).join('')}
- ${seqs(m)}${m.adv?qstats(m):''}${phBtn(m)}<button class="s" onclick="fiche(${detail})">📤 Partager la fiche (A4)</button><button onclick="editM(${detail})">Modifier ce match</button><button class="s" onclick="detail=null;render()">← Retour</button><button class="d" onclick="if(this.dataset.c){delPh(hist[${detail}].id);hist.splice(${detail},1);sv('vs_hist',hist);detail=null;render()}else{this.dataset.c=1;this.textContent='Confirmer la suppression'}">Supprimer ce match</button></div>`;
+ return `<h1>${esc(m.opp)}</h1><div class="card"><div class="mut">${m.date}${m.dur?' · durée '+dm(m.dur):''} · ${m.home==='D'?'Domicile':'Extérieur'}${m.comp?' · '+esc(m.comp):''}</div><div class="big ${tr(m)?'mut':m.res}">${rl(m)}</div>${(()=>{const v=prevVs(m);return v?`<div class="mut">↩ Rencontre précédente : <b class="${v.res}">${v.r}</b> le ${v.txt.split(' le ')[1]}</div>`:''})()}<div class="mut">${tr(m)?'Entraînement (hors championnat)':pts(m)+' point'+(pts(m)>1?'s':'')+' au championnat'}</div>${m.int?'<div class="card" style="margin-top:10px;background:var(--bg)"><b>Match interrompu</b>'+(m.tie?'<div>Départagé à la différence de points : <b class="'+m.res+'">'+fd(m)+'</b> ('+pd(m).a+' - '+pd(m).b+')</div>':'')+'</div>':''}${rate(m)}${m.sets.map((s,i)=>`<div class="it"><span>Set ${i+1}${m.sd&&m.sd[i]?' <span class="mut">· '+dm(m.sd[i])+'</span>':''}</span><b>${s[0]} - ${s[1]}</b></div>`).join('')}
+ ${seqs(m)}${m.adv?qstats(m):''}${anaH(m)}${notesH(m)}${phBtn(m,detail)}<button class="s" onclick="fiche(${detail})">📤 Partager la fiche (A4)</button><button onclick="editM(${detail})">Modifier ce match</button><button class="s" onclick="detail=null;render()">← Retour</button><button class="d" onclick="if(this.dataset.c){hist.splice(${detail},1);sv('vs_hist',hist);detail=null;render()}else{this.dataset.c=1;this.textContent='Confirmer la suppression'}">Supprimer ce match</button></div>`;
 }
 function vStats(){
  const n=hist.length,w=hist.filter(m=>m.res==='V').length,sw=hist.reduce((a,m)=>a+m.sw,0),sl=hist.reduce((a,m)=>a+m.sl,0);
@@ -132,22 +168,24 @@ function vSet(){
  return `<h1>Réglages</h1>${tm()}<h2>Profil de l'équipe</h2><div class="card"><label>Nom</label><input value="${esc(team.name)}" oninput="team.name=this.value;sv('vs_team',team)"><div class="row"><div><label>Catégorie</label><input value="${esc(team.cat)}" oninput="team.cat=this.value;sv('vs_team',team)"></div><div><label>Saison</label><input value="${esc(team.season)}" oninput="team.season=this.value;sv('vs_team',team)"></div></div></div>
  <h2>Règles du match</h2><div class="card"><label>Préconfiguration</label><select onchange="pre(this.value)">${o('ff','FFVolley classique')}${o('loisir','Loisir')}${o('perso','Personnalisé')}</select>
  <label>Sets gagnants</label><select onchange="cfg.w=+this.value;cfg.p='perso';sv('vs_cfg',cfg)"><option ${cfg.w===1?'selected':''}>1</option><option ${cfg.w===2?'selected':''}>2</option><option ${cfg.w===3?'selected':''}>3</option></select>
- ${n('s','Points d\'un set classique')}${n('d','Points du set décisif')}${n('e','Écart minimum')}<label><input type="checkbox" style="width:auto" ${team.adv?'checked':''} onchange="team.adv=this.checked;sv('vs_team')"> Mode avancé par défaut (qualifier les points)</label></div>${pf()}${stf()}${BKC}`;
+ ${n('s','Points d\'un set classique')}${n('d','Points du set décisif')}${n('e','Écart minimum')}<label><input type="checkbox" style="width:auto" ${team.adv?'checked':''} onchange="team.adv=this.checked;delete fm.adv;sv('vs_team')"> Mode avancé par défaut (qualifier les points)</label></div>${pf()}${stf()}${BKC}`;
 }
 function pre(p){if(!team.id)return;if(P[p])team.cfg=cfg={...P[p],p};else cfg.p='perso';sv('vs_cfg');render()}
 function start(b){
  if(live&&b&&!b.dataset.c){b.dataset.c=1;b.textContent='Un match est à reprendre : le remplacer ?';b.className='d';setTimeout(()=>{b.dataset.c='';b.textContent='Démarrer le match';b.className=''},4000);return}
  if(!team.id||!team.name.trim()){toast('Renseigne ton équipe dans Réglages');return}
- if(form.cA===form.cB){toast('Choisis deux couleurs différentes');return}
- live={adv:(form.adv===undefined?!!team.adv:form.adv)?1:0,qs:{},tr:(form.tr===undefined?cfg.w===1:form.tr)?1:0,tid:team.id,team:team.name,opp:form.opp.trim()||'Adversaire',comp:form.comp,date:form.date,home:form.home,cA:form.cA,cB:form.cB,cfg:{...cfg},sets:[],cur:{a:0,b:0,pts:[]},swap:false,pend:false};
- sv('vs_live',live);showLive();
+ if(fm.cA===fm.cB){toast('Choisis deux couleurs différentes');return}
+ {const R=fr();if(!(R.w>0&&R.s>0&&R.d>0&&R.e>0)){toast('Vérifie les règles du match');return}}
+ live={adv:(fm.adv===undefined?!!team.adv:fm.adv)?1:0,qs:{},tr:(fm.tr===undefined?fr().w===1:fm.tr)?1:0,tid:team.id,team:team.name,opp:fm.opp.trim()||'Adversaire',comp:fm.comp,date:fm.date,home:fm.home,cA:fm.cA,cB:fm.cB,cfg:{...fr()},sets:[],cur:{a:0,b:0,pts:[]},swap:false,pend:false,el:0,ts:Date.now(),sd:[]};
+ fm.r=null;delete fm.adv;delete fm.tr;fm.opp='';fm.comp='';sfm();sv('vs_live',live);showLive();
 }
 function tgt(){const L=live;return L.sets.length+1===2*L.cfg.w-1&&L.cfg.w>1?L.cfg.d:L.cfg.s}
 function over(){const c=live.cur,t=tgt();return Math.max(c.a,c.b)>=t&&Math.abs(c.a-c.b)>=live.cfg.e}
 function wins(inc){const L=live;let a=L.sets.filter(s=>s[0]>s[1]).length,b=L.sets.filter(s=>s[1]>s[0]).length;if(inc){if(L.cur.a>L.cur.b)a++;else b++}return[a,b]}
-function showLive(){live.qo=null;live.qp=null;$('#live').style.display='flex';hsync();renderLive();wake()}
+function showLive(){live.qo=null;live.qp=null;live.ts=Date.now();live.el=live.el||0;live.sd=live.sd||[];$('#live').style.display='flex';hsync();renderLive();wake();tmrStart()}
 function renderLive(){
  const L=live,[sa,sb]=wins(false);
+ const tmrTick=()=>{const e=document.getElementById('tmr');if(e&&live)e.textContent='⏱ '+fmt(el())};
  const Z=t=>{const c=t==='a'?L.cA:L.cB;return `<div class="z" data-t="${t}" style="background:${C[c]};color:${tc(c)}"><div class="n">${esc(t==='a'?L.team:L.opp)}</div><div class="sc">${L.cur[t]}</div><div class="ss">Sets : ${t==='a'?sa:sb}</div>${L.qp===t?qpanel(t):''}</div>`};
  const order=L.swap?['b','a']:['a','b'];
  const dots=L.cur.pts.slice(innerHeight>innerWidth?-7:-10).map(t=>`<i style="background:${C[t==='a'?L.cA:L.cB]}"></i>`).join('');
@@ -156,29 +194,40 @@ function renderLive(){
   const [a,b]=wins(true),fin=a>=L.cfg.w||b>=L.cfg.w,win=a>b;
   ov=`<div id="ov"><div class="big">${fin?(win?'Victoire ':'Défaite ')+a+'-'+b:'Set terminé'}</div><div style="font-size:22px">${L.cur.a} - ${L.cur.b}</div><button onclick="conf()">${fin?'Enregistrer le match':'Set suivant'}</button><button class="s" onclick="undo()">↓ Annuler le dernier point</button></div>`;
  }
- if(L.mn)ov=mnHTML();$('#live').innerHTML=Z(order[0])+Z(order[1])+`<div id="bar"><button onclick="menu()">☰</button><button onclick="try{document.documentElement.requestFullscreen()}catch(e){}">⛶</button><div class="inf">${L.adv?'<b style="font-size:16px">'+(L.swap?L.cur.b+' - '+L.cur.a:L.cur.a+' - '+L.cur.b)+'</b><br>':''}Set ${L.sets.length+1} · ${tgt()} pts${L.sets.length?'<br>'+L.sets.map(s=>L.swap?s[1]+'-'+s[0]:s[0]+'-'+s[1]).join(' · '):''}</div><div class="dots">${dots}</div><button onclick="live.swap=!live.swap;sv('vs_live',live);renderLive()">⇄ Côté</button></div>`+ov;
+ if(L.mn)ov=mnHTML();$('#live').innerHTML=Z(order[0])+Z(order[1])+`<div id="tmr"></div><div id="bar"><button onclick="menu()">☰</button><button onclick="try{document.documentElement.requestFullscreen()}catch(e){}">⛶</button><div class="inf">${L.adv?'<b style="font-size:16px">'+(L.swap?L.cur.b+' - '+L.cur.a:L.cur.a+' - '+L.cur.b)+'</b><br>':''}Set ${L.sets.length+1} · ${tgt()} pts${L.sets.length?'<br>'+L.sets.map(s=>L.swap?s[1]+'-'+s[0]:s[0]+'-'+s[1]).join(' · '):''}</div><div class="dots">${dots}</div><button onclick="live.swap=!live.swap;sv('vs_live',live);renderLive()">⇄ Côté</button></div>`+ov;tmrTick();
 }
-function pt(t,k){if(live.pend)return;const c=live.cur;if(!c.q)c.q=c.pts.map(()=>'');c[t]++;c.pts.push(t);c.q.push(k||'');live.qp=null;if(over())live.pend=true;vib(live.pend?[40,60,40]:20);sv('vs_live',live);renderLive()}
+const el=()=>{const L=live;return (L.el||0)+(L.ts?Date.now()-L.ts:0)};
+function acc(){const L=live;if(!L)return;if(L.ts){L.el=(L.el||0)+Math.min(Date.now()-L.ts,900000);L.ts=Date.now()}}
+const fmt=ms=>{const t=Math.floor(ms/1000),h=Math.floor(t/3600),m=Math.floor(t%3600/60),s=t%60;return (h?h+':'+String(m).padStart(2,'0'):m)+':'+String(s).padStart(2,'0')};
+let tmrI=null;
+function tmrStart(){clearInterval(tmrI);const u=()=>{const e=document.getElementById('tmr');if(!live||$('#live').style.display==='none'){clearInterval(tmrI);return}if(e)e.textContent='⏱ '+fmt(el())};u();tmrI=setInterval(u,1000)}
+function notesOv(){const L=live,N=L.nt||[];return `<div id="ov"><div class="big" style="font-size:26px">Notes du match</div><div style="width:100%;max-width:360px;max-height:28vh;overflow:auto;text-align:left;font-size:15px">${N.length?N.map(n=>`<div style="margin:6px 0"><span style="opacity:.7">Set ${n.s} · ${n.sc} · ${fmt(n.t)}</span><br>${esc(n.x)}</div>`).join(''):'<div style="opacity:.7">Aucune note pour l\'instant.</div>'}</div><textarea id="nt2" rows="2" style="max-width:360px" placeholder="Écris ou dicte une note"></textarea><div class="row" style="max-width:360px;width:100%"><button class="s" id="mic" onclick="dictate()">🎤 Dicter</button><button onclick="addNote()">Ajouter</button></div><button class="s" onclick="live.mn=1;renderLive()">Retour</button></div>`}
+function addNote(){const a=$('#nt2'),v=a&&a.value.trim();if(!v){toast('Note vide');return}acc();const L=live;(L.nt=L.nt||[]).push({s:L.sets.length+1,sc:L.cur.a+'-'+L.cur.b,t:el(),x:v});sv('vs_live',L);renderLive();toast('Note ajoutée')}
+function dictate(){const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){toast('Dictée non disponible ici : utilise le micro du clavier de ton téléphone');return}
+ try{const r=new SR();r.lang='fr-FR';r.interimResults=false;r.onresult=e=>{const t=[...e.results].map(x=>x[0].transcript).join(' '),a=$('#nt2');if(a)a.value=(a.value+' '+t).trim()};r.onerror=()=>toast('Dictée impossible (micro refusé ?)');r.onend=()=>{const b=$('#mic');if(b)b.textContent='🎤 Dicter'};r.start();$('#mic').textContent='🎙️ Écoute…'}catch(e){toast('Dictée impossible : utilise le micro du clavier')}}
+function togAdv(){live.adv=live.adv?0:1;live.qp=null;live.mn=0;sv('vs_live',live);renderLive();toast(live.adv?'Mode avancé activé':'Mode avancé désactivé')}
+function pt(t,k){if(live.pend)return;const c=live.cur;if(!c.q)c.q=c.pts.map(()=>'');c[t]++;c.pts.push(t);acc();c.q.push(k||'');live.qp=null;if(over())live.pend=true;vib(live.pend?[40,60,40]:20);sv('vs_live',live);renderLive()}
 let qpAt=0,sw0=0;
 function tap(t){if(live.pend)return;if(!live.adv){pt(t,'');return}
  if(live.qp){const o=live.qp;live.qp=null;pt(o,'');toast('Point compté sans type');if(live.pend)return}
  live.qp=t;qpAt=Date.now();renderLive()}
 function undo(){vib([15,40,15]);if(live.qp){live.qp=null;renderLive();toast('Saisie annulée');return}const c=live.cur;if(!c.pts.length){toast('Rien à annuler');return}const t=c.pts.pop();if(c.q)c.q.pop();c[t]--;live.qo=null;live.pend=false;sv('vs_live',live);renderLive();toast('Dernier point annulé')}
 function conf(){
- const L=live;qadd();L.qo=null;L.sq=L.sq||[];while(L.sq.length<L.sets.length)L.sq.push('');L.sq.push(L.cur.pts.join(''));L.sets.push([L.cur.a,L.cur.b]);const [a,b]=wins(false);
+ const L=live;acc();L.sd=L.sd||[];L.sd.push(Math.max(0,(L.el||0)-L.sd.reduce((a,b)=>a+b,0)));qadd();L.qo=null;L.sq=L.sq||[];while(L.sq.length<L.sets.length)L.sq.push('');L.sq.push(L.cur.pts.join(''));L.sets.push([L.cur.a,L.cur.b]);const [a,b]=wins(false);
  if(a>=L.cfg.w||b>=L.cfg.w){
-  hist.unshift({id:nid(),u:Date.now(),t:L.tid,tr:L.tr,adv:L.adv,q:L.qs,sq:L.sq,ca:L.cA,cb:L.cB,w:L.cfg.w,date:L.date,opp:L.opp,comp:L.comp,home:L.home,res:a>b?'V':'D',sw:a,sl:b,sets:L.sets});
-  sv('vs_hist',hist);live=null;sv('vs_live',null);$('#live').style.display='none';view='hist';detail=0;render();return;
+  hist.unshift({id:nid(),u:Date.now(),t:L.tid,tr:L.tr,adv:Object.keys(L.qs||{}).length?1:0,q:L.qs,sq:L.sq,ca:L.cA,cb:L.cB,w:L.cfg.w,date:L.date,opp:L.opp,comp:L.comp,home:L.home,res:a>b?'V':'D',sw:a,sl:b,sets:L.sets,dur:L.el,sd:L.sd,notes:(L.nt&&L.nt.length)?L.nt:undefined});
+  sv('vs_hist',hist);rateNew=hist[0].id;live=null;sv('vs_live',null);$('#live').style.display='none';view='hist';detail=0;render();return;
  }
  L.cur={a:0,b:0,pts:[]};L.pend=false;L.swap=!L.swap;sv('vs_live',L);renderLive();
 }
+const dm=ms=>{const k=Math.max(1,Math.round(ms/60000));return k>=60?Math.floor(k/60)+' h '+String(k%60).padStart(2,'0'):k+' min'};
 const pd=m=>{const a=(m.sets||[]).reduce((t,x)=>t+x[0],0),b=(m.sets||[]).reduce((t,x)=>t+x[1],0);return{a,b,d:a-b}};
 const fd=m=>{const d=pd(m).d;return (d>0?'+':'')+d};
-const BKC=`<h2 id="sv">Sauvegarde</h2><div class="card"><div class="mut">Copie ta sauvegarde et garde-la (mail, notes) pour retrouver tes équipes et tes matchs si tu changes de téléphone ou d'adresse.</div><button class="s" onclick="bk()">Afficher ma sauvegarde</button><div id="bk"></div><label>Restaurer depuis une sauvegarde</label><textarea id="rst" rows="4" placeholder="Colle ici ta sauvegarde"></textarea><button class="s" onclick="rs(this)">Restaurer</button></div><div class="mut" style="text-align:center;margin:18px 0 6px">La Marque · version 2.2</div>`;
+const BKC=`<h2 id="sv">Sauvegarde</h2><div class="card"><div class="mut">Un fichier .json contient tout : équipes, historique, réglages. Garde-le sur ton drive ou envoie-le-toi par mail pour retrouver tes données si tu changes de téléphone.</div><button onclick="dlBk()">⬇ Télécharger ma sauvegarde (.json)</button><label>Restaurer depuis un fichier</label><input type="file" id="rjf" accept=".json,application/json,.txt" onchange="rdJson(this)"><div id="rjp"></div><details class="fu"><summary>Sauvegarde par texte (copier-coller)</summary><button class="s" onclick="bk()">Afficher ma sauvegarde</button><div id="bk"></div><label>Restaurer depuis une sauvegarde</label><textarea id="rst" rows="4" placeholder="Colle ici ta sauvegarde"></textarea><button class="s" onclick="rs(this)">Restaurer</button></details></div><div class="mut" style="text-align:center;margin:18px 0 6px">La Marque · version ${APP_V} · format de données ${FMT}</div><button class="s" onclick="tuto(0)">Revoir le tutoriel</button>`;
 const nm=id=>(teams.find(t=>t.id===id)||{}).name||'';
 function vStats(){
  const L=hist.filter(m=>ok(m)&&!tr(m)),n=L.length,w=L.filter(m=>m.res==='V').length,sw=L.reduce((a,m)=>a+m.sw,0),sl=L.reduce((a,m)=>a+m.sl,0),pt=L.reduce((a,m)=>a+pts(m),0),ch=L.slice().reverse();
- return `<h1>Saison</h1>${sel(1)}<div class="card"><div class="row"><div><div class="big">${n?Math.round(100*w/n):0} %</div><div class="mut">de victoires (${n} match${n>1?'s':''})</div></div>${cur==='all'?'':`<div><div class="big">${pt}</div><div class="mut">points au classement</div></div>`}</div></div>
+ return `<h1>Saison</h1>${sel(1)}<div class="card"><div class="row"><div><div class="big">${n?Math.round(100*w/n):0} %</div><div class="mut">de victoires (${n} match${n>1?'s':''})</div></div>${cur==='all'?'':`<div><div class="big">${pt}</div><div class="mut">Points championnat</div></div>`}</div></div>
  <h2>Matchs</h2><div class="card">${bars([['Victoires',w,'#1faa59'],['Défaites',n-w,'#e53935']])}</div>
  <h2>Sets</h2><div class="card">${bars([['Gagnés',sw,'#1faa59'],['Encaissés',sl,'#e53935']])}</div>
  ${courbes(L)}${qagg(L)}${cur==='all'?tt():''}<button onclick="exp()">Exporter (CSV)</button><div id="csv"></div>`;
@@ -189,12 +238,14 @@ function exp(){
 }
 function editM(i){const m=hist[i];mf={date:m.date,opp:m.opp,comp:m.comp||'',home:m.home||'D',ff:m.ff===2?'A':m.ff?'N':'',int:!!m.int,eq:m.res,tr:tr(m),s:m.sets||[],edit:i};if(m.t){cur=m.t;sv('vs_cur',cur)}view='manual';detail=null;render()}
 function addT(){const n=$('#nt').value.trim();if(!n){toast('Nom requis');return}const id='t'+Date.now();teams.push({id,name:n,cat:'',season:'',cfg:{...P.ff,p:'ff'}});if(teams.length===1)hist.forEach(m=>{if(!m.t)m.t=id});cur=id;sv('vs_teams',teams);sv('vs_hist',hist);sv('vs_cur',cur);render()}
-function delT(b){if(!b.dataset.c){b.dataset.c=1;b.textContent='Confirmer : supprimer aussi ses matchs';return}hist=hist.filter(m=>m.t!==cur);teams=teams.filter(t=>t.id!==cur);cur=teams[0]?teams[0].id:'';sv('vs_teams',teams);sv('vs_hist',hist);sv('vs_cur',cur);render()}
+function dupT(){const t=T();if(!t)return;const id='t'+Date.now();teams.push({...JSON.parse(JSON.stringify(t)),id,name:t.name+' (copie)'});cur=id;sv('vs_teams',teams);sv('vs_cur',cur);render();toast('Équipe dupliquée')}
+function rstT(b){if(!b.dataset.c){b.dataset.c=1;b.textContent='Confirmer : effacer tous les matchs de cette équipe ?';setTimeout(()=>{b.dataset.c='';b.textContent='Réinitialiser (efface ses matchs)'},4000);return}hist=hist.filter(m=>m.t!==cur);sv('vs_hist',hist);render();toast('Équipe réinitialisée')}
+function delT(b){if(!b.dataset.c){b.dataset.c=1;b.textContent='Confirmer : supprimer l\'équipe et ses matchs ?';setTimeout(()=>{b.dataset.c='';b.textContent='Supprimer l\'équipe et ses matchs'},4000);return}hist=hist.filter(m=>m.t!==cur);teams=teams.filter(t=>t.id!==cur);cur=teams[0]?teams[0].id:'';sv('vs_teams',teams);sv('vs_hist',hist);sv('vs_cur',cur);render()}
 function vManual(){
  if(!mf.date)mf={date:new Date().toISOString().slice(0,10),opp:'',comp:'',home:'D',ff:false};
  let r='';for(let i=0;i<5;i++)r+=`<div class="row" style="margin-bottom:6px"><input type="number" inputmode="numeric" id="a${i}" value="${mf.s&&mf.s[i]?mf.s[i][0]:''}" placeholder="Set ${i+1} · ${esc(team.name||'nous')}"><input type="number" inputmode="numeric" id="b${i}" value="${mf.s&&mf.s[i]?mf.s[i][1]:''}" placeholder="Adversaire"></div>`;
  return `<h1>${mf.edit!=null?'Modifier le match':'Match non suivi'}</h1>${sel(0)}<div class="card"><label>Adversaire</label><input value="${esc(mf.opp)}" oninput="mf.opp=this.value"><div class="row"><div><label>Date</label><input type="date" value="${mf.date}" oninput="mf.date=this.value"></div><div><label>Lieu</label><select onchange="mf.home=this.value"><option value="D">Domicile</option><option value="E" ${mf.home==='E'?'selected':''}>Extérieur</option></select></div></div><label>Compétition</label><input value="${esc(mf.comp)}" oninput="mf.comp=this.value">
- <label>Forfait</label><select onchange="mf.ff=this.value;$('#sc').style.display=this.value?'none':'block'"><option value="">Non, match joué</option><option value="N" ${mf.ff==='N'?'selected':''}>Forfait de notre équipe (0 point)</option><option value="A" ${mf.ff==='A'?'selected':''}>Forfait de l'adversaire (+4 points)</option></select><label><input type="checkbox" style="width:auto" ${mf.int?'checked':''} onchange="mf.int=this.checked;$('#ib').style.display=this.checked?'block':'none'"> Match interrompu (si égalité de sets : départage à la différence de points)</label><div id="ib" style="display:${mf.int?'block':'none'}"><label>Si égalité parfaite (sets et points)</label><select onchange="mf.eq=this.value"><option value="V">Victoire</option><option value="D" ${mf.eq==='D'?'selected':''}>Défaite</option></select></div><label><input type="checkbox" style="width:auto" ${mf.tr?'checked':''} onchange="mf.tr=this.checked"> Entraînement (points non comptés au classement)</label><div id="sc" style="display:${mf.ff?'none':'block'}"><label>Scores des sets (laisse vide les sets non joués)</label>${r}</div><button onclick="saveM()">Enregistrer le match</button><button class="s" onclick="nav('hist')">Annuler</button></div>`;
+ <label>Forfait</label><select onchange="mf.ff=this.value;$('#sc').style.display=this.value?'none':'block'"><option value="">Non, match joué</option><option value="N" ${mf.ff==='N'?'selected':''}>Forfait de notre équipe (0 point)</option><option value="A" ${mf.ff==='A'?'selected':''}>Forfait de l'adversaire (+3 points)</option></select><label><input type="checkbox" style="width:auto" ${mf.int?'checked':''} onchange="mf.int=this.checked;$('#ib').style.display=this.checked?'block':'none'"> Match interrompu (si égalité de sets : départage à la différence de points)</label><div id="ib" style="display:${mf.int?'block':'none'}"><label>Si égalité parfaite (sets et points)</label><select onchange="mf.eq=this.value"><option value="V">Victoire</option><option value="D" ${mf.eq==='D'?'selected':''}>Défaite</option></select></div><label><input type="checkbox" style="width:auto" ${mf.tr?'checked':''} onchange="mf.tr=this.checked"> Entraînement (points non comptés au championnat)</label><div id="sc" style="display:${mf.ff?'none':'block'}"><label>Scores des sets (laisse vide les sets non joués)</label>${r}</div><button onclick="saveM()">Enregistrer le match</button><button class="s" onclick="nav('hist')">Annuler</button></div>`;
 }
 function saveM(){
  if(!team.id){toast('Crée d\'abord une équipe dans Réglages');return}
@@ -204,29 +255,41 @@ function saveM(){
   const sw=s.filter(x=>x[0]>x[1]).length,sl=s.filter(x=>x[1]>x[0]).length;
   if(!s.length||(sw===sl&&!mf.int)){toast('Saisis les scores des sets');return}
   let res=sw>sl?'V':'D';if(mf.int){m.int=1;if(sw===sl){m.tie=1;const d=s.reduce((t,x)=>t+x[0]-x[1],0);res=d>0?'V':d<0?'D':(mf.eq||'V')}}Object.assign(m,{res,sw,sl,sets:s,w:mf.int?(mf.edit!=null&&hist[mf.edit].w>1?hist[mf.edit].w:(cfg.w>1?cfg.w:3)):Math.max(sw,sl)})}
- if(mf.edit!=null){const o=hist[mf.edit];m.id=o.id||m.id;if(o.adv){m.adv=o.adv;m.q=o.q}if(o.sq){m.sq=o.sq;m.ca=o.ca;m.cb=o.cb}hist[mf.edit]=m}else hist.unshift(m);hist.sort((x,y)=>(y.date||'').localeCompare(x.date||''));sv('vs_hist',hist);mf={};view='hist';detail=null;render();toast('Match enregistré');
+ if(mf.edit!=null){const o=hist[mf.edit];m.id=o.id||m.id;if(o.adv){m.adv=o.adv;m.q=o.q}if(o.sq){m.sq=o.sq;m.ca=o.ca;m.cb=o.cb}['dur','sd','stars','note','notes'].forEach(k=>{if(o[k]!==undefined)m[k]=o[k]});hist[mf.edit]=m}else hist.unshift(m);hist.sort((x,y)=>(y.date||'').localeCompare(x.date||''));sv('vs_hist',hist);mf={};view='hist';detail=null;render();toast('Match enregistré');
 }
 async function wake(){try{if(live&&$('#live').style.display!=='none'&&!wl){wl=await navigator.wakeLock.request('screen');wl.addEventListener('release',()=>{wl=null})}}catch(e){toast('Écran non maintenu allumé : règle la mise en veille du téléphone')}}
 function unwake(){try{wl&&wl.release()}catch(e){}wl=null}
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)wake()});
-const mnHTML=()=>{const L=live;if(L.mn===2)return `<div id="ov"><div class="big">Égalité parfaite</div><div style="opacity:.85;margin-bottom:8px">Même nombre de sets et de points. Choisis le résultat :</div><button onclick="finish('V',1)">Victoire (3 pts)</button><button class="s" onclick="finish('D',1)">Défaite (2 pts)</button><button class="s" onclick="live.mn=1;renderLive()">Retour</button></div>`;const r=fin();return `<div id="ov"><div class="big">Match en cours</div><div style="opacity:.85;margin-bottom:8px">${r.msg}</div><button onclick="live.mn=0;renderLive()">Continuer le match</button><button class="s" onclick="live.mn=0;sv('vs_live',live);$('#live').style.display='none';render()">Reprendre une prochaine fois</button>${r.ok?`<button class="s" onclick="endM()">Terminer le match ici</button>`:''}</div>`};
+const mnHTML=()=>{const L=live;if(L.mn===2)return `<div id="ov"><div class="big">Égalité parfaite</div><div style="opacity:.85;margin-bottom:8px">Même nombre de sets et de points. Choisis le résultat :</div><button onclick="finish('V',1)">Victoire</button><button class="s" onclick="finish('D',1)">Défaite</button><button class="s" onclick="live.mn=1;renderLive()">Retour</button></div>`;if(L.mn===3)return notesOv();const r=fin();return `<div id="ov"><div class="big">Match en cours</div><div style="opacity:.85;margin-bottom:8px">${r.msg}</div><button onclick="live.mn=0;renderLive()">Continuer le match</button><button class="s" onclick="live.mn=3;renderLive()">📝 Notes${(L.nt||[]).length?' ('+L.nt.length+')':''}</button><button class="s" onclick="togAdv()">${L.adv?'Désactiver le mode avancé':'Activer le mode avancé'}</button><button class="s" onclick="acc();live.ts=null;live.mn=0;sv('vs_live',live);$('#live').style.display='none';render()">Reprendre une prochaine fois</button>${r.ok?`<button class="s" onclick="endM()">Terminer le match ici</button>`:''}</div>`};
 function menu(){if(live.qp){const o=live.qp;live.qp=null;pt(o,'');toast('Point compté sans type');if(live.pend)return}live.mn=1;renderLive()}
 function fin(){const L=live,s=L.sets;if(!s.length)return{ok:0,msg:'Aucun set terminé : le match ne peut pas être clôturé.'};const a=s.filter(x=>x[0]>x[1]).length,b=s.filter(x=>x[1]>x[0]).length,d=s.reduce((t,x)=>t+x[0]-x[1],0);return{ok:1,a,b,d,msg:'Sets terminés : '+a+'-'+b+(a===b?' · points '+s.reduce((t,x)=>t+x[0],0)+'-'+s.reduce((t,x)=>t+x[1],0)+' (écart '+(d>0?'+':'')+d+')'+(d?' → '+(d>0?'victoire':'défaite')+' aux points':''):'')+(L.cur.pts.length?' · le set en cours ('+L.cur.a+'-'+L.cur.b+') ne sera pas compté':'')}}
 function endM(){const r=fin();if(r.a!==r.b)finish(r.a>r.b?'V':'D',0);else if(r.d!==0)finish(r.d>0?'V':'D',1);else{live.mn=2;renderLive()}}
-function finish(res,tie){const L=live,r=fin();hist.unshift({id:nid(),u:Date.now(),t:L.tid,tr:L.tr,adv:L.adv,q:L.qs,sq:L.sq,ca:L.cA,cb:L.cB,w:L.cfg.w,date:L.date,opp:L.opp,comp:L.comp,home:L.home,res,sw:r.a,sl:r.b,sets:L.sets,int:1,tie:tie?1:0});sv('vs_hist',hist);live=null;sv('vs_live',null);$('#live').style.display='none';view='hist';detail=0;render()}
+function finish(res,tie){const L=live,r=fin();acc();hist.unshift({id:nid(),notes:(L.nt&&L.nt.length)?L.nt:undefined,dur:L.el,sd:(L.sd||[]).slice(0,L.sets.length),u:Date.now(),t:L.tid,tr:L.tr,adv:Object.keys(L.qs||{}).length?1:0,q:L.qs,sq:L.sq,ca:L.cA,cb:L.cB,w:L.cfg.w,date:L.date,opp:L.opp,comp:L.comp,home:L.home,res,sw:r.a,sl:r.b,sets:L.sets,int:1,tie:tie?1:0});sv('vs_hist',hist);rateNew=hist[0].id;live=null;sv('vs_live',null);$('#live').style.display='none';view='hist';detail=0;render()}
 function aband(b){if(b.dataset.c){live=null;sv('vs_live',null);render();return}b.dataset.c=1;b.textContent='Confirmer : abandonner ce match ?';b.className='d';setTimeout(()=>{b.dataset.c='';b.textContent='Abandonner ce match';b.className='s'},4000)}
-function bk(){const d=JSON.stringify({app:'LaMarque',v:1,teams,hist,cur});$('#bk').innerHTML=`<textarea id="bkt" rows="6" readonly>${esc(d)}</textarea><button onclick="cpb()">Copier la sauvegarde</button>`}
+function bkObj(){return {app:'LaMarque',format:FMT,appVersion:APP_V,date:new Date().toISOString(),teams,hist,cur,options:{th:PF.th,vb:PF.vb,fn}}}
+function bk(){const d=JSON.stringify(bkObj());$('#bk').innerHTML=`<textarea id="bkt" rows="6" readonly>${esc(d)}</textarea><button onclick="cpb()">Copier la sauvegarde</button>`}
 function cpb(){const t=$('#bkt');t.select();try{navigator.clipboard.writeText(t.value)}catch(e){try{document.execCommand('copy')}catch(_){}}setP('bk',Date.now());toast('Sauvegarde copiée')}
-function rs(b){let d;try{d=JSON.parse($('#rst').value.trim())}catch(e){}if(!d||!['VolleyStats','LaMarque'].includes(d.app)||!Array.isArray(d.teams)||!Array.isArray(d.hist)){toast('Sauvegarde non reconnue');return}
+function migrate(d){if(!d||!['VolleyStats','LaMarque'].includes(d.app)||!Array.isArray(d.teams)||!Array.isArray(d.hist))return null;
+ d.format=d.format||d.v||1;d.hist.forEach(m=>{if(!m.id)m.id=legacyId(m,(d.teams.find(t=>t.id===m.t)||{}).name)});
+ if(d.format>FMT)return 'new';return d}
+function applyBk(d){teams=d.teams;hist=d.hist;cur=d.cur||(teams[0]?teams[0].id:'');if(d.options){['th','vb'].forEach(k=>{if(d.options[k]!==undefined)PF[k]=d.options[k]});if(d.options.fn){fn=d.options.fn;sv('vs_fn',fn)}sv('vs_pf',PF);ap()}sv('vs_teams',teams);sv('vs_hist',hist);sv('vs_cur',cur);render();toast('Données restaurées')}
+function rs(b){let d;try{d=migrate(JSON.parse($('#rst').value.trim()))}catch(e){}if(d==='new'){toast('Sauvegarde faite avec une version plus récente de l\'application');return}if(!d){toast('Sauvegarde non reconnue');return}
  if(!b.dataset.c){b.dataset.c=1;b.textContent='Confirmer : remplacer toutes mes données ?';b.className='d';setTimeout(()=>{b.dataset.c='';b.textContent='Restaurer';b.className='s'},4000);return}
- teams=d.teams;hist=d.hist;hist.forEach(m=>{if(!m.id)m.id=legacyId(m)});cur=d.cur||(teams[0]?teams[0].id:'');sv('vs_teams',teams);sv('vs_hist',hist);sv('vs_cur',cur);render();toast('Données restaurées')}
+ applyBk(d)}
+function dlBk(){const d=new Date(),n='la-marque_v'+APP_V+'_'+d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')+'.json';
+ try{const u=URL.createObjectURL(new Blob([JSON.stringify(bkObj(),null,1)],{type:'application/json'})),a=document.createElement('a');a.href=u;a.download=n;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),3000);setP('bk',Date.now());toast('Sauvegarde téléchargée : '+n)}catch(e){toast('Téléchargement impossible : utilise la sauvegarde par texte')}}
+let JB=null;
+function rdJson(i){const f=i.files&&i.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{let d;try{d=migrate(JSON.parse(r.result))}catch(e){}
+ if(d==='new'){$('#rjp').innerHTML='<div class="mut">Cette sauvegarde vient d\'une version plus récente de l\'application.</div>';return}
+ if(!d){$('#rjp').innerHTML='<div class="mut">Fichier non reconnu.</div>';return}
+ JB=d;$('#rjp').innerHTML=`<div class="card" style="margin-top:8px"><b>${d.teams.length} équipe${d.teams.length>1?'s':''} · ${d.hist.length} match${d.hist.length>1?'s':''}</b><div class="mut">Sauvegarde du ${esc((d.date||'').slice(0,10)||'date inconnue')} · format ${d.format}${d.appVersion?' · version '+esc(d.appVersion):''}</div><button class="d" onclick="if(this.dataset.c){applyBk(JB)}else{this.dataset.c=1;this.textContent='Confirmer : remplacer toutes mes données ?'}">Remplacer mes données</button></div>`};r.readAsText(f)}
 let qt=null;
 const QW=[['ace','🎯','Service ace','Service ace'],['atk','💥','Attaque','Attaque'],['bid','🤏','Bidouille','Bidouille'],['blo','🧱','Bloc in','Bloc in'],['fadv','🎁','Faute adv.','Faute adverse']];
 const QL=[['fsv','🚫','Faute service','Faute de service'],['fout','📤','Faute out','Faute directe out'],['ffil','🕸️','Faute filet','Faute au filet'],['aadv','🔥','Attaque / Service adv.','Attaque / service adverse'],['badv','🪶','Bidouille adv.','Bidouille adverse']];
 const qpanel=t=>{const l=t==='a'?QW:QL,b=(x,c)=>`<button${c?' class="'+c+'"':''} onclick="ql('${x[0]}')"><span>${x[1]}</span>${x[2]}</button>`;return `<div class="q">${b(l[0],'t')}<div class="g">${l.slice(1).map(x=>b(x)).join('')}</div><button class="p" onclick="ql('')">Sans préciser</button></div>`};
-const qrow=(l,n,t,c)=>`<div style="margin:9px 0"><div style="display:flex;justify-content:space-between;font-size:15px"><span>${l}</span><b>${n} · ${t?Math.round(100*n/t):0} %</b></div><div style="background:var(--bg);border-radius:6px;height:12px;margin-top:3px"><div style="width:${t?100*n/t:0}%;min-width:${n?3:0}px;height:12px;border-radius:6px;background:${c}"></div></div></div>`;
-function qstats(m){const q=m.q||{},tw=(m.sets||[]).reduce((t,x)=>t+x[0],0),tl=(m.sets||[]).reduce((t,x)=>t+x[1],0);
- const blk=(h,l,tot,col)=>{const sum=l.reduce((t,x)=>t+(q[x[0]]||0),0);return `<h2>${h} (${tot})</h2>`+l.map(x=>qrow(x[1]+' '+x[3],q[x[0]]||0,tot,col)).join('')+qrow('❔ Non précisé',Math.max(0,tot-sum),tot,'#999')};
+const qrow=(l,n,t,c,md)=>`<div style="margin:9px 0"><div style="display:flex;justify-content:space-between;font-size:15px"><span>${l}</span><b>${md==='p'?(t?Math.round(100*n/t):0)+' %':n}</b></div><div style="background:var(--bg);border-radius:6px;height:12px;margin-top:3px"><div style="width:${t?100*n/t:0}%;min-width:${n?3:0}px;height:12px;border-radius:6px;background:${c}"></div></div></div>`;
+function qstats(m,md){const q=m.q||{},tw=(m.sets||[]).reduce((t,x)=>t+x[0],0),tl=(m.sets||[]).reduce((t,x)=>t+x[1],0);
+ const blk=(h,l,tot,col)=>{const sum=l.reduce((t,x)=>t+(q[x[0]]||0),0);return `<h2>${h} (${tot})</h2>`+l.map(x=>qrow(x[1]+' '+x[3],q[x[0]]||0,tot,col,md)).join('')+qrow('❔ Non précisé',Math.max(0,tot-sum),tot,'#999',md)};
  return blk('Points marqués',QW,tw,'#1faa59')+blk('Points perdus',QL,tl,'#e53935')}
 function ql(k){const t=live&&live.qp;if(!t||Date.now()-qpAt<350||Date.now()-sw0<500)return;pt(t,k)}
 function qadd(){const L=live;L.qs=L.qs||{};(L.cur.q||[]).forEach(k=>{if(k)L.qs[k]=(L.qs[k]||0)+1})}
@@ -236,7 +299,7 @@ function frise(){const L=hist.map((m,i)=>[m,i]).filter(x=>ok(x[0])&&!tr(x[0])).s
  return `<div class="card"><div style="display:flex;justify-content:space-between;align-items:center"><b>Derniers matchs</b><span class="mut">${[3,5].map(k=>`<span onclick="fn=${k};sv('vs_fn',fn);render()" style="cursor:pointer;padding:6px 10px;${fn===k?'font-weight:700;color:var(--ac)':''}">${k}</span>`).join('')}</span></div><div style="display:flex;gap:6px;margin-top:8px">${L.map(([m,i])=>`<div style="flex:1;min-width:0;text-align:center;cursor:pointer" onclick="detail=${i};render()"><div style="height:8px;border-radius:4px;background:${m.res==='V'?'#1faa59':'#e53935'}"></div><div style="font-weight:700;margin-top:6px">${m.ff?'Forf.':m.sw+'-'+m.sl}</div><div class="mut" style="font-size:11px">${(m.date||'').slice(8,10)}/${(m.date||'').slice(5,7)}</div><div class="mut" style="font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(m.opp)}</div></div>`).join('')}</div><div class="mut" style="font-size:11px;text-align:right;margin-top:6px">ancien → récent · touche un match pour l'ouvrir</div></div>`}
 function qagg(L){const A=L.filter(m=>m.adv&&m.q);if(!A.length)return '';const q={};
  A.forEach(m=>Object.keys(m.q).forEach(k=>{q[k]=(q[k]||0)+m.q[k]}));
- return `<h2>Points par type</h2><div class="card"><div class="mut">Cumul sur ${A.length} match${A.length>1?'s':''} en mode avancé (hors entraînements)</div>${qstats({q,sets:A.flatMap(m=>m.sets||[])})}</div>`}
+ return `<h2>Points par type</h2><div class="card"><div class="mut">Cumul sur ${A.length} match${A.length>1?'s':''} en mode avancé (hors entraînements) · en pourcentage</div>${qstats({q,sets:A.flatMap(m=>m.sets||[])},'p')}</div>`}
 const QK=[['ace','Marqués_ServiceAce'],['atk','Marqués_Attaque'],['bid','Marqués_Bidouille'],['blo','Marqués_BlocIn'],['fadv','Marqués_FauteAdverse'],['fsv','Perdus_FauteService'],['fout','Perdus_FauteOut'],['ffil','Perdus_FauteFilet'],['aadv','Perdus_AttaqueServiceAdv'],['badv','Perdus_BidouilleAdv']];
 function csvText(){
  const H=['Date','Adversaire','Résultat','Sets_Gagnés','Sets_Perdus','Points','Équipe','Compétition','Détail_Sets','Type','Interrompu','Points_Marqués','Points_Perdus','Mode_Avancé'].concat(QK.map(x=>x[1]),['Marqués_NonPrécisé','Perdus_NonPrécisé']);
@@ -254,9 +317,9 @@ function seqs(m){const sq=m.sq||[],ca=C[m.ca]||'#1faa59',cb=C[m.cb]||'#e53935';l
   const n=q.length,N=Math.max(n,30),W=N*8+8,y=t=>t==='a'?7:23;let g='';
   for(let k=1;k<n;k++)if(q[k]===q[k-1])g+=`<line x1="${4+(k-1)*8}" y1="${y(q[k])}" x2="${4+k*8}" y2="${y(q[k])}" stroke="${q[k]==='a'?ca:cb}" stroke-width="4.5" stroke-linecap="round"/>`;
   for(let k=0;k<n;k++)g+=`<circle cx="${4+k*8}" cy="${y(q[k])}" r="3.2" fill="${q[k]==='a'?ca:cb}"/>`;
-  h+=`<div style="display:flex;justify-content:space-between;margin-top:10px;font-size:14px"><b>Set ${i+1} · ${s[0]}-${s[1]}</b><span class="mut" style="font-size:12px">séries max : ${ma} / ${mb}</span></div><svg viewBox="0 0 ${W} 30" style="width:100%;display:block"><line x1="0" y1="15" x2="${W}" y2="15" style="stroke:var(--bd)" stroke-width="1"/>${g}</svg>`});
+  h+=`<div style="display:flex;justify-content:space-between;margin-top:10px;font-size:14px"><b>Set ${i+1} · ${s[0]}-${s[1]}</b>${m.sd&&m.sd[i]?'<span class="mut" style="font-size:12px">'+dm(m.sd[i])+'</span>':''}</div><div class="mut" style="font-size:13px;margin-bottom:2px">Séries max : <span style="color:${ca}">●</span> <b>${ma}</b> &nbsp; <span style="color:${cb}">●</span> <b>${mb}</b></div><svg viewBox="0 0 ${W} 30" style="width:100%;display:block"><line x1="0" y1="15" x2="${W}" y2="15" style="stroke:var(--bd)" stroke-width="1"/>${g}</svg>`});
  return h?`<h2>Déroulé des sets</h2><div class="mut" style="font-size:12px"><span style="color:${ca}">●</span> ligne du haut : ${esc(nm(m.t)||'nous')} · <span style="color:${cb}">●</span> ligne du bas : ${esc(m.opp)}</div>`+h:''}
-addEventListener('resize',()=>{if(live&&$('#live').style.display!=='none')renderLive()});
+addEventListener('resize',()=>{frI();if(live&&$('#live').style.display!=='none')renderLive()});
 function nn(s){return String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/\s+/g,' ').trim()}
 function hsh(s){let h1=0xdeadbeef,h2=0x41c6ce57;for(let i=0,c;i<s.length;i++){c=s.charCodeAt(i);h1=Math.imul(h1^c,2654435761);h2=Math.imul(h2^c,1597334677)}h1=Math.imul(h1^(h1>>>16),2246822507)^Math.imul(h2^(h2>>>13),3266489909);h2=Math.imul(h2^(h2>>>16),2246822507)^Math.imul(h1^(h1>>>13),3266489909);return (4294967296*(2097151&h2)+(h1>>>0)).toString(36)}
 function legacyId(m,name){const n=name||(teams.find(t=>t.id===m.t)||{}).name||'';return 'h'+hsh(nn(n)+'|'+m.date+'|'+nn(m.opp)+'|'+JSON.stringify(m.sets||[])+'|'+m.res+'|'+(m.ff||'')+'|'+(m.tr||''))}
@@ -276,7 +339,7 @@ async function mkCode(){
  if(!ids.length){toast('Choisis au moins une équipe');return}
  const T=teams.filter(t=>ids.includes(t.id)).map(t=>({id:t.id,name:t.name,cat:t.cat,season:t.season,cfg:t.cfg,adv:t.adv}));
  let H=[];ids.forEach(id=>{let L=hist.filter(m=>m.t===id).sort((a,b)=>(a.date||'').localeCompare(b.date||''));if(n)L=L.slice(-n);H=H.concat(L)});
- CODE=await enc({app:'LaMarque',v:2,teams:T,hist:H});
+ CODE=await enc({app:'LaMarque',v:2,format:FMT,teams:T,hist:H});
  $('#xc').innerHTML=`<div class="card"><div class="mut">${H.length} match${H.length>1?'s':''} · ${T.length} équipe${T.length>1?'s':''} · ${CODE.length} caractères</div><textarea id="xt" rows="4" readonly>${esc(CODE)}</textarea><button onclick="shCode()">Partager</button><button class="s" onclick="cpx()">Copier le code</button><button class="s" onclick="shFile()">Envoyer en fichier</button><div class="mut">Le fichier garde le message court : ton collègue l'ouvre depuis « Recevoir un code ».</div></div>`}
 function cpx(){const t=$('#xt');t.select();try{navigator.clipboard.writeText(CODE)}catch(e){try{document.execCommand('copy')}catch(_){}}toast('Code copié')}
 async function shCode(){if(navigator.share){try{await navigator.share({title:'La Marque',text:CODE})}catch(e){}}else cpx()}
@@ -322,8 +385,9 @@ addEventListener('popstate',e=>{
 let PF=ld('vs_pf',{}),STL=[];
 function ap(){const t=PF.th||'auto',e=document.documentElement;t==='auto'?e.removeAttribute('data-theme'):e.setAttribute('data-theme',t)}
 function setP(k,v){PF[k]=v;sv('vs_pf',PF);ap()}
-function vib(n){try{if(PF.vb!==0&&navigator.vibrate)navigator.vibrate(n)}catch(e){}}
-const pf=()=>`<h2>Affichage et confort</h2><div class="card"><label>Apparence</label><select onchange="setP('th',this.value)">${[['auto','Automatique'],['light','Clair'],['dark','Sombre'],['sun','Plein soleil (fort contraste)']].map(x=>`<option value="${x[0]}" ${(PF.th||'auto')===x[0]?'selected':''}>${x[1]}</option>`).join('')}</select><label style="color:var(--fg);font-size:16px;margin-top:12px"><input type="checkbox" style="width:auto" ${PF.vb!==0?'checked':''} onchange="setP('vb',this.checked?1:0)"> Vibration à chaque point (Android)</label></div>`;
+function vib(n){try{if(PF.vb!==0&&navigator.vibrate)return navigator.vibrate(n)}catch(e){}return false}
+function vtest(){if(!navigator.vibrate){toast('Vibration non gérée par ce navigateur (iPhone, ou réglage désactivé)');return}let r=false;try{r=navigator.vibrate([200,80,200])}catch(e){}toast(r?'Vibration envoyée : tu dois la sentir (sinon vérifie le mode silencieux / retour haptique du téléphone)':'Vibration bloquée par le navigateur ou par la page intégrée : ouvre l\'application directement (site ou écran d\'accueil)')}
+const pf=()=>`<h2>Affichage et confort</h2><div class="card"><label>Apparence</label><select onchange="setP('th',this.value)">${[['auto','Automatique'],['light','Clair'],['dark','Sombre'],['sun','Plein soleil (fort contraste)']].map(x=>`<option value="${x[0]}" ${(PF.th||'auto')===x[0]?'selected':''}>${x[1]}</option>`).join('')}</select><label style="color:var(--fg);font-size:16px;margin-top:12px"><input type="checkbox" style="width:auto" ${PF.vb!==0?'checked':''} onchange="setP('vb',this.checked?1:0)"> Vibration à chaque point (Android)</label><button class="s" onclick="vtest()">Tester la vibration</button></div>`;
 function rap(){const lb=PF.bk||0,now=Date.now();if(!hist.length||now<(PF.sn||0))return '';
  if(lb&&!(now-lb>7*864e5&&hist.some(m=>(m.u||0)>lb)))return '';const j=lb?Math.floor((now-lb)/864e5):0;
  return `<div class="card" style="border-color:var(--ac)"><b>💾 Pense à sauvegarder tes données</b><div class="mut">${lb?'Dernière sauvegarde il y a '+j+' jour'+(j>1?'s':''):'Aucune sauvegarde pour le moment'}.</div><button onclick="goBk()">Sauvegarder maintenant</button><button class="s" onclick="setP('sn',Date.now()+3*864e5);render()">Plus tard</button></div>`}
@@ -332,28 +396,25 @@ function lineSvg(pts,col){const W=320,H=150,l=32,r=10,t=10,b=24,n=pts.length,px=
  return `<svg viewBox="0 0 ${W} ${H}" style="width:100%;display:block">${grid}<polyline fill="none" stroke="${col}" stroke-width="2.5" points="${pts.map((p,i)=>px(i)+','+py(p.y)).join(' ')}"/>${pts.map((p,i)=>`<circle cx="${px(i)}" cy="${py(p.y)}" r="3.5" fill="${col}"/>`).join('')}<text x="${l}" y="${H-6}" font-size="9" style="fill:var(--mut)">${p0(pts[0].x)}</text><text x="${W-r}" y="${H-6}" font-size="9" text-anchor="end" style="fill:var(--mut)">${p0(pts[n-1].x)}</text></svg>`}
 const p0=d=>(d||'').slice(8,10)+'/'+(d||'').slice(5,7);
 function courbes(L){STL=L.slice().sort((a,b)=>(a.date||'').localeCompare(b.date||''));if(!STL.length)return '';
- const SW=58,LEAD=30,n=STL.length,br=[],AX='#9aa3b2';let i=0;
- while(i<n){if(STL[i].res==='V'){let j=i;while(j+1<n&&STL[j+1].res==='V')j++;if(j-i>=2)br.push([i,j]);i=j+1}else i++}
- const dt=d=>(d||'').slice(8,10)+'/'+(d||'').slice(5,7)+'/'+(d||'').slice(2,4);
- const slots=STL.map(m=>{const V=m.res==='V',c=V?'#1faa59':'#e53935',tint=V?'rgba(31,170,89,.16)':'rgba(229,57,53,.16)';
-  return `<div style="width:${SW}px;flex:none;text-align:center;cursor:pointer" onclick="view='hist';detail=${hist.indexOf(m)};render()"><div style="position:relative;height:30px"><div style="position:absolute;left:0;right:0;top:14px;border-top:2px solid ${AX}"></div><div style="position:absolute;left:50%;top:4px;width:22px;height:22px;margin-left:-11px;box-sizing:border-box;border-radius:50%;border:2px solid ${c};background:${tint}"></div></div><div style="font-size:${m.ff?14:17}px;font-weight:600;color:${c};margin-top:6px;line-height:1.2">${m.ff?'Forf.':m.sw+'-'+m.sl}</div><div class="mut" style="font-size:11px">${dt(m.date)}</div><div class="mut" style="font-size:11px;line-height:1.15;height:2.3em;overflow:hidden;word-break:break-word;padding:0 2px">${esc(m.opp)}</div></div>`}).join('');
- const brs=br.map(x=>`<div style="position:absolute;bottom:0;left:${LEAD+x[0]*SW+6}px;width:${(x[1]-x[0]+1)*SW-12}px;text-align:center;color:#1faa59;font-size:12px;font-weight:600;line-height:16px"><div style="height:8px;border:2px solid #1faa59;border-top:0;border-radius:0 0 6px 6px;margin-bottom:2px"></div>série de ${x[1]-x[0]+1} victoires</div>`).join('');
- return `<h2>Au fil de la saison</h2><div class="card"><div class="mut" style="margin-bottom:8px">Fais glisser vers la gauche pour remonter dans la saison.</div><div id="frz" style="overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -12px"><div style="position:relative;display:flex;width:max-content;min-width:100%;padding-bottom:${br.length?36:6}px">${brs}<div style="width:${LEAD}px;flex:none;position:relative;height:30px"><div style="position:absolute;left:0;right:0;top:14px;border-top:2px dashed ${AX}"></div></div>${slots}<div style="flex:1;min-width:24px;position:relative;height:30px"><div style="position:absolute;left:0;right:0;top:14px;border-top:2px solid ${AX}"></div><div style="position:absolute;right:0;top:7px;border-left:10px solid ${AX};border-top:7px solid transparent;border-bottom:7px solid transparent"></div></div></div></div></div>`}
+ const n=STL.length,AX='#9aa3b2',G='#1faa59',run=Array(n).fill(null);let i=0;
+ while(i<n){if(STL[i].res==='V'){let j=i;while(j+1<n&&STL[j+1].res==='V')j++;if(j-i>=2)for(let k=i;k<=j;k++)run[k]=[i,j];i=j+1}else i++}
+ const any=run.some(Boolean),dt=d=>(d||'').slice(8,10)+'/'+(d||'').slice(5,7)+'/'+(d||'').slice(2,4);
+ const slots=STL.map((m,k)=>{const V=m.res==='V',c=V?'#1faa59':'#e53935',tint=V?'rgba(31,170,89,.16)':'rgba(229,57,53,.16)',r=run[k];
+  const sr=`<div style="height:10px"></div>`;
+  return `<div style="position:relative;width:var(--sw,58px);flex:none;text-align:center;cursor:pointer;scroll-snap-align:start" onclick="view='hist';detail=${hist.indexOf(m)};render()"><div style="position:relative;height:30px"><div style="position:absolute;left:50%;top:4px;width:22px;height:22px;margin-left:-11px;box-sizing:border-box;border-radius:50%;border:2px solid ${c};background:linear-gradient(${tint},${tint}),var(--card)"></div></div><div style="font-size:${m.ff?14:17}px;font-weight:600;color:${c};margin-top:6px;line-height:1.2">${m.ff?'Forf.':m.sw+'-'+m.sl}</div><div class="mut" style="font-size:11px">${dt(m.date)}</div><div class="mut" style="font-size:11px;line-height:1.15;height:2.3em;overflow:hidden;word-break:break-word;padding:0 2px">${esc(m.opp)}</div>${sr}</div>`}).join('');
+ const hint=`display:none;position:absolute;top:11px;width:calc(var(--sw,58px)/2 - 12px);height:6px;background:var(--card);pointer-events:none`;
+ return `<h2>Au fil de la saison</h2><div class="card"><div id="frw" style="position:relative"><div id="frz" onscroll="frU()" style="overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch"><div style="position:relative;display:flex;justify-content:flex-end;width:max-content;min-width:100%;padding-bottom:6px"><div style="position:absolute;left:0;right:0;top:14px;border-top:2px solid ${AX}"></div>${slots}</div></div></div><div style="display:flex;justify-content:space-between;margin-top:8px;font-size:13px;color:var(--mut)"><span>← Début de saison</span><span>Aujourd'hui →</span></div></div>`}
+function frU(){const f=document.getElementById('frz'),l=document.getElementById('fzl'),r=document.getElementById('fzr');if(!f||!l||!r)return;l.style.display=f.scrollLeft>2?'block':'none';r.style.display=f.scrollLeft<f.scrollWidth-f.clientWidth-2?'block':'none'}
+function frI(){const f=document.getElementById('frz'),w=document.getElementById('frw');if(!f||!w)return;w.style.setProperty('--sw',(f.clientWidth/6).toFixed(3)+'px');f.scrollLeft=f.scrollWidth;frU()}
 function goBk(){nav('set');setTimeout(()=>{bk();const e=document.getElementById('sv');if(e)e.scrollIntoView({block:'start'})},60)}
-const phk=id=>'vs_ph_'+id;
-function phGet(id){try{return localStorage.getItem(phk(id))}catch(e){return null}}
-function phTop(m){const u=phGet(m.id);return u?`<img src="${u}" alt="" style="width:100%;max-height:240px;object-fit:cover;border-radius:12px;margin-bottom:10px">`:''}
-function phBtn(m){const u=phGet(m.id);return `<label class="btnl">📷 ${u?'Changer la photo':'Ajouter une photo du match'}<input type="file" accept="image/*" hidden onchange="addPh(this,'${m.id}')"></label>${u?`<button class="s" onclick="delPh('${m.id}');render()">Supprimer la photo</button>`:''}`}
-function addPh(inp,id){const f=inp.files&&inp.files[0];if(!f)return;const r=new FileReader();
- r.onload=()=>{const im=new Image();im.onload=()=>{const k=Math.min(1,1000/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);c.getContext('2d').drawImage(im,0,0,c.width,c.height);
-  try{localStorage.setItem(phk(id),c.toDataURL('image/jpeg',0.72));toast('Photo ajoutée')}catch(e){toast('Stockage plein : photo non enregistrée')}render()};im.onerror=()=>toast('Image illisible');im.src=r.result};r.readAsDataURL(f)}
-function delPh(id){try{localStorage.removeItem(phk(id))}catch(e){}}
+try{Object.keys(localStorage).filter(k=>k.indexOf('vs_ph_')===0).forEach(k=>localStorage.removeItem(k))}catch(e){}
+function phBtn(m,i){return `<label class="btnl">📷 Partager la fiche avec une photo<input type="file" accept="image/*" hidden onchange="fiche(${i},this.files&&this.files[0])"></label><div class="mut" style="font-size:12px;margin-top:4px">La photo n'est pas gardée dans l'application : elle sert seulement à créer l'image.</div>`}
 const loadImg=u=>new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.onerror=()=>r(null);i.src=u});
-async function fiche(i){const m=hist[i];if(!m)return;
- const W=1240,P=56,HH=460,LH=96,tn=nm(m.t)||'Nous',ca=C[m.ca]||'#1e6fff',cb=C[m.cb]||'#fb8c00',sets=m.sets||[],sq=m.sq||[],q=m.adv&&m.q?m.q:null;
+async function fiche(i,pf){const m=hist[i];if(!m)return;
+ const W=1240,P=56,PV=prevVs(m),HH=PV?374:340,LH=104,tn=nm(m.t)||'Nous',ca=C[m.ca]||'#1e6fff',cb=C[m.cb]||'#fb8c00',sets=m.sets||[],sq=m.sq||[],q=m.adv&&m.q?m.q:null;
  const ok2=sets.map((s,k)=>!!sq[k]&&sq[k].length===s[0]+s[1]),nS=ok2.filter(Boolean).length,tw=sets.reduce((t,s)=>t+s[0],0),tl=sets.reduce((t,s)=>t+s[1],0);
- const pu=phGet(m.id),img=pu?await loadImg(pu):null,full=sets.length>0;
- const H=full?Math.max(1754,HH+36+186+186+(nS?90+nS*LH+36:0)+(q?800:640)+90):HH+130;
+ let img=null;if(pf){try{const u=URL.createObjectURL(pf);img=await loadImg(u);setTimeout(()=>URL.revokeObjectURL(u),3000)}catch(e){}}const full=sets.length>0,PH=img?330:0,AN=ana(m);
+ const H=(full?Math.max(1754,HH+36+186+186+(nS?90+nS*LH+36:0)+(q?800:640)+90):HH+130)+(PH?PH+36:0)+(AN.length?AN.length*50+130:0);
  const cv=document.createElement('canvas');cv.width=W;cv.height=H;const x=cv.getContext('2d'),F='system-ui,"Segoe UI",Roboto,sans-serif';
  const tx=(t,a,b,z,c,w,al)=>{x.fillStyle=c;x.font=(w||'400')+' '+z+'px '+F;x.textAlign=al||'left';x.fillText(t,a,b);x.textAlign='left'};
  const rr=(a,b,w,h,r)=>{x.beginPath();x.moveTo(a+r,b);x.arcTo(a+w,b,a+w,b+h,r);x.arcTo(a+w,b+h,a,b+h,r);x.arcTo(a,b+h,a,b,r);x.arcTo(a,b,a+w,b,r);x.closePath()};
@@ -361,51 +422,70 @@ async function fiche(i){const m=hist[i];if(!m)return;
  const fit=(t,mw,z)=>{while(z>26){x.font='700 '+z+'px '+F;if(x.measureText(t).width<=mw)break;z-=2}return z};
  x.fillStyle='#eef1f6';x.fillRect(0,0,W,H);
  x.save();x.beginPath();x.rect(0,0,W,HH);x.clip();
- if(img){const k=Math.max(W/img.width,HH/img.height),w=img.width*k,h=img.height*k;x.drawImage(img,(W-w)/2,(HH-h)/2,w,h);const g=x.createLinearGradient(0,0,0,HH);g.addColorStop(0,'rgba(0,0,0,.3)');g.addColorStop(1,'rgba(0,0,0,.72)');x.fillStyle=g;x.fillRect(0,0,W,HH);x.fillStyle=ca;x.fillRect(0,0,W/2,14);x.fillStyle=cb;x.fillRect(W/2,0,W/2,14)}
- else{x.fillStyle=cb;x.fillRect(0,0,W,HH);x.fillStyle=ca;x.beginPath();x.moveTo(0,0);x.lineTo(W,0);x.lineTo(W,HH*.34);x.lineTo(0,HH*.68);x.closePath();x.fill()}
+ {x.fillStyle=cb;x.fillRect(0,0,W,HH);x.fillStyle=ca;x.beginPath();x.moveTo(0,0);x.lineTo(W,0);x.lineTo(W,HH*.34);x.lineTo(0,HH*.68);x.closePath();x.fill()}
  x.restore();
  const ff=m.ff,lab=ff?(ff===2?'VICTOIRE PAR FORFAIT':'DÉFAITE PAR FORFAIT'):(m.res==='V'?'VICTOIRE':'DÉFAITE');
  x.save();x.shadowColor='rgba(0,0,0,.45)';x.shadowBlur=12;
- tx('🏐 LA MARQUE',P,76,28,'#fff','700');
- tx(tn,P,270,fit(tn,320,60),'#fff','700');tx(m.opp,W-P,270,fit(m.opp,320,60),'#fff','700','right');
- tx(ff?'Forfait':m.sw+' – '+m.sl,W/2,288,ff?72:150,'#fff','800','center');
+ tx('🏐 LA MARQUE',P,58,26,'#fff','700');
+ tx(tn,P,190,fit(tn,320,50),'#fff','700');tx(m.opp,W-P,190,fit(m.opp,320,50),'#fff','700','right');
+ tx(ff?'Forfait':m.sw+' – '+m.sl,W/2,205,ff?60:112,'#fff','800','center');
  x.restore();
- x.font='800 34px '+F;const pw=x.measureText(lab).width+70;x.fillStyle=m.res==='V'?'#1faa59':'#e53935';rr(W/2-pw/2,336,pw,64,32);x.fill();tx(lab,W/2,382,34,'#fff','800','center');
- x.save();x.shadowColor='rgba(0,0,0,.5)';x.shadowBlur=8;tx((m.date||'')+(m.comp?' · '+m.comp:'')+' · '+(m.home==='E'?'Extérieur':'Domicile')+(tr(m)?' · Entraînement':''),W/2,438,28,'#fff','500','center');x.restore();
+ x.font='800 28px '+F;const pw=x.measureText(lab).width+60;x.fillStyle=m.res==='V'?'#1faa59':'#e53935';rr(W/2-pw/2,232,pw,52,26);x.fill();tx(lab,W/2,270,28,'#fff','800','center');
+ x.save();x.shadowColor='rgba(0,0,0,.5)';x.shadowBlur=8;tx((m.date||'')+(m.comp?' · '+m.comp:'')+' · '+(m.home==='E'?'Extérieur':'Domicile')+(tr(m)?' · Entraînement':'')+(m.dur?' · '+dm(m.dur):''),W/2,320,24,'#fff','500','center');if(PV)tx(PV.txt,W/2,356,22,'#fff','500','center');x.restore();
  let y=HH+36;
  if(full){
   const gap=18,w=(W-2*P-(sets.length-1)*gap)/sets.length;
-  sets.forEach((s,k)=>{const a=P+k*(w+gap);card(a,y,w,150);x.fillStyle=s[0]>s[1]?'#1faa59':'#e53935';rr(a+18,y+18,w-36,8,4);x.fill();tx('SET '+(k+1),a+w/2,y+68,24,'#778','700','center');tx(s[0]+' – '+s[1],a+w/2,y+122,Math.min(56,w/4.2),'#111','800','center')});y+=186;
+  sets.forEach((s,k)=>{const a=P+k*(w+gap);card(a,y,w,150);x.fillStyle=s[0]>s[1]?'#1faa59':'#e53935';rr(a+18,y+18,w-36,8,4);x.fill();tx('SET '+(k+1)+(m.sd&&m.sd[k]?' · '+dm(m.sd[k]):''),a+w/2,y+68,24,'#778','700','center');tx(s[0]+' – '+s[1],a+w/2,y+122,Math.min(56,w/4.2),'#111','800','center')});y+=186;
   const mx=(z,c)=>{let b=0,r=0;for(const ch of z){if(ch===c){r++;b=Math.max(b,r)}else r=0}return b},sm=c=>Math.max(0,...sq.filter((z,k)=>ok2[k]).map(z=>mx(z,c))),tot=tw+tl;
-  const k4=[['Points marqués',tw,'#1faa59'],['Points perdus',tl,'#e53935'],['Points gagnés',(tot?Math.round(100*tw/tot):0)+' %','#0b6bff'],nS?['Série max',sm('a')+' / '+sm('b'),'#f5a623']:['Écart de points',(tw-tl>0?'+':'')+(tw-tl),'#f5a623']];
+  const k4=[['Points marqués',tw,'#1faa59'],['Points perdus',tl,'#e53935'],['Points gagnés',(tot?Math.round(100*tw/tot):0)+' %','#0b6bff'],['Écart de points',(tw-tl>0?'+':'')+(tw-tl),'#f5a623']];
   const g4=20,w4=(W-2*P-3*g4)/4;k4.forEach((t,k)=>{const a=P+k*(w4+g4);card(a,y,w4,150);tx(t[0].toUpperCase(),a+w4/2,y+44,20,'#778','700','center');tx(String(t[1]),a+w4/2,y+116,64,t[2],'800','center')});y+=186;
   if(nS){const h=90+nS*LH;card(P,y,W-2*P,h);tx('DÉROULÉ DES SETS',P+36,y+54,24,'#778','700');tx('ligne du haut : '+tn+' · ligne du bas : '+m.opp,W-P-36,y+54,20,'#778','500','right');
    let ly=y+86;sets.forEach((s,k)=>{if(!ok2[k])return;const z=sq[k],n=z.length,x0=P+190,st=Math.min(26,(W-2*P-190-36)/n),r=Math.min(9,st*.38),yy=t=>ly+(t==='a'?22:60);
-    tx('Set '+(k+1),P+36,ly+46,28,'#223','700');
+    tx('Set '+(k+1),P+36,ly+34,28,'#223','700');{const a1=mx(z,'a'),b1=mx(z,'b');x.fillStyle=ca;x.beginPath();x.arc(P+44,ly+60,8,0,7);x.fill();tx(String(a1),P+60,ly+67,22,'#223','700');x.fillStyle=cb;x.beginPath();x.arc(P+104,ly+60,8,0,7);x.fill();tx(String(b1),P+120,ly+67,22,'#223','700');tx('série max',P+36,ly+90,15,'#889','500')}
     for(let j=1;j<n;j++)if(z[j]===z[j-1]){x.strokeStyle=z[j]==='a'?ca:cb;x.lineWidth=r*1.4;x.lineCap='round';x.beginPath();x.moveTo(x0+st*(j-.5),yy(z[j]));x.lineTo(x0+st*(j+.5),yy(z[j]));x.stroke()}
     for(let j=0;j<n;j++){x.fillStyle=z[j]==='a'?ca:cb;x.beginPath();x.arc(x0+st*(j+.5),yy(z[j]),r,0,7);x.fill()}
     ly+=LH});y+=h+36}
-  const dn=(cx,cy,data,cols,c1,c2)=>{const t=data.reduce((a,v)=>a+v,0),R=170,r=100;let a0=-Math.PI/2;
+  const dn=(cx,cy,data,cols,c1,c2,ems)=>{const t=data.reduce((a,v)=>a+v,0),R=170,r=100;let a0=-Math.PI/2;
    if(!t){x.strokeStyle='#e4e8ef';x.lineWidth=R-r;x.beginPath();x.arc(cx,cy,(R+r)/2,0,7);x.stroke()}
    else data.forEach((v,j)=>{if(!v)return;const a1=a0+2*Math.PI*v/t;x.fillStyle=cols[j];x.beginPath();x.arc(cx,cy,R,a0,a1);x.arc(cx,cy,r,a1,a0,true);x.closePath();x.fill();x.strokeStyle='#fff';x.lineWidth=4;x.stroke();a0=a1});
+   if(ems){let b0=-Math.PI/2;x.textAlign='center';x.font='36px "Noto Color Emoji",system-ui,sans-serif';data.forEach((v,j)=>{const b1=b0+2*Math.PI*v/t;if(v&&ems[j]&&v/t>=.06){const am=(b0+b1)/2,rm=(R+r)/2;x.fillStyle='#000';x.fillText(ems[j],cx+rm*Math.cos(am),cy+rm*Math.sin(am)+13)}b0=b1});x.textAlign='left'}
    tx(c1,cx,cy+18,64,'#111','800','center');tx(c2,cx,cy+56,22,'#778','600','center')};
-  const lg=(a,b,rows,cols)=>{const t=rows.reduce((s2,e)=>s2+e[1],0);rows.forEach((e,j)=>{const yy=b+j*46;x.fillStyle=cols[j];x.beginPath();x.arc(a+12,yy-9,10,0,7);x.fill();tx(e[0],a+36,yy,24,'#223','500');tx(e[1]+'  ·  '+(t?Math.round(100*e[1]/t):0)+' %',a+500,yy,24,'#111','700','right')})};
+  const lg=(a,b,rows,cols)=>{const t=rows.reduce((s2,e)=>s2+e[1],0);rows.forEach((e,j)=>{const yy=b+j*46;x.fillStyle=cols[j];x.beginPath();x.arc(a+12,yy-9,10,0,7);x.fill();tx(e[0],a+36,yy,24,'#223','500');tx(String(e[1]),a+500,yy,24,'#111','700','right')})};
   card(P,y,W-2*P,q?800:640);const c1=P+282,c2=P+564+282,cy=y+300,xa=P+48,xb=P+564+48,ly=y+560;
   if(q){const sw=QW.reduce((t,e)=>t+(q[e[0]]||0),0),sl=QL.reduce((t,e)=>t+(q[e[0]]||0),0);
    const rw=QW.map(e=>[e[1]+' '+e[2],q[e[0]]||0]).concat([['❔ Non précisé',Math.max(0,tw-sw)]]),rl2=QL.map(e=>[e[1]+' '+e[2],q[e[0]]||0]).concat([['❔ Non précisé',Math.max(0,tl-sl)]]);
    const cw=['#00a86b','#2e7df6','#8e44ad','#f5a623','#17c3b2','#d3d8e0'],cl=['#e53935','#fb8c00','#8e24aa','#6d4c41','#fdd835','#d3d8e0'];
    tx('POINTS MARQUÉS PAR TYPE',c1,y+64,24,'#778','700','center');tx('POINTS PERDUS PAR TYPE',c2,y+64,24,'#778','700','center');
-   dn(c1,cy,rw.map(e=>e[1]),cw,String(tw),'points');dn(c2,cy,rl2.map(e=>e[1]),cl,String(tl),'points');lg(xa,ly,rw,cw);lg(xb,ly,rl2,cl)}
+   dn(c1,cy,rw.map(e=>e[1]),cw,String(tw),'points',rw.map(e=>e[0].split(' ')[0]));dn(c2,cy,rl2.map(e=>e[1]),cl,String(tl),'points',rl2.map(e=>e[0].split(' ')[0]));lg(xa,ly,rw,cw);lg(xb,ly,rl2,cl)}
   else{const sw=sets.filter(s=>s[0]>s[1]).length,sl=sets.filter(s=>s[1]>s[0]).length;
    tx('POINTS',c1,y+64,24,'#778','700','center');tx('SETS',c2,y+64,24,'#778','700','center');
    dn(c1,cy,[tw,tl],['#1faa59','#e53935'],String(tw+tl),'points');dn(c2,cy,[sw,sl],['#1faa59','#e53935'],String(sw+sl),'sets');
    lg(xa,ly,[['Marqués',tw],['Perdus',tl]],['#1faa59','#e53935']);lg(xb,ly,[['Sets gagnés',sw],['Sets perdus',sl]],['#1faa59','#e53935'])}
-  y+=(q?800:640)+36}
+  y+=(q?800:640)+36;
+  if(AN.length){const h=AN.length*50+94;card(P,y,W-2*P,h);tx('LECTURE RAPIDE',P+36,y+54,24,'#778','700');AN.forEach((l,k)=>{let z=28;while(z>18){x.font='500 '+z+'px '+F;if(x.measureText(l).width<=W-2*P-72)break;z-=2}tx(l,P+36,y+104+k*50,z,'#223','500')});y+=h+36}}
+ if(img){const by=H-90-PH,bw=W-2*P,k=Math.max(bw/img.width,PH/img.height);x.save();rr(P,by,bw,PH,28);x.clip();x.drawImage(img,P+(bw-img.width*k)/2,by+(PH-img.height*k)/2,img.width*k,img.height*k);x.restore()}
  tx('La Marque · fiche de match',W/2,H-34,22,'#99a','500','center');
  cv.toBlob(b=>{const f=new File([b],'la-marque-'+(m.date||'match')+'.jpg',{type:'image/jpeg'});
   if(navigator.canShare&&navigator.canShare({files:[f]})){navigator.share({files:[f],title:'La Marque'}).catch(()=>{})}
   else{const u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=f.name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);toast('Image enregistrée')}},'image/jpeg',0.92)}
 ap();
+
+const TU=[
+ ['🏐','Bienvenue dans La Marque','Suis tes matchs de volley depuis le bord du terrain : score en direct, historique, statistiques de saison. Tout reste sur ton téléphone. Une équipe d\'exemple est déjà là pour essayer, tu pourras la supprimer ensuite.'],
+ ['⚙️','1. Réglages : ton équipe','Dans <b>Réglages</b>, crée ton équipe et choisis ses règles. Un collègue a déjà l\'équipe ? Dans <b>Partager avec mon staff</b>, colle le code ou le fichier reçu puis touche <b>Fusionner</b> : tu récupères l\'équipe et ses matchs, sans rien écraser.'],
+ ['📣','2. La table de marque','Onglet <b>Match</b> : renseigne l\'adversaire puis <b>Démarrer</b>. Touche la couleur d\'une équipe pour +1, glisse vers le bas pour annuler. Le menu ☰ permet de terminer, de mettre en pause, de changer de mode ou de prendre des notes ; le chrono tourne en haut. Mode avancé : qualifie chaque point (ace, attaque, fautes…).'],
+ ['📜','3. Historique','Chaque match terminé est dans l\'<b>Historique</b> : détails, déroulé des sets, ressenti avec étoiles et commentaire. Touche <b>Partager la fiche (A4)</b> pour télécharger ou envoyer le récap en image.'],
+ ['📈','4. Saison','L\'onglet <b>Saison</b> montre victoires, sets, Points championnat, courbes, frise des derniers matchs et statistiques par type de point.'],
+ ['💾','5. Sauvegarde et CSV','Dans <b>Réglages → Sauvegarde</b>, télécharge un fichier .json (équipes, historique, réglages) à garder sur ton drive. L\'export <b>CSV</b> se trouve dans l\'onglet Saison, pour Excel.']];
+let tuI=0;
+function tuto(i){tuI=i;let e=document.getElementById('tuto');if(!e){e=document.createElement('div');e.id='tuto';document.body.appendChild(e)}const t=TU[i],last=i===TU.length-1;
+ e.innerHTML=`<div class="c"><div class="em">${t[0]}</div><h1 style="text-align:center">${t[1]}</h1><p>${t[2]}</p></div><div class="pg">${TU.map((_,k)=>`<i class="${k===i?'on':''}"></i>`).join('')}</div><div class="row">${i?`<button class="s" onclick="tuto(${i-1})">Retour</button>`:''}<button onclick="${last?'tutoEnd()':'tuto('+(i+1)+')'}">${last?'C\'est parti !':'Suivant'}</button></div>${last?'':'<button class="s" onclick="tutoEnd()">Passer</button>'}`}
+function tutoEnd(){const e=document.getElementById('tuto');if(e)e.remove();setP('tuto',1)}
+async function firstRun(){try{const d=await dec(DEMO),P=plan(d);teams=teams.concat(P.nw);hist=P.add.concat(hist);hist.sort((a,b)=>(b.date||'').localeCompare(a.date||''));if(!cur&&teams[0])cur=teams[0].id;sv('vs_teams',teams);sv('vs_hist',hist);sv('vs_cur',cur);render()}catch(e){}tuto(0)}
+if(FIRST)setTimeout(firstRun,0);
+const fr=()=>fm.r||cfg;
+function fset(k,v){fm.r=fm.r||{...cfg};fm.r[k]=v;fm.r.p='perso'}
+function fpre(p){fm.r=P[p]?{...P[p],p}:{...(fm.r||cfg),p:'perso'};render()}
 let st=null;
 $('#live').addEventListener('pointerdown',e=>{const z=e.target.closest('.z');st=z?{t:z.dataset.t,q:!!e.target.closest('.q'),x:e.clientX,y:e.clientY}:null});
 $('#live').addEventListener('pointerup',e=>{if(!st||live.pend){st=null;return}const dy=e.clientY-st.y,dx=e.clientX-st.x;
