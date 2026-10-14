@@ -40,3 +40,7 @@ Fais une sauvegarde de temps en temps : si tu vides les données du navigateur, 
 ## Licence
 
 Licence MIT : tu peux utiliser, copier, modifier et partager cette application librement, y compris pour un usage commercial. Pour un don au domaine public, remplace le fichier LICENSE par le texte CC0 1.0 (creativecommons.org/publicdomain/zero/1.0/).
+
+## Crédits
+
+Le ballon de l'icône est l'émoji 🏐 de la police **Noto Color Emoji** (Google), distribuée sous licence SIL Open Font License 1.1 : https://github.com/googlefonts/noto-emoji
