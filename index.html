@@ -44,6 +44,10 @@ nav button.on{color:var(--ac)}
 .q button span{font-size:clamp(26px,8vmin,46px);line-height:1}
 .q .t{flex:0 0 22%}
 .q .p{flex:0 0 38px;background:#0004;font-size:13px;font-weight:600;padding:0}
+details.fu{margin:10px 0 4px;background:var(--bg);border-radius:10px;padding:8px 12px}
+details.fu summary{cursor:pointer;color:var(--ac);font-weight:700;padding:4px 0}
+details.fu p,details.fu li{font-size:14px;line-height:1.4}
+details.fu ul{padding-left:18px;margin:8px 0 4px}details.fu li{margin:6px 0}
 #toast{position:fixed;top:12%;left:50%;transform:translateX(-50%);background:#000c;color:#fff;padding:10px 18px;border-radius:20px;z-index:20;display:none}
 #ov{z-index:5;position:absolute;inset:0;background:#000d;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;color:#fff;text-align:center;gap:6px}
 #ov button{max-width:320px}
@@ -63,7 +67,7 @@ let teams=ld('vs_teams',null),hist=ld('vs_hist',[]),live=ld('vs_live',null),cur=
 if(!teams){const o=ld('vs_team',null),c=ld('vs_cfg',{...P.ff,p:'ff'});teams=o&&o.name?[{id:'t1',name:o.name,cat:o.cat,season:o.season,cfg:c}]:[];sv('vs_teams',teams)}
 if(cur!=='all'&&!teams.some(t=>t.id===cur))cur=teams[0]?teams[0].id:'';
 hist.forEach(m=>{if(!m.t&&teams[0])m.t=teams[0].id});
-hist.forEach(m=>{if(m.tr===undefined&&m.w===1&&!m.int&&!m.ff&&(m.sets||[]).length>1)m.w=Math.max(m.sw,m.sl)});sv('vs_hist',hist);
+hist.forEach(m=>{if(m.tr===undefined&&m.w===1&&!m.int&&!m.ff&&(m.sets||[]).length>1)m.w=Math.max(m.sw,m.sl)});hist.forEach(m=>{if(!m.id)m.id=legacyId(m)});sv('vs_hist',hist);
 const T=()=>teams.find(t=>t.id===cur);
 function sync(){if($('#live').style.display==='none')unwake();team=T()||{name:'',cat:'',season:''};if(team.id&&!team.cfg)team.cfg={...P.ff,p:'ff'};cfg=team.cfg||{...P.ff,p:'ff'}}
 const ok=m=>cur==='all'||m.t===cur;
@@ -79,7 +83,7 @@ let view='match',detail=null,form={cA:'Rouge',cB:'Bleu',home:'D',date:new Date()
 const tc=c=>c==='Jaune'?'#111':'#fff';
 function toast(m){const t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(toast.h);toast.h=setTimeout(()=>t.style.display='none',1400)}
 function nav(v){view=v;detail=null;if(v!=='manual')mf={};if(v!=='hist'&&v!=='stats'&&cur==='all'){cur=teams[0]?teams[0].id:'';sv('vs_cur',cur)}render()}
-function render(){sync();
+function render(){sync();hsync();
  $('#nav').innerHTML=[['match','Match'],['hist','Historique'],['stats','Saison'],['set','Réglages']].map(([k,l])=>`<button class="${view===k?'on':''}" onclick="nav('${k}')">${l}</button>`).join('');
  const a=$('#app');
  if(view==='match')a.innerHTML=vMatch();else if(view==='hist')a.innerHTML=detail!==null?vDetail():vHist();else if(view==='stats')a.innerHTML=vStats();else if(view==='manual')a.innerHTML=vManual();else a.innerHTML=vSet();
@@ -116,12 +120,12 @@ function exp(){
 }
 function cp(){const t=$('#ta');t.select();try{navigator.clipboard.writeText(t.value)}catch(e){try{document.execCommand('copy')}catch(_){}}toast('Copié')}
 function vSet(){
- if(!team.id)return'<h1>Réglages</h1>'+tm()+BKC;const o=(v,l)=>`<option value="${v}" ${cfg.p===v?'selected':''}>${l}</option>`;
+ if(!team.id)return'<h1>Réglages</h1>'+tm()+stf()+BKC;const o=(v,l)=>`<option value="${v}" ${cfg.p===v?'selected':''}>${l}</option>`;
  const n=(k,l)=>`<label>${l}</label><input type="number" inputmode="numeric" value="${cfg[k]}" oninput="cfg.${k}=+this.value;cfg.p='perso';sv('vs_cfg',cfg)">`;
  return `<h1>Réglages</h1>${tm()}<h2>Profil de l'équipe</h2><div class="card"><label>Nom</label><input value="${esc(team.name)}" oninput="team.name=this.value;sv('vs_team',team)"><div class="row"><div><label>Catégorie</label><input value="${esc(team.cat)}" oninput="team.cat=this.value;sv('vs_team',team)"></div><div><label>Saison</label><input value="${esc(team.season)}" oninput="team.season=this.value;sv('vs_team',team)"></div></div></div>
  <h2>Règles du match</h2><div class="card"><label>Préconfiguration</label><select onchange="pre(this.value)">${o('ff','FFVolley classique')}${o('loisir','Loisir')}${o('perso','Personnalisé')}</select>
  <label>Sets gagnants</label><select onchange="cfg.w=+this.value;cfg.p='perso';sv('vs_cfg',cfg)"><option ${cfg.w===1?'selected':''}>1</option><option ${cfg.w===2?'selected':''}>2</option><option ${cfg.w===3?'selected':''}>3</option></select>
- ${n('s','Points d\'un set classique')}${n('d','Points du set décisif')}${n('e','Écart minimum')}<label><input type="checkbox" style="width:auto" ${team.adv?'checked':''} onchange="team.adv=this.checked;sv('vs_team')"> Mode avancé par défaut (qualifier les points)</label></div>${BKC}`;
+ ${n('s','Points d\'un set classique')}${n('d','Points du set décisif')}${n('e','Écart minimum')}<label><input type="checkbox" style="width:auto" ${team.adv?'checked':''} onchange="team.adv=this.checked;sv('vs_team')"> Mode avancé par défaut (qualifier les points)</label></div>${stf()}${BKC}`;
 }
 function pre(p){if(!team.id)return;if(P[p])team.cfg=cfg={...P[p],p};else cfg.p='perso';sv('vs_cfg');render()}
 function start(b){
@@ -134,7 +138,7 @@ function start(b){
 function tgt(){const L=live;return L.sets.length+1===2*L.cfg.w-1&&L.cfg.w>1?L.cfg.d:L.cfg.s}
 function over(){const c=live.cur,t=tgt();return Math.max(c.a,c.b)>=t&&Math.abs(c.a-c.b)>=live.cfg.e}
 function wins(inc){const L=live;let a=L.sets.filter(s=>s[0]>s[1]).length,b=L.sets.filter(s=>s[1]>s[0]).length;if(inc){if(L.cur.a>L.cur.b)a++;else b++}return[a,b]}
-function showLive(){live.qo=null;live.qp=null;$('#live').style.display='flex';renderLive();wake()}
+function showLive(){live.qo=null;live.qp=null;$('#live').style.display='flex';hsync();renderLive();wake()}
 function renderLive(){
  const L=live,[sa,sb]=wins(false);
  const Z=t=>{const c=t==='a'?L.cA:L.cB;return `<div class="z" data-t="${t}" style="background:${C[c]};color:${tc(c)}"><div class="n">${esc(t==='a'?L.team:L.opp)}</div><div class="sc">${L.cur[t]}</div><div class="ss">Sets : ${t==='a'?sa:sb}</div>${L.qp===t?qpanel(t):''}</div>`};
@@ -156,7 +160,7 @@ function undo(){if(live.qp){live.qp=null;renderLive();toast('Saisie annulée');r
 function conf(){
  const L=live;qadd();L.qo=null;L.sq=L.sq||[];while(L.sq.length<L.sets.length)L.sq.push('');L.sq.push(L.cur.pts.join(''));L.sets.push([L.cur.a,L.cur.b]);const [a,b]=wins(false);
  if(a>=L.cfg.w||b>=L.cfg.w){
-  hist.unshift({t:L.tid,tr:L.tr,adv:L.adv,q:L.qs,sq:L.sq,ca:L.cA,cb:L.cB,w:L.cfg.w,date:L.date,opp:L.opp,comp:L.comp,home:L.home,res:a>b?'V':'D',sw:a,sl:b,sets:L.sets});
+  hist.unshift({id:nid(),u:Date.now(),t:L.tid,tr:L.tr,adv:L.adv,q:L.qs,sq:L.sq,ca:L.cA,cb:L.cB,w:L.cfg.w,date:L.date,opp:L.opp,comp:L.comp,home:L.home,res:a>b?'V':'D',sw:a,sl:b,sets:L.sets});
   sv('vs_hist',hist);live=null;sv('vs_live',null);$('#live').style.display='none';view='hist';detail=0;render();return;
  }
  L.cur={a:0,b:0,pts:[]};L.pend=false;L.swap=!L.swap;sv('vs_live',L);renderLive();
@@ -187,13 +191,13 @@ function vManual(){
 }
 function saveM(){
  if(!team.id){toast('Crée d\'abord une équipe dans Réglages');return}
- const m={t:team.id,w:cfg.w,tr:mf.tr?1:0,date:mf.date,opp:mf.opp.trim()||'Adversaire',comp:mf.comp,home:mf.home};
+ const m={id:nid(),u:Date.now(),t:team.id,w:cfg.w,tr:mf.tr?1:0,date:mf.date,opp:mf.opp.trim()||'Adversaire',comp:mf.comp,home:mf.home};
  if(mf.ff){Object.assign(m,mf.ff==='A'?{ff:2,res:'V',sw:0,sl:0,sets:[]}:{ff:1,res:'D',sw:0,sl:0,sets:[]})}
  else{const s=[];for(let i=0;i<5;i++){const a=$('#a'+i).value,b=$('#b'+i).value;if(a!==''&&b!=='')s.push([+a,+b])}
   const sw=s.filter(x=>x[0]>x[1]).length,sl=s.filter(x=>x[1]>x[0]).length;
   if(!s.length||(sw===sl&&!mf.int)){toast('Saisis les scores des sets');return}
   let res=sw>sl?'V':'D';if(mf.int){m.int=1;if(sw===sl){m.tie=1;const d=s.reduce((t,x)=>t+x[0]-x[1],0);res=d>0?'V':d<0?'D':(mf.eq||'V')}}Object.assign(m,{res,sw,sl,sets:s,w:mf.int?(mf.edit!=null&&hist[mf.edit].w>1?hist[mf.edit].w:(cfg.w>1?cfg.w:3)):Math.max(sw,sl)})}
- if(mf.edit!=null){const o=hist[mf.edit];if(o.adv){m.adv=o.adv;m.q=o.q}if(o.sq){m.sq=o.sq;m.ca=o.ca;m.cb=o.cb}hist[mf.edit]=m}else hist.unshift(m);hist.sort((x,y)=>(y.date||'').localeCompare(x.date||''));sv('vs_hist',hist);mf={};view='hist';detail=null;render();toast('Match enregistré');
+ if(mf.edit!=null){const o=hist[mf.edit];m.id=o.id||m.id;if(o.adv){m.adv=o.adv;m.q=o.q}if(o.sq){m.sq=o.sq;m.ca=o.ca;m.cb=o.cb}hist[mf.edit]=m}else hist.unshift(m);hist.sort((x,y)=>(y.date||'').localeCompare(x.date||''));sv('vs_hist',hist);mf={};view='hist';detail=null;render();toast('Match enregistré');
 }
 async function wake(){try{if(live&&$('#live').style.display!=='none'&&!wl){wl=await navigator.wakeLock.request('screen');wl.addEventListener('release',()=>{wl=null})}}catch(e){toast('Écran non maintenu allumé : règle la mise en veille du téléphone')}}
 function unwake(){try{wl&&wl.release()}catch(e){}wl=null}
@@ -202,13 +206,13 @@ const mnHTML=()=>{const L=live;if(L.mn===2)return `<div id="ov"><div class="big"
 function menu(){if(live.qp){const o=live.qp;live.qp=null;pt(o,'');toast('Point compté sans type');if(live.pend)return}live.mn=1;renderLive()}
 function fin(){const L=live,s=L.sets;if(!s.length)return{ok:0,msg:'Aucun set terminé : le match ne peut pas être clôturé.'};const a=s.filter(x=>x[0]>x[1]).length,b=s.filter(x=>x[1]>x[0]).length,d=s.reduce((t,x)=>t+x[0]-x[1],0);return{ok:1,a,b,d,msg:'Sets terminés : '+a+'-'+b+(a===b?' · points '+s.reduce((t,x)=>t+x[0],0)+'-'+s.reduce((t,x)=>t+x[1],0)+' (écart '+(d>0?'+':'')+d+')'+(d?' → '+(d>0?'victoire':'défaite')+' aux points':''):'')+(L.cur.pts.length?' · le set en cours ('+L.cur.a+'-'+L.cur.b+') ne sera pas compté':'')}}
 function endM(){const r=fin();if(r.a!==r.b)finish(r.a>r.b?'V':'D',0);else if(r.d!==0)finish(r.d>0?'V':'D',1);else{live.mn=2;renderLive()}}
-function finish(res,tie){const L=live,r=fin();hist.unshift({t:L.tid,tr:L.tr,adv:L.adv,q:L.qs,sq:L.sq,ca:L.cA,cb:L.cB,w:L.cfg.w,date:L.date,opp:L.opp,comp:L.comp,home:L.home,res,sw:r.a,sl:r.b,sets:L.sets,int:1,tie:tie?1:0});sv('vs_hist',hist);live=null;sv('vs_live',null);$('#live').style.display='none';view='hist';detail=0;render()}
+function finish(res,tie){const L=live,r=fin();hist.unshift({id:nid(),u:Date.now(),t:L.tid,tr:L.tr,adv:L.adv,q:L.qs,sq:L.sq,ca:L.cA,cb:L.cB,w:L.cfg.w,date:L.date,opp:L.opp,comp:L.comp,home:L.home,res,sw:r.a,sl:r.b,sets:L.sets,int:1,tie:tie?1:0});sv('vs_hist',hist);live=null;sv('vs_live',null);$('#live').style.display='none';view='hist';detail=0;render()}
 function aband(b){if(b.dataset.c){live=null;sv('vs_live',null);render();return}b.dataset.c=1;b.textContent='Confirmer : abandonner ce match ?';b.className='d';setTimeout(()=>{b.dataset.c='';b.textContent='Abandonner ce match';b.className='s'},4000)}
 function bk(){const d=JSON.stringify({app:'LaMarque',v:1,teams,hist,cur});$('#bk').innerHTML=`<textarea id="bkt" rows="6" readonly>${esc(d)}</textarea><button onclick="cpb()">Copier la sauvegarde</button>`}
 function cpb(){const t=$('#bkt');t.select();try{navigator.clipboard.writeText(t.value)}catch(e){try{document.execCommand('copy')}catch(_){}}toast('Sauvegarde copiée')}
 function rs(b){let d;try{d=JSON.parse($('#rst').value.trim())}catch(e){}if(!d||!['VolleyStats','LaMarque'].includes(d.app)||!Array.isArray(d.teams)||!Array.isArray(d.hist)){toast('Sauvegarde non reconnue');return}
  if(!b.dataset.c){b.dataset.c=1;b.textContent='Confirmer : remplacer toutes mes données ?';b.className='d';setTimeout(()=>{b.dataset.c='';b.textContent='Restaurer';b.className='s'},4000);return}
- teams=d.teams;hist=d.hist;cur=d.cur||(teams[0]?teams[0].id:'');sv('vs_teams',teams);sv('vs_hist',hist);sv('vs_cur',cur);render();toast('Données restaurées')}
+ teams=d.teams;hist=d.hist;hist.forEach(m=>{if(!m.id)m.id=legacyId(m)});cur=d.cur||(teams[0]?teams[0].id:'');sv('vs_teams',teams);sv('vs_hist',hist);sv('vs_cur',cur);render();toast('Données restaurées')}
 let qt=null;
 const QW=[['ace','🎯','Service ace','Service ace'],['atk','💥','Attaque','Attaque'],['bid','🤏','Bidouille','Bidouille'],['blo','🧱','Bloc in','Bloc in'],['fadv','🎁','Faute adv.','Faute adverse']];
 const QL=[['fsv','🚫','Faute service','Faute de service'],['fout','📤','Faute out','Faute directe out'],['ffil','🕸️','Faute filet','Faute au filet'],['aadv','🔥','Attaque / Service adv.','Attaque / service adverse'],['badv','🪶','Bidouille adv.','Bidouille adverse']];
@@ -246,6 +250,68 @@ function seqs(m){const sq=m.sq||[],ca=C[m.ca]||'#1faa59',cb=C[m.cb]||'#e53935';l
   h+=`<div style="display:flex;justify-content:space-between;margin-top:10px;font-size:14px"><b>Set ${i+1} · ${s[0]}-${s[1]}</b><span class="mut" style="font-size:12px">séries max : ${ma} / ${mb}</span></div><svg viewBox="0 0 ${W} 30" style="width:100%;display:block"><line x1="0" y1="15" x2="${W}" y2="15" style="stroke:var(--bd)" stroke-width="1"/>${g}</svg>`});
  return h?`<h2>Déroulé des sets</h2><div class="mut" style="font-size:12px"><span style="color:${ca}">●</span> ligne du haut : ${esc(nm(m.t)||'nous')} · <span style="color:${cb}">●</span> ligne du bas : ${esc(m.opp)}</div>`+h:''}
 addEventListener('resize',()=>{if(live&&$('#live').style.display!=='none')renderLive()});
+function nn(s){return String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/\s+/g,' ').trim()}
+function hsh(s){let h1=0xdeadbeef,h2=0x41c6ce57;for(let i=0,c;i<s.length;i++){c=s.charCodeAt(i);h1=Math.imul(h1^c,2654435761);h2=Math.imul(h2^c,1597334677)}h1=Math.imul(h1^(h1>>>16),2246822507)^Math.imul(h2^(h2>>>13),3266489909);h2=Math.imul(h2^(h2>>>16),2246822507)^Math.imul(h1^(h1>>>13),3266489909);return (4294967296*(2097151&h2)+(h1>>>0)).toString(36)}
+function legacyId(m,name){const n=name||(teams.find(t=>t.id===m.t)||{}).name||'';return 'h'+hsh(nn(n)+'|'+m.date+'|'+nn(m.opp)+'|'+JSON.stringify(m.sets||[])+'|'+m.res+'|'+(m.ff||'')+'|'+(m.tr||''))}
+function nid(){return 'm'+Date.now().toString(36)+Math.floor(Math.random()*46656).toString(36)}
+const b64=u=>{let s='';for(let i=0;i<u.length;i+=8192)s+=String.fromCharCode.apply(null,u.subarray(i,i+8192));return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')};
+const unb64=t=>{t=t.replace(/-/g,'+').replace(/_/g,'/');while(t.length%4)t+='=';const s=atob(t),u=new Uint8Array(s.length);for(let i=0;i<s.length;i++)u[i]=s.charCodeAt(i);return u};
+async function pipe(u8,S){const r=new Response(new Blob([u8]).stream().pipeThrough(new S('gzip')));return new Uint8Array(await r.arrayBuffer())}
+async function enc(o){const u=new TextEncoder().encode(JSON.stringify(o));if(typeof CompressionStream==='undefined')return 'LM2u:'+b64(u)+':FIN';return 'LM2:'+b64(await pipe(u,CompressionStream))+':FIN'}
+async function dec(t){const raw=String(t).trim();if(raw[0]==='{')return JSON.parse(raw);
+ const m=raw.match(/LM2(u?):([A-Za-z0-9_\-\s]+?):FIN/);if(!m)throw 0;const c=m[2].replace(/\s+/g,'');
+ const u=m[1]?unb64(c):await pipe(unb64(c),DecompressionStream);return JSON.parse(new TextDecoder().decode(u))}
+let CODE='',PL=null;
+function stf(){const un=ld('vs_undo',null);
+ return `<h2>Partager avec mon staff</h2><div class="card"><div class="mut">Envoie un code à un collègue : ses données sont complétées, jamais écrasées.</div><details class="fu"><summary>💡 En savoir plus sur la fusion</summary><p>La fusion ajoute à l'historique les matchs reçus et met à jour ceux qui ont été modifiés, sans jamais écraser les autres équipes ni les autres matchs. Les équipes sont reconnues par leur nom. Tu peux envoyer une ou plusieurs équipes, toute la saison ou seulement les derniers matchs. Un bouton permet d'annuler la dernière fusion.</p><ul><li>Le partage via WhatsApp ou mail et l'envoi de fichier sur iPhone n'ont pas été testés. S'ils ne fonctionnent pas, « Copier le code » marche partout.</li><li>Un match supprimé chez toi ne disparaît pas chez ton collègue : il peut revenir à la prochaine fusion. Pour le supprimer pour tout le monde, supprime-le des deux côtés.</li><li>Un match saisi séparément des deux côtés, avec des détails différents, apparaîtra en double. Vous pourrez alors en supprimer un.</li><li>Les matchs en cours ne sont pas transférés, seulement les matchs terminés.</li><li>Les matchs déjà enregistrés reçoivent un identifiant automatiquement à la première ouverture, sans changer l'historique.</li></ul></details>${teams.length?`<label>Équipes à envoyer</label>${teams.map(t=>`<label style="color:var(--fg);font-size:16px;margin:6px 0"><input type="checkbox" class="xt" value="${t.id}" style="width:auto" ${t.id===cur?'checked':''}> ${esc(t.name)}</label>`).join('')}<label>Matchs à inclure</label><select id="xn"><option value="0">Tous les matchs</option><option value="5">Les 5 derniers</option><option value="10">Les 10 derniers</option></select><button onclick="mkCode()">Créer le code</button><div id="xc"></div>`:`<div class="mut">Crée d'abord une équipe.</div>`}</div><h2>Recevoir un code</h2><div class="card"><label>Colle le message reçu</label><textarea id="ri" rows="4" placeholder="LM2:…"></textarea><label>ou choisis le fichier reçu</label><input type="file" id="rf" accept=".txt,.json,text/plain" onchange="rdFile(this)"><button onclick="rdCode()">Lire le code</button><div id="rp"></div>${un?`<button class="s" onclick="undoM(this)">Annuler la dernière fusion</button>`:''}</div>`}
+async function mkCode(){
+ const ids=[...document.querySelectorAll('.xt:checked')].map(x=>x.value),n=+$('#xn').value;
+ if(!ids.length){toast('Choisis au moins une équipe');return}
+ const T=teams.filter(t=>ids.includes(t.id)).map(t=>({id:t.id,name:t.name,cat:t.cat,season:t.season,cfg:t.cfg,adv:t.adv}));
+ let H=[];ids.forEach(id=>{let L=hist.filter(m=>m.t===id).sort((a,b)=>(a.date||'').localeCompare(b.date||''));if(n)L=L.slice(-n);H=H.concat(L)});
+ CODE=await enc({app:'LaMarque',v:2,teams:T,hist:H});
+ $('#xc').innerHTML=`<div class="card"><div class="mut">${H.length} match${H.length>1?'s':''} · ${T.length} équipe${T.length>1?'s':''} · ${CODE.length} caractères</div><textarea id="xt" rows="4" readonly>${esc(CODE)}</textarea><button onclick="shCode()">Partager</button><button class="s" onclick="cpx()">Copier le code</button><button class="s" onclick="shFile()">Envoyer en fichier</button><div class="mut">Le fichier garde le message court : ton collègue l'ouvre depuis « Recevoir un code ».</div></div>`}
+function cpx(){const t=$('#xt');t.select();try{navigator.clipboard.writeText(CODE)}catch(e){try{document.execCommand('copy')}catch(_){}}toast('Code copié')}
+async function shCode(){if(navigator.share){try{await navigator.share({title:'La Marque',text:CODE})}catch(e){}}else cpx()}
+async function shFile(){const f=new File([CODE],'la-marque-staff.txt',{type:'text/plain'});
+ try{if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:'La Marque'});return}}catch(e){if(e&&e.name==='AbortError')return}
+ try{const u=URL.createObjectURL(f),a=document.createElement('a');a.href=u;a.download=f.name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),2000)}catch(e){toast('Envoi impossible : utilise Copier')}}
+function rdFile(i){const f=i.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{$('#ri').value=r.result;rdCode()};r.readAsText(f)}
+async function rdCode(){let d;try{d=await dec($('#ri').value)}catch(e){toast('Code non reconnu');return}
+ if(!d||!Array.isArray(d.teams)||!Array.isArray(d.hist)){toast('Code non reconnu');return}
+ PL=plan(d);$('#rp').innerHTML=prev(PL)}
+function plan(d){const tmap={},nw=[],rows=[],add=[],upd=[];
+ d.teams.forEach(t=>{const l=teams.find(x=>x.id===t.id)||teams.find(x=>nn(x.name)===nn(t.name));let id;
+  if(l)id=l.id;else{id=t.id||'t'+Date.now();nw.push({id,name:t.name,cat:t.cat||'',season:t.season||'',adv:t.adv,cfg:t.cfg||{...P.ff,p:'ff'}})}
+  tmap[t.id]=id;rows.push({tid:id,n:t.name,isNew:!l,add:0,upd:0,same:0})});
+ d.hist.forEach(m=>{const tid=tmap[m.t];if(!tid)return;const src=d.teams.find(x=>x.id===m.t),mm={...m,t:tid};if(!mm.id)mm.id=legacyId(mm,src&&src.name);
+  const r=rows.find(x=>x.tid===tid),lo=hist.find(x=>x.id===mm.id);
+  if(!lo){add.push(mm);r.add++}else if((mm.u||0)>(lo.u||0)){upd.push(mm);r.upd++}else r.same++});
+ return{nw,rows,add,upd}}
+function prev(P){const tot=P.add.length+P.upd.length;
+ return `<div class="card" style="margin-top:10px">${P.rows.map(r=>`<div class="it"><div><b>${esc(r.n)}</b><div class="mut">${r.isNew?'équipe nouvelle':'équipe reconnue'}</div></div><div class="mut" style="text-align:right">${r.add} nouveau${r.add>1?'x':''}<br>${r.upd} mis à jour<br>${r.same} déjà présent${r.same>1?'s':''}</div></div>`).join('')}${tot||P.nw.length?`<button onclick="doMerge()">Fusionner</button>`:`<div class="mut" style="margin-top:8px">Rien de nouveau : tout est déjà à jour.</div>`}</div>`}
+function doMerge(){const P=PL;if(!P)return;sv('vs_undo',{t:Date.now(),teams,hist,cur});
+ teams=teams.concat(P.nw);P.upd.forEach(m=>{const i=hist.findIndex(x=>x.id===m.id);if(i>=0)hist[i]=m});hist=P.add.concat(hist);
+ hist.sort((a,b)=>(b.date||'').localeCompare(a.date||''));if(!cur&&teams[0])cur=teams[0].id;
+ sv('vs_teams',teams);sv('vs_hist',hist);sv('vs_cur',cur);PL=null;render();toast('Fusion terminée : '+P.add.length+' nouveau(x), '+P.upd.length+' mis à jour')}
+function undoM(b){if(!b.dataset.c){b.dataset.c=1;b.textContent='Confirmer : revenir avant la fusion ?';b.className='d';setTimeout(()=>{b.dataset.c='';b.textContent='Annuler la dernière fusion';b.className='s'},4000);return}
+ const u=ld('vs_undo',null);if(!u)return;teams=u.teams;hist=u.hist;cur=u.cur;sv('vs_teams',teams);sv('vs_hist',hist);sv('vs_cur',cur);sv('vs_undo',null);render();toast('Fusion annulée')}
+let selfPop=false;
+const liveOn=()=>$('#live').style.display!=='none';
+const snap=()=>({v:view,d:detail,l:liveOn()?1:0});
+const deep=s=>!!(s&&(s.l||s.v==='manual'||(s.v==='hist'&&s.d!==null&&s.d!==undefined)));
+function hsync(){try{if(selfPop)return;const s=snap(),c=history.state;
+ if(c&&c.v===s.v&&c.d===s.d&&c.l===s.l)return;
+ if(deep(c)&&!deep(s)){selfPop=true;history.back();return}
+ if(deep(s)&&!deep(c))history.pushState(s,'');else history.replaceState(s,'')}catch(e){}}
+addEventListener('popstate',e=>{
+ if(selfPop){selfPop=false;try{history.replaceState(snap(),'')}catch(_){}return}
+ if(liveOn()&&live){try{history.pushState(snap(),'')}catch(_){}
+  if(live.pend){toast('Valide d\'abord le set, ou annule le dernier point');return}
+  if(live.qp){live.qp=null;renderLive();toast('Saisie annulée');return}
+  if(live.mn){live.mn=0;renderLive();return}
+  menu();return}
+ const s=e.state;if(s&&s.v){view=s.v;detail=(s.d===undefined?null:s.d);render()}});
 let st=null;
 $('#live').addEventListener('pointerdown',e=>{const z=e.target.closest('.z');st=z?{t:z.dataset.t,q:!!e.target.closest('.q'),x:e.clientX,y:e.clientY}:null});
 $('#live').addEventListener('pointerup',e=>{if(!st||live.pend){st=null;return}const dy=e.clientY-st.y,dx=e.clientX-st.x;
