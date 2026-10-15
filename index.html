@@ -63,8 +63,72 @@ details.fu ul{padding-left:18px;margin:8px 0 4px}details.fu li{margin:6px 0}
 :root[data-theme="sun"] .q button{background:#000d}
 .btnl{display:block;text-align:center;font-size:16px;padding:14px;border-radius:12px;font-weight:600;margin-top:10px;cursor:pointer;border:1px solid var(--bd);background:var(--card);color:var(--fg)}
 #toast{position:fixed;top:12%;left:50%;transform:translateX(-50%);background:#000c;color:#fff;padding:10px 18px;border-radius:20px;z-index:20;display:none}
-#ov{z-index:5;position:absolute;inset:0;background:#000d;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;color:#fff;text-align:center;gap:6px}
+#ov{z-index:5;position:absolute;inset:0;background:#000d;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;overflow:auto;padding:24px;color:#fff;text-align:center;gap:6px}#ov::before{content:'';margin-top:auto}#ov::after{content:'';margin-bottom:auto}#ov .mut{color:#fffa}
 #ov button{max-width:320px}
+#ov.mm{justify-content:flex-start;padding:max(16px,env(safe-area-inset-top)) 16px 16px;gap:10px}
+#ov.mm::before,#ov.mm::after{display:none}
+#ov.mm .mmt{font-size:18px;font-weight:800;opacity:.9}
+#ov.mm button{width:100%;max-width:440px;padding:16px;font-size:18px;font-weight:700;border-radius:14px;margin:0;border:0}
+#ov.mm .mgo{background:#1faa59;color:#fff}#ov.mm .mnote{background:#1e6fff;color:#fff}
+#ov.mm .mmi{font-size:13px;opacity:.75;max-width:440px}
+#ov.mm .mms{font-size:12px;letter-spacing:1px;text-transform:uppercase;opacity:.7;margin-top:6px;width:100%;max-width:440px;text-align:left}
+#ov.mm .tg{background:#3a3a3c;color:#9a9aa0;display:flex;justify-content:space-between;align-items:center;text-align:left}
+#ov.mm .tg small{font-size:13px;font-weight:600}#ov.mm .tg.on{background:#fff;color:#000}
+#ov.mm .mend{background:#2a2a2d;color:#fff}
+#ov.mm .mexit{background:#e67e22;color:#fff;margin-top:auto}
+.rg{border-radius:50%;background:conic-gradient(var(--rc,#1faa59) var(--a,0%),#8885 0);display:flex;align-items:center;justify-content:center;flex:none}
+.rg b{width:calc(100% - 8px);height:calc(100% - 8px);border-radius:50%;background:var(--rb,#222);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.05;font-weight:400}
+.rg small{font-size:9px;opacity:.85}.rg span{font-size:16px;font-weight:800}
+.rgs{--rb:var(--card)}
+#rc{background:#161a22;color:#fff;display:flex;gap:8px;padding:8px;flex:0 0 auto;height:176px;align-items:stretch;z-index:3}
+#rc .court{position:relative;flex:none;width:150px;height:100%;box-sizing:border-box;background:linear-gradient(#2f78b0,#1f4d73);border:2px solid #fff5;border-top:5px solid #fff;border-radius:6px 6px 10px 10px}
+#rc .rp{position:absolute;transform:translate(-50%,-50%);cursor:pointer}
+#rc .rp.on .rg{box-shadow:0 0 0 3px #fff}#rc .rp.ch .rg{box-shadow:0 0 0 3px #f5a623}
+#rc .side{flex:1;display:flex;flex-direction:column;gap:6px;min-width:0;justify-content:center}
+#rc .rn,#rc .rw{display:flex;gap:4px}#rc .rb{display:flex;flex-wrap:wrap;gap:4px}
+#rc button{width:auto;margin:0;padding:7px 2px;font-size:11px;flex:1;background:#333;color:#fff;border:0;border-radius:8px;white-space:nowrap}
+#rc button.on{background:var(--ac)}
+#rc .rn button{font-size:26px;font-weight:900;padding:9px 0;text-shadow:0 1px 2px #0006}
+#rc .rb button{flex:0 0 auto;min-width:38px;padding:8px}
+#rc .rt{font-size:13px;opacity:.85}
+#rc input{width:60px;flex:1;margin:0;padding:6px;font-size:16px;min-width:0;user-select:text;-webkit-user-select:text}
+.rbar{display:flex;height:26px;border-radius:8px;overflow:hidden;margin:10px 0}.rbar i{display:flex;align-items:center;justify-content:center;font-style:normal;font-weight:800;color:#fff;font-size:13px}
+.rcg{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:8px;margin-top:10px;text-align:left}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 10px}.chips button{width:auto;margin:0;padding:8px 12px;font-size:14px}.chips button.off{background:var(--bg);color:var(--fg);border:1px solid var(--bd)}#rc .side{overflow:auto}#rc .side.ch{justify-content:flex-start}#rc .rb button{font-size:12px}
+.rcard{display:flex;gap:10px;align-items:center;padding:8px;border:1px solid #8883;border-radius:12px}
+#rc{--rs:46px}#rc .rp .rg{width:var(--rs);height:var(--rs)}#rc .rp .rg span{font-size:calc(var(--rs)*.34)}#rc .rp .rg span.s3{font-size:calc(var(--rs)*.28)}#rc .rp .rg small{font-size:calc(var(--rs)*.2)}
+@media (orientation:portrait){
+#live.rco{flex-direction:row;flex-wrap:wrap}
+#live.rco .z{flex:0 0 50%;height:40%;min-width:0;padding-top:22px;box-sizing:border-box}
+#live.rco .z .n{font-size:18px;max-width:100%;text-align:center;overflow-wrap:anywhere;padding:0 6px}
+#live.rco .z .sc{font-size:min(22vh,30vw)}#live.rco .z .ss{font-size:15px}
+#live.rco #rc{flex:0 0 100%;height:calc(60% - 64px);--rs:54px;padding:10px;min-height:0;box-sizing:border-box}
+#live.rco #bar{flex:0 0 100%;height:64px;box-sizing:border-box}
+#live.rco #rc .court{width:40%;height:100%;align-self:stretch}
+#live.rco #rc .rb button{font-size:15px;padding:10px 9px;min-width:50px;flex:0 0 auto}
+#live.rco #rc .rt{font-size:16px}
+#live.rco #rc .rw.act button{font-size:15px;padding:12px 2px;flex:1 1 0;min-width:0}
+#live.rco #rc .side{gap:10px;justify-content:stretch}
+#live.rco #rc .rg2{flex:1;min-height:0}#live.rco #rc .rg2.rq{flex:1.7}
+#live.rco #rc .rg2 .rn,#live.rco #rc .rg2 .rw{flex:1;min-height:0}
+#live.rco #rc .rn button{font-size:15px;font-weight:800;padding:0;flex:1 1 0;min-width:0}
+#live.rco #rc .rg2 .rw button{font-size:16px;padding:0;flex:1 1 0;min-width:0}
+}
+#rc{position:relative;touch-action:none;flex-direction:column;gap:0}
+#rc .rm{display:flex;gap:10px;flex:1;min-height:0}
+#rc .court,#rc .rp,#rc *{touch-action:none}
+#rc .court::after{content:'';position:absolute;left:0;right:0;top:34%;border-top:2px dashed #ffffff66;pointer-events:none}
+#rc .rg2{display:flex;flex-direction:column;gap:4px;transition:opacity .15s}#rc .rg2.dim{opacity:.4}
+#rc .rl{font-size:11px;letter-spacing:.6px;text-transform:uppercase;font-weight:700}#rc .l0{color:#8fd3a8}#rc .l1{color:#6aa4ff}#rc .l2{color:#f0a05a}
+#rc .c1{box-shadow:inset 0 0 0 1px #1e6fff99}#rc .c2{box-shadow:inset 0 0 0 1px #e67e2299}
+#rc .c1.on{background:#1e6fff;box-shadow:none}#rc .c2.on{background:#e67e22;box-shadow:none}
+#rc .rn button.dim{opacity:.3}#rc .rn button.on{box-shadow:inset 0 0 0 3px #fff}
+#rcm{position:absolute;top:78px;left:50%;transform:translateX(-50%);width:max-content;max-width:calc(100% - 20px);box-sizing:border-box;z-index:8;background:#000c;color:#fff;padding:10px 18px;border-radius:20px;font-size:16px;font-weight:400;text-align:center;pointer-events:none;animation:rcmf 2.2s forwards}
+@keyframes rcmf{0%,80%{opacity:1}100%{opacity:0}}
+#rc .rw.act{margin-top:8px;flex:none;align-items:center}
+#rc .rw button.qm,#live.rco #rc .rw button.qm{flex:0 0 44px}
+@keyframes rcfl{0%{box-shadow:inset 0 0 0 5px var(--fc,#1faa59),inset 0 0 50px var(--fc,#1faa59)}100%{box-shadow:inset 0 0 0 0 transparent,inset 0 0 0 transparent}}#rc.fl{animation:rcfl .8s ease-out}
+@media (orientation:landscape){#rc{flex:0 0 100%;height:170px}#rc .side{display:grid;grid-template-columns:1fr 1fr;gap:6px;align-content:center}#rc .rg2.rq{grid-column:1/-1}#rc .l0{display:none}#rc .rn button{font-size:22px;padding:5px 0}#rc .rw button{padding:6px 2px}#rc .rw.act button{padding:8px 2px}.rco .z{height:calc(100% - 64px - 170px);padding-top:22px}.rco .z .sc{font-size:min(26vh,16vw)}.rco .z .n{font-size:min(6vh,3vw)}.rco .z .ss{font-size:min(5vh,2.5vw)}}
 </style></head><body>
 <div id="app"></div>
 <nav id="nav"></nav>
@@ -126,7 +190,7 @@ function vMatch(){
  <label>Compétition</label><input value="${esc(fm.comp)}" oninput="fm.comp=this.value">
  <label>Couleur de mon équipe</label>${sw('cA')}<label>Couleur de l'adversaire</label>${sw('cB')}
  <details class="fu" ${fm.ro?'open':''} ontoggle="fm.ro=this.open"><summary>Règles de ce match · <span class="mut">${fr().w} set${fr().w>1?'s':''} gagnant${fr().w>1?'s':''} · ${fr().s} pts${fr().w>1?' · décisif '+fr().d:''}</span></summary><select onchange="fpre(this.value)">${[['ff','FFVolley classique'],['loisir','Loisir'],['perso','Personnalisé']].map(x=>`<option value="${x[0]}" ${fr().p===x[0]?'selected':''}>${x[1]}</option>`).join('')}</select><div class="row"><div><label>Sets gagnants</label><select onchange="fset('w',+this.value)">${[1,2,3].map(v=>`<option ${fr().w===v?'selected':''}>${v}</option>`).join('')}</select></div><div><label>Points par set</label><input type="number" inputmode="numeric" value="${fr().s}" oninput="fset('s',+this.value)"></div></div><div class="row"><div><label>Points du set décisif</label><input type="number" inputmode="numeric" value="${fr().d}" oninput="fset('d',+this.value)"></div><div><label>Écart minimum</label><input type="number" inputmode="numeric" value="${fr().e}" oninput="fset('e',+this.value)"></div></div><div class="mut" style="margin-top:6px">Pré-rempli d'après les réglages de l'équipe. Ce que tu changes ici ne vaut que pour ce match.</div></details>
- <label><input type="checkbox" style="width:auto" ${(fm.tr===undefined?fr().w===1:fm.tr)?'checked':''} onchange="fm.tr=this.checked"> Entraînement (points non comptés au championnat)</label><label><input type="checkbox" style="width:auto" ${(fm.adv===undefined?!!team.adv:fm.adv)?'checked':''} onchange="fm.adv=this.checked"> Mode avancé : qualifier les points (attaque, ace, fautes…)</label><button onclick="start(this)">Démarrer le match</button><button class="s" onclick="nav('manual')">Saisir un match non suivi</button></div>`;
+ <label><input type="checkbox" style="width:auto" ${(fm.tr===undefined?fr().w===1:fm.tr)?'checked':''} onchange="fm.tr=this.checked"> Entraînement (points non comptés au championnat)</label><label><input type="checkbox" style="width:auto" ${(fm.adv===undefined?!!team.adv:fm.adv)?'checked':''} id="cadv" onchange="fm.adv=this.checked;if(this.checked&&fm.rc){fm.rc=false;sfm();var c=document.getElementById('crc');if(c)c.checked=false;var b=document.getElementById('prb');if(b)b.innerHTML=prH()}"> Mode avancé : qualifier les points (attaque, ace, fautes…)</label>${PF.an?`<label><input type="checkbox" style="width:auto" ${fm.rc&&roster().length?'checked':''} ${roster().length?'':'disabled'} id="crc" onchange="fm.rc=this.checked;if(this.checked){fm.adv=false;var a=document.getElementById('cadv');if(a)a.checked=false}sfm();document.getElementById('prb').innerHTML=prH()"> Analyse de la réception (noter chaque réception de service · désactive le mode avancé)</label><div id="prb">${prH()}</div>`:''}<button onclick="start(this)">Démarrer le match</button><button class="s" onclick="nav('manual')">Saisir un match non suivi</button></div>`;
 }
 function vHist(){
  if(!hist.some(ok))return `<h1>Historique</h1>${sel(1)}${BM}<div class="card mut" style="margin-top:10px">Aucun match enregistré.</div>`;
@@ -149,7 +213,7 @@ function setStar(k,n){const m=hist[k];m.stars=m.stars===n?0:n;m.u=Date.now();sv(
 function vDetail(){
  const m=hist[detail];
  return `<h1>${esc(m.opp)}</h1><div class="card"><div class="mut">${m.date}${m.dur?' · durée '+dm(m.dur):''} · ${m.home==='D'?'Domicile':'Extérieur'}${m.comp?' · '+esc(m.comp):''}</div><div class="big ${tr(m)?'mut':m.res}">${rl(m)}</div>${(()=>{const v=prevVs(m);return v?`<div class="mut">↩ Rencontre précédente : <b class="${v.res}">${v.r}</b> le ${v.txt.split(' le ')[1]}</div>`:''})()}<div class="mut">${tr(m)?'Entraînement (hors championnat)':pts(m)+' point'+(pts(m)>1?'s':'')+' au championnat'}</div>${m.int?'<div class="card" style="margin-top:10px;background:var(--bg)"><b>Match interrompu</b>'+(m.tie?'<div>Départagé à la différence de points : <b class="'+m.res+'">'+fd(m)+'</b> ('+pd(m).a+' - '+pd(m).b+')</div>':'')+'</div>':''}${rate(m)}${m.sets.map((s,i)=>`<div class="it"><span>Set ${i+1}${m.sd&&m.sd[i]?' <span class="mut">· '+dm(m.sd[i])+'</span>':''}</span><b>${s[0]} - ${s[1]}</b></div>`).join('')}
- ${seqs(m)}${m.adv?qstats(m):''}${anaH(m)}${notesH(m)}${phBtn(m,detail)}<button class="s" onclick="fiche(${detail})">📤 Partager la fiche (A4)</button><button onclick="editM(${detail})">Modifier ce match</button><button class="s" onclick="detail=null;render()">← Retour</button><button class="d" onclick="if(this.dataset.c){hist.splice(${detail},1);sv('vs_hist',hist);detail=null;render()}else{this.dataset.c=1;this.textContent='Confirmer la suppression'}">Supprimer ce match</button></div>`;
+ ${seqs(m)}${m.adv?qstats(m):''}${anaH(m)}${rcvH(m)}${notesH(m)}${phBtn(m,detail)}<button class="s" onclick="fiche(${detail})">📤 Partager la fiche (A4)</button><button onclick="editM(${detail})">Modifier ce match</button><button class="s" onclick="detail=null;render()">← Retour</button><button class="d" onclick="if(this.dataset.c){hist.splice(${detail},1);sv('vs_hist',hist);detail=null;render()}else{this.dataset.c=1;this.textContent='Confirmer la suppression'}">Supprimer ce match</button></div>`;
 }
 function vStats(){
  const n=hist.length,w=hist.filter(m=>m.res==='V').length,sw=hist.reduce((a,m)=>a+m.sw,0),sl=hist.reduce((a,m)=>a+m.sl,0);
@@ -166,7 +230,7 @@ function vSet(){
  if(!team.id)return'<h1>Réglages</h1>'+tm()+pf()+stf()+BKC;const o=(v,l)=>`<option value="${v}" ${cfg.p===v?'selected':''}>${l}</option>`;
  const n=(k,l)=>`<label>${l}</label><input type="number" inputmode="numeric" value="${cfg[k]}" oninput="cfg.${k}=+this.value;cfg.p='perso';sv('vs_cfg',cfg)">`;
  return `<h1>Réglages</h1>${tm()}<h2>Profil de l'équipe</h2><div class="card"><label>Nom</label><input value="${esc(team.name)}" oninput="team.name=this.value;sv('vs_team',team)"><div class="row"><div><label>Catégorie</label><input value="${esc(team.cat)}" oninput="team.cat=this.value;sv('vs_team',team)"></div><div><label>Saison</label><input value="${esc(team.season)}" oninput="team.season=this.value;sv('vs_team',team)"></div></div></div>
- <h2>Règles du match</h2><div class="card"><label>Préconfiguration</label><select onchange="pre(this.value)">${o('ff','FFVolley classique')}${o('loisir','Loisir')}${o('perso','Personnalisé')}</select>
+ ${PF.an?plH():''}<h2>Règles du match</h2><div class="card"><label>Préconfiguration</label><select onchange="pre(this.value)">${o('ff','FFVolley classique')}${o('loisir','Loisir')}${o('perso','Personnalisé')}</select>
  <label>Sets gagnants</label><select onchange="cfg.w=+this.value;cfg.p='perso';sv('vs_cfg',cfg)"><option ${cfg.w===1?'selected':''}>1</option><option ${cfg.w===2?'selected':''}>2</option><option ${cfg.w===3?'selected':''}>3</option></select>
  ${n('s','Points d\'un set classique')}${n('d','Points du set décisif')}${n('e','Écart minimum')}<label><input type="checkbox" style="width:auto" ${team.adv?'checked':''} onchange="team.adv=this.checked;delete fm.adv;sv('vs_team')"> Mode avancé par défaut (qualifier les points)</label></div>${pf()}${stf()}${BKC}`;
 }
@@ -176,8 +240,8 @@ function start(b){
  if(!team.id||!team.name.trim()){toast('Renseigne ton équipe dans Réglages');return}
  if(fm.cA===fm.cB){toast('Choisis deux couleurs différentes');return}
  {const R=fr();if(!(R.w>0&&R.s>0&&R.d>0&&R.e>0)){toast('Vérifie les règles du match');return}}
- live={adv:(fm.adv===undefined?!!team.adv:fm.adv)?1:0,qs:{},tr:(fm.tr===undefined?fr().w===1:fm.tr)?1:0,tid:team.id,team:team.name,opp:fm.opp.trim()||'Adversaire',comp:fm.comp,date:fm.date,home:fm.home,cA:fm.cA,cB:fm.cB,cfg:{...fr()},sets:[],cur:{a:0,b:0,pts:[]},swap:false,pend:false,el:0,ts:Date.now(),sd:[]};
- fm.r=null;delete fm.adv;delete fm.tr;fm.opp='';fm.comp='';sfm();sv('vs_live',live);showLive();
+ live={adv:((fm.adv===undefined?!!team.adv:fm.adv)&&!rcOn())?1:0,qs:{},tr:(fm.tr===undefined?fr().w===1:fm.tr)?1:0,tid:team.id,team:team.name,opp:fm.opp.trim()||'Adversaire',comp:fm.comp,date:fm.date,home:fm.home,cA:fm.cA,cB:fm.cB,cfg:{...fr()},sets:[],cur:{a:0,b:0,pts:[]},swap:false,pend:false,el:0,ts:Date.now(),sd:[],id:nid(),rc:rcOn()?1:0,rcd:rcOn()?1:0,rcp:rcOn()?prPick():[],rcc:['','','',''],rco:{c:'m',v:''},rck:[],rcv:[]};
+ fm.r=null;delete fm.adv;delete fm.tr;delete fm.rc;delete fm.pr;fm.opp='';fm.comp='';sfm();sv('vs_live',live);showLive();
 }
 function tgt(){const L=live;return L.sets.length+1===2*L.cfg.w-1&&L.cfg.w>1?L.cfg.d:L.cfg.s}
 function over(){const c=live.cur,t=tgt();return Math.max(c.a,c.b)>=t&&Math.abs(c.a-c.b)>=live.cfg.e}
@@ -194,7 +258,7 @@ function renderLive(){
   const [a,b]=wins(true),fin=a>=L.cfg.w||b>=L.cfg.w,win=a>b;
   ov=`<div id="ov"><div class="big">${fin?(win?'Victoire ':'Défaite ')+a+'-'+b:'Set terminé'}</div><div style="font-size:22px">${L.cur.a} - ${L.cur.b}</div><button onclick="conf()">${fin?'Enregistrer le match':'Set suivant'}</button><button class="s" onclick="undo()">↓ Annuler le dernier point</button></div>`;
  }
- if(L.mn)ov=mnHTML();$('#live').innerHTML=Z(order[0])+Z(order[1])+`<div id="tmr"></div><div id="bar"><button onclick="menu()">☰</button><button onclick="try{document.documentElement.requestFullscreen()}catch(e){}">⛶</button><div class="inf">${L.adv?'<b style="font-size:16px">'+(L.swap?L.cur.b+' - '+L.cur.a:L.cur.a+' - '+L.cur.b)+'</b><br>':''}Set ${L.sets.length+1} · ${tgt()} pts${L.sets.length?'<br>'+L.sets.map(s=>L.swap?s[1]+'-'+s[0]:s[0]+'-'+s[1]).join(' · '):''}</div><div class="dots">${dots}</div><button onclick="live.swap=!live.swap;sv('vs_live',live);renderLive()">⇄ Côté</button></div>`+ov;tmrTick();
+ if(L.mn)ov=mnHTML();$('#live').className=(L.rc&&L.rcd)?'rco':'';$('#live').innerHTML=Z(order[0])+Z(order[1])+`<div id="tmr"></div>${rcDrawer()}<div id="bar"><button onclick="menu()">☰</button><button onclick="try{document.documentElement.requestFullscreen()}catch(e){}">⛶</button>${L.rc?`<button onclick="live.rcd=live.rcd?0:1;sv('vs_live',live);renderLive()">🎯</button>`:''}<div class="inf">${L.adv?'<b style="font-size:16px">'+(L.swap?L.cur.b+' - '+L.cur.a:L.cur.a+' - '+L.cur.b)+'</b><br>':''}Set ${L.sets.length+1} · ${tgt()} pts${L.sets.length?'<br>'+L.sets.map(s=>L.swap?s[1]+'-'+s[0]:s[0]+'-'+s[1]).join(' · '):''}</div><div class="dots">${dots}</div><button onclick="live.swap=!live.swap;sv('vs_live',live);renderLive()">⇄ Côté</button></div>`+ov;tmrTick();
 }
 const el=()=>{const L=live;return (L.el||0)+(L.ts?Date.now()-L.ts:0)};
 function acc(){const L=live;if(!L)return;if(L.ts){L.el=(L.el||0)+Math.min(Date.now()-L.ts,900000);L.ts=Date.now()}}
@@ -205,7 +269,75 @@ function notesOv(){const L=live,N=L.nt||[];return `<div id="ov"><div class="big"
 function addNote(){const a=$('#nt2'),v=a&&a.value.trim();if(!v){toast('Note vide');return}acc();const L=live;(L.nt=L.nt||[]).push({s:L.sets.length+1,sc:L.cur.a+'-'+L.cur.b,t:el(),x:v});sv('vs_live',L);renderLive();toast('Note ajoutée')}
 function dictate(){const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){toast('Dictée non disponible ici : utilise le micro du clavier de ton téléphone');return}
  try{const r=new SR();r.lang='fr-FR';r.interimResults=false;r.onresult=e=>{const t=[...e.results].map(x=>x[0].transcript).join(' '),a=$('#nt2');if(a)a.value=(a.value+' '+t).trim()};r.onerror=()=>toast('Dictée impossible (micro refusé ?)');r.onend=()=>{const b=$('#mic');if(b)b.textContent='🎤 Dicter'};r.start();$('#mic').textContent='🎙️ Écoute…'}catch(e){toast('Dictée impossible : utilise le micro du clavier')}}
-function togAdv(){live.adv=live.adv?0:1;live.qp=null;live.mn=0;sv('vs_live',live);renderLive();toast(live.adv?'Mode avancé activé':'Mode avancé désactivé')}
+const rcNm=L=>{const o={};(L.rcp||[]).forEach(q=>{o[q.id]=q.dn});return Object.keys(o).length?o:undefined};
+const nz=t=>String(t||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().trim();
+const roster=pl=>(pl||team.pl||[]).map(q=>{let nm=(q.nm||('#'+q.n)).trim(),fn=(q.fn||'').trim();if(!fn&&/\s/.test(nm)){const t=nm.split(/\s+/);nm=t[0];fn=t.slice(1).join(' ')}return {id:String(q.id||q.n),nm,fn}}).sort((a,b)=>a.nm.localeCompare(b.nm,'fr'));
+const rFull=pl=>{const L=roster(pl),P=(t,n)=>Array.from(t||'').slice(0,n).join(''),cap=t=>{const a=Array.from(t);return a.length?a[0].toUpperCase()+a.slice(1).join(''):''},c0=q=>P(q.nm,3);
+ const gn={};L.forEach(q=>{(gn[nz(q.nm)]=gn[nz(q.nm)]||[]).push(q)});const dn={};
+ Object.values(gn).forEach(g=>{if(g.length<2){dn[g[0].id]=g[0].nm;return}const w=g.filter(q=>q.fn),mx=Math.max(1,...w.map(q=>Array.from(q.fn).length));let k=1;while(k<mx&&new Set(w.map(q=>nz(P(q.fn,k)))).size<w.length)k++;g.forEach(q=>{dn[q.id]=q.fn?q.nm+' '+cap(P(q.fn,k))+(k<Array.from(q.fn).length?'.':''):q.nm})});
+ const g0={};L.forEach(q=>{(g0[nz(c0(q))]=g0[nz(c0(q))]||[]).push(q)});const sh={};
+ Object.values(g0).forEach(g=>{if(g.length<2){sh[g[0].id]=c0(g[0]);return}const cs=[q=>P(q.nm,4),q=>q.fn?P(q.nm,2)+cap(P(q.fn,1)):c0(q),q=>q.fn?P(q.nm,2)+cap(P(q.fn,2)):c0(q),q=>q.fn?P(q.nm,2)+cap(P(q.fn,3)):c0(q)];const j=cs.findIndex(f=>new Set(g.map(q=>nz(f(q)))).size===g.length);g.forEach(q=>{sh[q.id]=j<0?c0(q):cs[j](q)})});
+ return L.map(q=>({...q,dn:dn[q.id],sh:sh[q.id]}))};
+const rcPn=L=>{if(L.rcp&&L.rcp.length)return L.rcp;const tt=teams.find(t=>t.id===L.tid)||team;return rFull(tt.pl).map(q=>({id:q.id,dn:q.dn,sh:q.sh}))};
+const rcOn=()=>!!(PF.an&&fm.rc&&roster().length);
+const plH=()=>{const L=rFull();return `<h2>Joueurs·euses</h2><div class="card">${L.length?L.map(q=>`<div class="it"><span><b>${esc(q.dn)}</b>${q.fn?' <span class="mut">'+esc(q.fn)+'</span>':''}</span><span><button class="s" style="width:auto;margin:0 4px 0 0;padding:6px 12px" onclick="plEd('${q.id}')">✎</button><button class="s" style="width:auto;margin:0;padding:6px 12px" onclick="plDel('${q.id}')">✕</button></span></div>`).join(''):'<div class="mut">Aucun joueur pour l\'instant.</div>'}<label>Prénom</label><input id="pln" placeholder="Prénom"><div id="plfw" style="display:none"><label>Nom de famille (pour les distinguer)</label><input id="plf" placeholder="Nom de famille"></div><button onclick="plAdd()">Ajouter</button></div>`};
+function plAdd(){let nm=document.getElementById('pln').value.trim(),fn=document.getElementById('plf').value.trim();if(!nm){toast('Saisis un prénom');return}if(!fn&&/\s/.test(nm)){const t=nm.split(/\s+/);nm=t[0];fn=t.slice(1).join(' ')}const L=roster(),dup=L.filter(q=>nz(q.nm)===nz(nm));
+ if(dup.length&&!fn){document.getElementById('plfw').style.display='block';document.getElementById('plf').focus();toast('Il y a déjà une '+nm+' : ajoute son nom de famille');return}
+ if(dup.some(q=>q.fn&&nz(q.fn)===nz(fn))){toast('Cette personne existe déjà');return}
+ team.pl=L;team.pl.push({id:nid(),nm,fn});sv('vs_team');render();{const e=document.getElementById('pln');if(e)e.focus()}if(dup.some(q=>!q.fn))toast('Ajoute aussi le nom de famille de l\'autre '+nm+' avec ✎')}
+function plEd(k){const L=roster(),q=L.find(x=>x.id===k);if(!q)return;const f=prompt('Nom de famille de '+q.nm+' :',q.fn);if(f===null)return;q.fn=f.trim();team.pl=L;sv('vs_team');render()}
+function plDel(k){team.pl=roster().filter(q=>q.id!==k);sv('vs_team');render()}
+const prSel=()=>{const all=roster().map(q=>q.id);return fm.pr?fm.pr.filter(n=>all.includes(n)):all};
+const prH=()=>{if(!PF.an)return '';if(!roster().length)return '<div class="mut" style="margin:6px 0 10px">Pour utiliser l\'analyse de la réception, ajoute d\'abord les joueurs de l\'équipe dans Réglages.</div>';if(!fm.rc)return '';const L=rFull(),sl=prSel();return `<label>Présents à ce match (${sl.length}/${L.length})</label><div class="chips">${L.map(q=>`<button class="${sl.includes(q.id)?'':'off'}" onclick="prT('${q.id}')">${esc(q.dn)}</button>`).join('')}</div>`};
+function prT(k){const sl=prSel();fm.pr=sl.includes(k)?sl.filter(x=>x!==k):[...sl,k];sfm();document.getElementById('prb').innerHTML=prH()}
+const prPick=()=>{const sl=prSel();return rFull().filter(q=>sl.includes(q.id)).map(q=>({id:q.id,dn:q.dn,sh:q.sh}))};
+const RCC=['#e53935','#c98600','#c98600','#1faa59'],RCL={3:'parfaite',2:'jouable',1:'jouable',0:'zippée'},RCP=[[50,20],[23,52],[77,52],[50,82]];
+const rcCol=a=>a>=2.5?RCC[3]:a>=1.5?RCC[2]:RCC[0];
+const rcSt=a=>{const c=[0,0,0,0];a.forEach(r=>c[r.n]++);const n=a.length;return{n,c,avg:n?(c[1]+2*c[2]+3*c[3])/n:0,good:n?Math.round(100*c[3]/n):0}};
+const rcRing=(a,n,sz,inner)=>`<div class="rg" style="--a:${n?a/3*100:0}%;--rc:${rcCol(a)}${sz?`;width:${sz}px;height:${sz}px`:''}">${inner}</div>`;
+function rcDrawer(){const L=live;if(!(L.rc&&L.rcd))return '';if(!(L.rcp&&L.rcp.length))L.rcp=rcPn(L);const a=L.rcv||[],pn=L.rcp||[];
+ const dnOf=k=>{const q=pn.find(x=>x.id===k);return q?q.dn:k},shOf=k=>{const q=pn.find(x=>x.id===k);return q?q.sh:Array.from(k).slice(0,3).join('')};
+ const circ=RCP.map((q,i)=>{const id=L.rcc[i],t=id?rcSt(a.filter(r=>r.p===id)):null,sh=id?shOf(id):'';
+  return `<div class="rp${L.rcs===i?' on':''}${L.rcm===i?' ch':''}" data-i="${i}" style="left:${q[0]}%;top:${q[1]}%" onclick="rcTap(${i})">${id?rcRing(t.avg,t.n,0,`<b><span class="${Array.from(sh).length>2?'s3':''}">${esc(sh)}</span>${t.n?`<small>${t.avg.toFixed(1)}</small>`:''}</b>`):rcRing(0,0,0,'<b><span>+</span></b>')}</div>`}).join('');
+ const stats=`<button onclick="live.mn=4;renderLive()">📊 Stats</button>`;let side,act;
+ if(L.rcm!=null){const i=L.rcm,bench=[...new Set([...pn.map(q=>q.id),...(L.rck||[])])].filter(k=>!L.rcc.includes(k)).sort((x,y)=>dnOf(x).localeCompare(dnOf(y),'fr'));
+  side=`<div class="rt">${L.rcc[i]?'Remplacer '+esc(dnOf(L.rcc[i]))+' par :':'Qui est sur le terrain ?'}</div>${bench.length?`<div class="rb">${bench.map(k=>`<button onclick="rcSet('${k}')">${esc(dnOf(k))}</button>`).join('')}</div>`:'<div class="rt" style="opacity:.7">Tous les joueurs présents sont déjà sur le terrain.</div>'}`;
+  act=`<div class="rw act"><button onclick="live.rcm=null;rcSave()">Annuler</button>${stats}</div>`}
+ else{const st=L.rcs==null?0:!L.rcq?1:!L.rcq.c?2:3,q=L.rcq||{},ch=(k,v,t,c)=>`<button class="${c}${q[k]===v?' on':''}" onclick="rcOpt('${k}','${v}')">${t}</button>`;
+  side=`<div class="rg2 rq"><span class="rl l0">Qualité de réception</span><div class="rn">${[[3,'Parfaite'],[2,'Jouable'],[0,'Zippé']].map(([n,t])=>`<button class="${L.rcq?(q.n===n?'on':'dim'):''}" style="background:${RCC[n]};color:#fff" onclick="rcLog(${n})">${t}</button>`).join('')}</div></div><div class="rg2${st===2?'':' dim'}"><span class="rl l1">Type de réception</span><div class="rw">${ch('c','m','Manchette','c1')}${ch('c','d','Dix doigts','c1')}</div></div><div class="rg2${st===3?'':' dim'}"><span class="rl l2">Service adverse</span><div class="rw">${ch('v','f','Flottant','c2')}${ch('v','s','Smashé','c2')}</div></div>`;
+  act=`<div class="rw act"><button onclick="rcUndo()">↩ Annuler</button><button onclick="rcCh()">⇄ Changer</button>${stats}</div>`}
+ return `<div id="rc"><div class="rm"><div class="court">${circ}</div><div class="side${L.rcm!=null?' ch':''}">${side}</div></div>${act}</div>`}
+const rcToast=m=>{const r=document.getElementById('rc');if(!r){toast(m);return}const o=document.getElementById('rcm');if(o)o.remove();const e=document.createElement('div');e.id='rcm';e.textContent=m;r.appendChild(e);setTimeout(()=>{if(e.parentNode)e.remove()},2200)};
+const rcSave=()=>{sv('vs_live',live);renderLive()};
+const rcFocus=()=>setTimeout(()=>{const e=document.getElementById('rcn');if(e)e.focus()},60);
+function rcTap(i){if(Date.now()-rcSw<250)return;const L=live;L.rcq=null;if(L.rcm!=null||!L.rcc[i]){L.rcm=i;L.rcs=null;rcSave();rcFocus();return}L.rcs=L.rcs===i?null:i;rcSave()}
+function rcCh(){const L=live;if(L.rcs==null){rcToast("Touche d'abord le joueur à remplacer");return}L.rcm=L.rcs;rcSave();rcFocus()}
+function rcSet(v){const L=live,i=L.rcm;if(i==null)return;v=String(v||'');if(!(L.rcp||[]).some(q=>q.id===v)&&!(L.rck||[]).includes(v))return;const j=L.rcc.indexOf(v);if(j>=0&&j!==i){L.rcc[j]=L.rcc[i];L.rcc[i]=v}else L.rcc[i]=v;if(!(L.rck=L.rck||[]).includes(v))L.rck.push(v);L.rcm=null;L.rcs=null;rcSave()}
+function rcLog(n){const L=live;if(L.rcs==null||!L.rcc[L.rcs]){rcToast("Touche d'abord le joueur qui réceptionne");return}L.rcq={n,c:'',v:''};vib(12);rcSave()}
+function rcOpt(k,v){const L=live,q=L.rcq;if(!q){rcToast(L.rcs==null?"Touche d'abord le joueur":"Choisis d'abord la qualité de réception");return}
+ if(k==='c'){q.c=v;vib(10);rcSave();return}
+ if(!q.c){rcToast("Choisis d'abord manchette ou dix doigts");return}
+ q.v=v==='?'?'':v;rcDone()}
+function rcDone(){const L=live,q=L.rcq,p=L.rcc[L.rcs];(L.rcv=L.rcv||[]).push({i:nid(),p,n:q.n,s:L.sets.length+1,sc:L.cur.a+'-'+L.cur.b,t:el(),c:q.c,v:q.v});L.rcs=null;L.rcq=null;vib([30,50,30]);rcSave();
+ const e=document.getElementById('rc');if(e){e.style.setProperty('--fc',RCC[q.n]);e.classList.add('fl');setTimeout(()=>e.classList.remove('fl'),900)}
+ rcToast(((L.rcp||[]).find(x=>x.id===p)||{dn:p}).dn+' → '+RCL[q.n]+' · '+(q.c==='d'?'dix doigts':'manchette')+(q.v==='f'?' · flottant':q.v==='s'?' · smashé':''))}
+function rcUndo(){if(live.rcq){live.rcq=null;rcSave();rcToast('Saisie annulée');return}const a=live.rcv;if(!a||!a.length){rcToast('Rien à annuler');return}const r=a.pop();rcSave();rcToast('Annulé : '+(((live.rcp||[]).find(q=>q.id===r.p)||{dn:r.p}).dn)+' → '+r.n)}
+function togRc(){const L=live;
+ if(!L.rc){const tt=teams.find(t=>t.id===L.tid)||team;if(!roster(tt.pl).length){toast("Ajoute d'abord tes joueurs dans Réglages");return}
+  const wa=L.adv;L.rc=1;L.rcd=1;L.adv=0;L.rcc=L.rcc||['','','',''];L.rco=L.rco||{c:'m',v:''};L.rck=L.rck||[];L.rcv=L.rcv||[];if(!(L.rcp&&L.rcp.length))L.rcp=rFull(tt.pl).map(q=>({id:q.id,dn:q.dn,sh:q.sh}));toast(wa?'Analyse de la réception activée · analyse des points désactivée':'Analyse de la réception activée')}
+ else{L.rc=0;L.rcd=0;toast('Analyse de la réception désactivée')}
+ L.rcs=null;L.rcm=null;L.qp=null;L.mn=0;sv('vs_live',L);renderLive()}
+function rcStatsHTML(a,nm){nm=nm||{};
+ if(!a.length)return '<div class="mut">Aucune réception notée pour l\'instant.</div>';
+ const T=rcSt(a),bar=`<div class="rbar">${[[3,T.c[3]],[2,T.c[2]+T.c[1]],[0,T.c[0]]].map(([n,v])=>v?`<i style="flex:${v};background:${RCC[n]}">${v}</i>`:'').join('')}</div>`,pl={};
+ a.forEach(r=>(pl[r.p]=pl[r.p]||[]).push(r));
+ const cards=Object.keys(pl).sort((x,y)=>pl[y].length-pl[x].length||String(nm[x]||x).localeCompare(String(nm[y]||y),'fr')).map(p=>{const s=rcSt(pl[p]);return `<div class="rcard">${rcRing(s.avg,s.n,64,`<b><span style="font-size:18px">${s.avg.toFixed(1)}</span></b>`)}<div><b>${esc(nm[p]||(/^\d+$/.test(p)?'#'+p:p))}</b><div class="mut" style="font-size:12px">${s.n} récep. · ${s.good} % parfaites</div><div style="font-size:12px">${[['P',3,s.c[3]],['J',2,s.c[2]+s.c[1]],['Z',0,s.c[0]]].map(([l,k,v])=>`<span style="color:${RCC[k]};font-weight:700">${l}</span> ${v}`).join(' · ')}</div></div></div>`}).join('');
+ const ks=[...new Set(a.map(r=>r.s))].sort((x,y)=>x-y),bySet=ks.length>1?`<div style="margin-top:8px;font-size:13px">${ks.map(k=>{const s=rcSt(a.filter(r=>r.s===k));return 'Set '+k+' : <b>'+s.avg.toFixed(2)+'</b> ('+s.n+')'}).join(' · ')}</div>`:'';
+ return `<div style="display:flex;justify-content:space-around;text-align:center"><div><div class="big">${T.n}</div><div class="mut">réceptions</div></div><div><div class="big" style="color:${rcCol(T.avg)}">${T.avg.toFixed(2)}</div><div class="mut">moyenne /3</div></div><div><div class="big">${T.good} %</div><div class="mut">parfaites</div></div></div>${bar}${bySet}<div class="rcg">${cards}</div>`}
+const rcLeg='<div class="mut" style="font-size:12px;margin-top:8px">Parfaite = 3 · Jouable = 2 · Zippée = 0 (la moyenne va de 0 à 3)</div>';
+function rcStatsOv(){return `<div id="ov"><div class="big" style="font-size:26px">Réception</div><div style="width:100%;max-width:420px">${rcStatsHTML(live.rcv||[],rcNm(live))}${rcLeg}</div><button onclick="live.mn=0;renderLive()">Continuer le match</button><button class="s" onclick="live.mn=1;renderLive()">Retour au menu</button></div>`}
+const rcvH=m=>(m.rcv&&m.rcv.length)?`<h2>Réception</h2><div class="card rgs">${rcStatsHTML(m.rcv,m.rcn)}${rcLeg}</div>`:'';
+function togAdv(){const wr=live.rc;live.adv=live.adv?0:1;if(live.adv&&live.rc){live.rc=0;live.rcd=0;live.rcs=null;live.rcm=null}live.qp=null;live.mn=0;sv('vs_live',live);renderLive();toast(live.adv?(wr?'Analyse des points activée · analyse de la réception désactivée':'Analyse des points activée'):'Analyse des points désactivée')}
 function pt(t,k){if(live.pend)return;const c=live.cur;if(!c.q)c.q=c.pts.map(()=>'');c[t]++;c.pts.push(t);acc();c.q.push(k||'');live.qp=null;if(over())live.pend=true;vib(live.pend?[40,60,40]:20);sv('vs_live',live);renderLive()}
 let qpAt=0,sw0=0;
 function tap(t){if(live.pend)return;if(!live.adv){pt(t,'');return}
@@ -215,7 +347,7 @@ function undo(){vib([15,40,15]);if(live.qp){live.qp=null;renderLive();toast('Sai
 function conf(){
  const L=live;acc();L.sd=L.sd||[];L.sd.push(Math.max(0,(L.el||0)-L.sd.reduce((a,b)=>a+b,0)));qadd();L.qo=null;L.sq=L.sq||[];while(L.sq.length<L.sets.length)L.sq.push('');L.sq.push(L.cur.pts.join(''));L.sets.push([L.cur.a,L.cur.b]);const [a,b]=wins(false);
  if(a>=L.cfg.w||b>=L.cfg.w){
-  hist.unshift({id:nid(),u:Date.now(),t:L.tid,tr:L.tr,adv:Object.keys(L.qs||{}).length?1:0,q:L.qs,sq:L.sq,ca:L.cA,cb:L.cB,w:L.cfg.w,date:L.date,opp:L.opp,comp:L.comp,home:L.home,res:a>b?'V':'D',sw:a,sl:b,sets:L.sets,dur:L.el,sd:L.sd,notes:(L.nt&&L.nt.length)?L.nt:undefined});
+  hist.unshift({id:L.id||nid(),u:Date.now(),t:L.tid,tr:L.tr,adv:Object.keys(L.qs||{}).length?1:0,q:L.qs,sq:L.sq,ca:L.cA,cb:L.cB,w:L.cfg.w,date:L.date,opp:L.opp,comp:L.comp,home:L.home,res:a>b?'V':'D',sw:a,sl:b,sets:L.sets,dur:L.el,sd:L.sd,notes:(L.nt&&L.nt.length)?L.nt:undefined,rcv:(L.rcv&&L.rcv.length)?L.rcv:undefined,rcn:rcNm(L)});
   sv('vs_hist',hist);rateNew=hist[0].id;live=null;sv('vs_live',null);$('#live').style.display='none';view='hist';detail=0;render();return;
  }
  L.cur={a:0,b:0,pts:[]};L.pend=false;L.swap=!L.swap;sv('vs_live',L);renderLive();
@@ -255,24 +387,24 @@ function saveM(){
   const sw=s.filter(x=>x[0]>x[1]).length,sl=s.filter(x=>x[1]>x[0]).length;
   if(!s.length||(sw===sl&&!mf.int)){toast('Saisis les scores des sets');return}
   let res=sw>sl?'V':'D';if(mf.int){m.int=1;if(sw===sl){m.tie=1;const d=s.reduce((t,x)=>t+x[0]-x[1],0);res=d>0?'V':d<0?'D':(mf.eq||'V')}}Object.assign(m,{res,sw,sl,sets:s,w:mf.int?(mf.edit!=null&&hist[mf.edit].w>1?hist[mf.edit].w:(cfg.w>1?cfg.w:3)):Math.max(sw,sl)})}
- if(mf.edit!=null){const o=hist[mf.edit];m.id=o.id||m.id;if(o.adv){m.adv=o.adv;m.q=o.q}if(o.sq){m.sq=o.sq;m.ca=o.ca;m.cb=o.cb}['dur','sd','stars','note','notes'].forEach(k=>{if(o[k]!==undefined)m[k]=o[k]});hist[mf.edit]=m}else hist.unshift(m);hist.sort((x,y)=>(y.date||'').localeCompare(x.date||''));sv('vs_hist',hist);mf={};view='hist';detail=null;render();toast('Match enregistré');
+ if(mf.edit!=null){const o=hist[mf.edit];m.id=o.id||m.id;if(o.adv){m.adv=o.adv;m.q=o.q}if(o.sq){m.sq=o.sq;m.ca=o.ca;m.cb=o.cb}['dur','sd','stars','note','notes','rcv','rcn'].forEach(k=>{if(o[k]!==undefined)m[k]=o[k]});hist[mf.edit]=m}else hist.unshift(m);hist.sort((x,y)=>(y.date||'').localeCompare(x.date||''));sv('vs_hist',hist);mf={};view='hist';detail=null;render();toast('Match enregistré');
 }
 async function wake(){try{if(live&&$('#live').style.display!=='none'&&!wl){wl=await navigator.wakeLock.request('screen');wl.addEventListener('release',()=>{wl=null})}}catch(e){toast('Écran non maintenu allumé : règle la mise en veille du téléphone')}}
 function unwake(){try{wl&&wl.release()}catch(e){}wl=null}
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)wake()});
-const mnHTML=()=>{const L=live;if(L.mn===2)return `<div id="ov"><div class="big">Égalité parfaite</div><div style="opacity:.85;margin-bottom:8px">Même nombre de sets et de points. Choisis le résultat :</div><button onclick="finish('V',1)">Victoire</button><button class="s" onclick="finish('D',1)">Défaite</button><button class="s" onclick="live.mn=1;renderLive()">Retour</button></div>`;if(L.mn===3)return notesOv();const r=fin();return `<div id="ov"><div class="big">Match en cours</div><div style="opacity:.85;margin-bottom:8px">${r.msg}</div><button onclick="live.mn=0;renderLive()">Continuer le match</button><button class="s" onclick="live.mn=3;renderLive()">📝 Notes${(L.nt||[]).length?' ('+L.nt.length+')':''}</button><button class="s" onclick="togAdv()">${L.adv?'Désactiver le mode avancé':'Activer le mode avancé'}</button><button class="s" onclick="acc();live.ts=null;live.mn=0;sv('vs_live',live);$('#live').style.display='none';render()">Reprendre une prochaine fois</button>${r.ok?`<button class="s" onclick="endM()">Terminer le match ici</button>`:''}</div>`};
+const mnHTML=()=>{const L=live;if(L.mn===2)return `<div id="ov"><div class="big">Égalité parfaite</div><div style="opacity:.85;margin-bottom:8px">Même nombre de sets et de points. Choisis le résultat :</div><button onclick="finish('V',1)">Victoire</button><button class="s" onclick="finish('D',1)">Défaite</button><button class="s" onclick="live.mn=1;renderLive()">Retour</button></div>`;if(L.mn===3)return notesOv();if(L.mn===4)return rcStatsOv();const r=fin(),nn=(L.nt||[]).length;return `<div id="ov" class="mm"><div class="mmt">Match en cours</div><button class="mgo" onclick="live.mn=0;renderLive()">▶️ Continuer le match</button><button class="mnote" onclick="live.mn=3;renderLive()">📝 Prendre une note${nn?' ('+nn+')':''}</button><div class="mmi">${r.msg}</div><div class="mms">Modes supplémentaires</div><button class="tg${L.adv?' on':''}" onclick="togAdv()"><span>🎯 Analyse des points</span><small>${L.adv?'activée':'désactivée'}</small></button>${(PF.an||L.rc)?`<button class="tg${L.rc?' on':''}" onclick="togRc()"><span>🏐 Analyse de la réception</span><small>${L.rc?'activée':'désactivée'}</small></button>`:''}${r.ok?`<button class="mend" onclick="endM()">🏁 Terminer le match ici</button>`:''}<button class="mexit" onclick="acc();live.ts=null;live.mn=0;sv('vs_live',live);$('#live').style.display='none';render()">🚪 Reprendre une prochaine fois</button></div>`};
 function menu(){if(live.qp){const o=live.qp;live.qp=null;pt(o,'');toast('Point compté sans type');if(live.pend)return}live.mn=1;renderLive()}
 function fin(){const L=live,s=L.sets;if(!s.length)return{ok:0,msg:'Aucun set terminé : le match ne peut pas être clôturé.'};const a=s.filter(x=>x[0]>x[1]).length,b=s.filter(x=>x[1]>x[0]).length,d=s.reduce((t,x)=>t+x[0]-x[1],0);return{ok:1,a,b,d,msg:'Sets terminés : '+a+'-'+b+(a===b?' · points '+s.reduce((t,x)=>t+x[0],0)+'-'+s.reduce((t,x)=>t+x[1],0)+' (écart '+(d>0?'+':'')+d+')'+(d?' → '+(d>0?'victoire':'défaite')+' aux points':''):'')+(L.cur.pts.length?' · le set en cours ('+L.cur.a+'-'+L.cur.b+') ne sera pas compté':'')}}
 function endM(){const r=fin();if(r.a!==r.b)finish(r.a>r.b?'V':'D',0);else if(r.d!==0)finish(r.d>0?'V':'D',1);else{live.mn=2;renderLive()}}
-function finish(res,tie){const L=live,r=fin();acc();hist.unshift({id:nid(),notes:(L.nt&&L.nt.length)?L.nt:undefined,dur:L.el,sd:(L.sd||[]).slice(0,L.sets.length),u:Date.now(),t:L.tid,tr:L.tr,adv:Object.keys(L.qs||{}).length?1:0,q:L.qs,sq:L.sq,ca:L.cA,cb:L.cB,w:L.cfg.w,date:L.date,opp:L.opp,comp:L.comp,home:L.home,res,sw:r.a,sl:r.b,sets:L.sets,int:1,tie:tie?1:0});sv('vs_hist',hist);rateNew=hist[0].id;live=null;sv('vs_live',null);$('#live').style.display='none';view='hist';detail=0;render()}
+function finish(res,tie){const L=live,r=fin();acc();hist.unshift({id:L.id||nid(),notes:(L.nt&&L.nt.length)?L.nt:undefined,rcv:(L.rcv&&L.rcv.length)?L.rcv:undefined,rcn:rcNm(L),dur:L.el,sd:(L.sd||[]).slice(0,L.sets.length),u:Date.now(),t:L.tid,tr:L.tr,adv:Object.keys(L.qs||{}).length?1:0,q:L.qs,sq:L.sq,ca:L.cA,cb:L.cB,w:L.cfg.w,date:L.date,opp:L.opp,comp:L.comp,home:L.home,res,sw:r.a,sl:r.b,sets:L.sets,int:1,tie:tie?1:0});sv('vs_hist',hist);rateNew=hist[0].id;live=null;sv('vs_live',null);$('#live').style.display='none';view='hist';detail=0;render()}
 function aband(b){if(b.dataset.c){live=null;sv('vs_live',null);render();return}b.dataset.c=1;b.textContent='Confirmer : abandonner ce match ?';b.className='d';setTimeout(()=>{b.dataset.c='';b.textContent='Abandonner ce match';b.className='s'},4000)}
-function bkObj(){return {app:'LaMarque',format:FMT,appVersion:APP_V,date:new Date().toISOString(),teams,hist,cur,options:{th:PF.th,vb:PF.vb,fn}}}
+function bkObj(){return {app:'LaMarque',format:FMT,appVersion:APP_V,date:new Date().toISOString(),teams,hist,cur,options:{th:PF.th,vb:PF.vb,an:PF.an,fn}}}
 function bk(){const d=JSON.stringify(bkObj());$('#bk').innerHTML=`<textarea id="bkt" rows="6" readonly>${esc(d)}</textarea><button onclick="cpb()">Copier la sauvegarde</button>`}
 function cpb(){const t=$('#bkt');t.select();try{navigator.clipboard.writeText(t.value)}catch(e){try{document.execCommand('copy')}catch(_){}}setP('bk',Date.now());toast('Sauvegarde copiée')}
 function migrate(d){if(!d||!['VolleyStats','LaMarque'].includes(d.app)||!Array.isArray(d.teams)||!Array.isArray(d.hist))return null;
  d.format=d.format||d.v||1;d.hist.forEach(m=>{if(!m.id)m.id=legacyId(m,(d.teams.find(t=>t.id===m.t)||{}).name)});
  if(d.format>FMT)return 'new';return d}
-function applyBk(d){teams=d.teams;hist=d.hist;cur=d.cur||(teams[0]?teams[0].id:'');if(d.options){['th','vb'].forEach(k=>{if(d.options[k]!==undefined)PF[k]=d.options[k]});if(d.options.fn){fn=d.options.fn;sv('vs_fn',fn)}sv('vs_pf',PF);ap()}sv('vs_teams',teams);sv('vs_hist',hist);sv('vs_cur',cur);render();toast('Données restaurées')}
+function applyBk(d){teams=d.teams;hist=d.hist;cur=d.cur||(teams[0]?teams[0].id:'');if(d.options){['th','vb','an'].forEach(k=>{if(d.options[k]!==undefined)PF[k]=d.options[k]});if(d.options.fn){fn=d.options.fn;sv('vs_fn',fn)}sv('vs_pf',PF);ap()}sv('vs_teams',teams);sv('vs_hist',hist);sv('vs_cur',cur);render();toast('Données restaurées')}
 function rs(b){let d;try{d=migrate(JSON.parse($('#rst').value.trim()))}catch(e){}if(d==='new'){toast('Sauvegarde faite avec une version plus récente de l\'application');return}if(!d){toast('Sauvegarde non reconnue');return}
  if(!b.dataset.c){b.dataset.c=1;b.textContent='Confirmer : remplacer toutes mes données ?';b.className='d';setTimeout(()=>{b.dataset.c='';b.textContent='Restaurer';b.className='s'},4000);return}
  applyBk(d)}
@@ -319,7 +451,7 @@ function seqs(m){const sq=m.sq||[],ca=C[m.ca]||'#1faa59',cb=C[m.cb]||'#e53935';l
   for(let k=0;k<n;k++)g+=`<circle cx="${4+k*8}" cy="${y(q[k])}" r="3.2" fill="${q[k]==='a'?ca:cb}"/>`;
   h+=`<div style="display:flex;justify-content:space-between;margin-top:10px;font-size:14px"><b>Set ${i+1} · ${s[0]}-${s[1]}</b>${m.sd&&m.sd[i]?'<span class="mut" style="font-size:12px">'+dm(m.sd[i])+'</span>':''}</div><div class="mut" style="font-size:13px;margin-bottom:2px">Séries max : <span style="color:${ca}">●</span> <b>${ma}</b> &nbsp; <span style="color:${cb}">●</span> <b>${mb}</b></div><svg viewBox="0 0 ${W} 30" style="width:100%;display:block"><line x1="0" y1="15" x2="${W}" y2="15" style="stroke:var(--bd)" stroke-width="1"/>${g}</svg>`});
  return h?`<h2>Déroulé des sets</h2><div class="mut" style="font-size:12px"><span style="color:${ca}">●</span> ligne du haut : ${esc(nm(m.t)||'nous')} · <span style="color:${cb}">●</span> ligne du bas : ${esc(m.opp)}</div>`+h:''}
-addEventListener('resize',()=>{frI();if(live&&$('#live').style.display!=='none')renderLive()});
+addEventListener('resize',()=>{frI();const ae=document.activeElement;if(ae&&/^(INPUT|TEXTAREA)$/.test(ae.tagName))return;if(live&&$('#live').style.display!=='none')renderLive()});
 function nn(s){return String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/\s+/g,' ').trim()}
 function hsh(s){let h1=0xdeadbeef,h2=0x41c6ce57;for(let i=0,c;i<s.length;i++){c=s.charCodeAt(i);h1=Math.imul(h1^c,2654435761);h2=Math.imul(h2^c,1597334677)}h1=Math.imul(h1^(h1>>>16),2246822507)^Math.imul(h2^(h2>>>13),3266489909);h2=Math.imul(h2^(h2>>>16),2246822507)^Math.imul(h1^(h1>>>13),3266489909);return (4294967296*(2097151&h2)+(h1>>>0)).toString(36)}
 function legacyId(m,name){const n=name||(teams.find(t=>t.id===m.t)||{}).name||'';return 'h'+hsh(nn(n)+'|'+m.date+'|'+nn(m.opp)+'|'+JSON.stringify(m.sets||[])+'|'+m.res+'|'+(m.ff||'')+'|'+(m.tr||''))}
@@ -387,7 +519,7 @@ function ap(){const t=PF.th||'auto',e=document.documentElement;t==='auto'?e.remo
 function setP(k,v){PF[k]=v;sv('vs_pf',PF);ap()}
 function vib(n){try{if(PF.vb!==0&&navigator.vibrate)return navigator.vibrate(n)}catch(e){}return false}
 function vtest(){if(!navigator.vibrate){toast('Vibration non gérée par ce navigateur (iPhone, ou réglage désactivé)');return}let r=false;try{r=navigator.vibrate([200,80,200])}catch(e){}toast(r?'Vibration envoyée : tu dois la sentir (sinon vérifie le mode silencieux / retour haptique du téléphone)':'Vibration bloquée par le navigateur ou par la page intégrée : ouvre l\'application directement (site ou écran d\'accueil)')}
-const pf=()=>`<h2>Affichage et confort</h2><div class="card"><label>Apparence</label><select onchange="setP('th',this.value)">${[['auto','Automatique'],['light','Clair'],['dark','Sombre'],['sun','Plein soleil (fort contraste)']].map(x=>`<option value="${x[0]}" ${(PF.th||'auto')===x[0]?'selected':''}>${x[1]}</option>`).join('')}</select><label style="color:var(--fg);font-size:16px;margin-top:12px"><input type="checkbox" style="width:auto" ${PF.vb!==0?'checked':''} onchange="setP('vb',this.checked?1:0)"> Vibration à chaque point (Android)</label><button class="s" onclick="vtest()">Tester la vibration</button></div>`;
+const pf=()=>`<h2>Affichage et confort</h2><div class="card"><label>Apparence</label><select onchange="setP('th',this.value)">${[['auto','Automatique'],['light','Clair'],['dark','Sombre'],['sun','Plein soleil (fort contraste)']].map(x=>`<option value="${x[0]}" ${(PF.th||'auto')===x[0]?'selected':''}>${x[1]}</option>`).join('')}</select><label style="color:var(--fg);font-size:16px;margin-top:12px"><input type="checkbox" style="width:auto" ${PF.vb!==0?'checked':''} onchange="setP('vb',this.checked?1:0)"> Vibration à chaque point (Android)</label><button class="s" onclick="vtest()">Tester la vibration</button></div><h2>Mode analyse (avancé)</h2><div class="card"><label style="color:var(--fg);font-size:16px"><input type="checkbox" style="width:auto" ${PF.an?'checked':''} onchange="setP('an',this.checked?1:0);render()"> Activer l'analyse des joueurs</label><div class="mut">Pour aller plus loin : liste des joueurs de chaque équipe, choix des présents à chaque match et analyse de la réception. Désactivé, l'application reste simple.</div></div>`;
 function rap(){const lb=PF.bk||0,now=Date.now();if(!hist.length||now<(PF.sn||0))return '';
  if(lb&&!(now-lb>7*864e5&&hist.some(m=>(m.u||0)>lb)))return '';const j=lb?Math.floor((now-lb)/864e5):0;
  return `<div class="card" style="border-color:var(--ac)"><b>💾 Pense à sauvegarder tes données</b><div class="mut">${lb?'Dernière sauvegarde il y a '+j+' jour'+(j>1?'s':''):'Aucune sauvegarde pour le moment'}.</div><button onclick="goBk()">Sauvegarder maintenant</button><button class="s" onclick="setP('sn',Date.now()+3*864e5);render()">Plus tard</button></div>`}
@@ -494,6 +626,17 @@ let st=null;
 $('#live').addEventListener('pointerdown',e=>{const z=e.target.closest('.z');st=z?{t:z.dataset.t,q:!!e.target.closest('.q'),x:e.clientX,y:e.clientY}:null});
 $('#live').addEventListener('pointerup',e=>{if(!st||live.pend){st=null;return}const dy=e.clientY-st.y,dx=e.clientX-st.x;
  if(dy>70&&Math.abs(dx)<60){sw0=Date.now();undo()}else if(!st.q&&Math.abs(dy)<20&&Math.abs(dx)<20)tap(st.t);st=null});
+let dg=null,rcSw=0;
+$('#live').addEventListener('pointerdown',e=>{if(!live||!live.rc||!e.target.closest('#rc'))return;const r=e.target.closest('.rp');dg={r,i:r?+r.dataset.i:-1,x:e.clientX,y:e.clientY,mv:false}});
+$('#live').addEventListener('pointermove',e=>{if(!dg||!dg.r)return;const dx=e.clientX-dg.x,dy=e.clientY-dg.y;if(!dg.mv&&Math.hypot(dx,dy)>14)dg.mv=true;if(dg.mv){dg.r.style.transform=`translate(calc(-50% + ${dx}px),calc(-50% + ${dy}px))`;dg.r.style.zIndex=6}});
+$('#live').addEventListener('pointerup',e=>{if(!dg)return;const d=dg;dg=null;const dx=e.clientX-d.x,dy=e.clientY-d.y;
+ if(d.r&&d.mv){d.r.style.transform='';d.r.style.zIndex='';rcSw=Date.now();
+  const t=document.elementsFromPoint(e.clientX,e.clientY).map(x=>x.closest&&x.closest('.rp')).find(x=>x&&x!==d.r);
+  if(t){const L=live,a=d.i,b=+t.dataset.i;[L.rcc[a],L.rcc[b]]=[L.rcc[b],L.rcc[a]];L.rcs=null;L.rcm=null;vib(15);rcSave();rcToast('Joueurs échangés');return}
+  if(dy>70&&Math.abs(dx)<60){rcUndo();return}
+  renderLive();return}
+ if(!d.r&&dy>70&&Math.abs(dx)<60){rcSw=Date.now();rcUndo()}});
+$('#live').addEventListener('pointercancel',()=>{if(dg&&dg.r){dg.r.style.transform=''}dg=null});
 render();if(live)showLive();
 </script><script>if('serviceWorker' in navigator){addEventListener('load',()=>{navigator.serviceWorker.register('sw.js').then(r=>{r.update();document.addEventListener('visibilitychange',()=>{if(!document.hidden)r.update()})}).catch(()=>{})});let had=!!navigator.serviceWorker.controller;navigator.serviceWorker.addEventListener('controllerchange',()=>{if(!had){had=true;return}if(typeof live!=='undefined'&&live&&document.getElementById('live').style.display!=='none')return;location.reload()})}</script>
 </body></html>
