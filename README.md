@@ -2,7 +2,7 @@
 
 **La table de marque de poche pour le volley.** Une application web gratuite, libre et sans compte, pour suivre un match depuis le bord du terrain, garder l'historique de ses équipes et analyser sa saison.
 
-*Version 2.4 · Licence MIT · Fonctionne hors connexion · Aucune donnée n'est envoyée sur Internet*
+*Version 2.5 · Licence MIT · Fonctionne hors connexion · Aucune donnée n'est envoyée sur Internet*
 
 ## En un coup d'œil
 
@@ -10,11 +10,52 @@
 |---|---|
 | ⏱ **Score en direct** | Un appui = +1 point, glisser vers le bas = annuler. Affichage horizontal pour les joueurs, chronomètre, durée de chaque set |
 | 🎯 **Mode avancé** | Qualifie chaque point (ace, attaque, bidouille, bloc, fautes…), activable ou désactivable en plein match |
+| 🏐 **Mode analyse (optionnel)** | Liste des joueurs par équipe (onglet Équipe), choix des présents, puis analyse de la réception (parfaite / bonne / jouable / zippée puis manchette ou dix doigts, terrain en losange, changement de joueur, moyennes en direct, bilan dans l'historique). Désactivé, l'application reste simple |
+| 🟨 **Mode arbitre / Mode coach** | Arbitre : table de marque seule, écran paysage automatique, score visible des joueurs. Coach : écran d'options (points, réception, passes, deux observateurs) |
+| 👥 **Analyse à deux observateurs** | Un téléphone tient la table et qualifie les points ; un second, rejoint avec un code d'invitation (équipe, joueurs, match), note la réception et la répartition des passes (en 4, en 3, en 2). À la fin, son code d'analyse s'intègre au match du premier téléphone |
 | 📜 **Historique** | Chaque match avec son déroulé point par point, ses séries, une notation en étoiles et des notes |
 | 📈 **Saison** | Victoires, sets, Points championnat, courbes, frise des derniers matchs, statistiques par type de point |
 | 🖼 **Fiche de match** | Image A4 à partager (WhatsApp, Discord…) avec camemberts, déroulé des sets et photo facultative |
 | 👥 **Staff** | Partage et fusion des données entre collègues, sans jamais écraser les données de l'autre |
 | 💾 **Sauvegarde** | Fichier .json versionné à garder sur un drive, restauration complète en un geste |
+
+## Nouveautés de la version 2.5
+
+### Deux façons de lancer un match
+La page **Match** est simplifiée : adversaire, date, lieu, compétition (remplie automatiquement avec la catégorie et la saison de l'équipe), couleurs, règles repliables, puis deux gros boutons.
+- **Mode arbitre** : la table de marque seule. L'écran se met en paysage tout seul (un bouton « Inverser le sens de l'écran » est dans le menu), idéal pour montrer le score aux joueurs.
+- **Mode coach** : ouvre un écran avec de grandes tuiles carrées pour choisir l'analyse du match : aucune, qualifier les points, réception, passes, ou analyse à deux observateurs. Plus d'interrupteur « Mode analyse » caché dans les réglages : tout se choisit match par match.
+
+### Réception sur 4 niveaux
+La réception se note maintenant **parfaite / bonne / jouable / zippée**, puis **manchette ou dix doigts**. Le type de service adverse est retiré pour alléger la prise de notes. Le bilan (en direct, dans l'historique et sur la fiche A4) affiche la moyenne sur 3, le pourcentage de réceptions parfaites, et à la fin les **pourcentages manchette / dix doigts**.
+> Tes anciennes analyses sont converties automatiquement : l'ancien « jouable » reste « jouable » dans la nouvelle échelle (les moyennes anciennes baissent légèrement).
+
+### Module « passes »
+Un module indépendant de la réception, pour noter la répartition des passes **en 4, en 3 et en 2**. Il n'est pas nécessaire de toutes les noter : ce sont des proportions. Utilisable seul (mode coach) ou en même temps que la réception.
+
+### Analyse à deux observateurs
+Un téléphone tient la table et qualifie les points ; un second observateur note la réception et les passes.
+- Le premier téléphone crée un **code d'invitation** (équipe, joueurs, adversaire, compétition, règles). Le second le colle dans **Match → Rejoindre comme observateur** : le match se lance tout seul.
+- L'écran de l'observateur rappelle le match (équipes, compétition, règles) et le **score des sets**, qui suit le « Set + » (avec choix de l'équipe gagnante) et le « − Set ».
+- À la fin, un écran de fin de match propose un seul bouton **Copier le code** à envoyer au premier téléphone, qui l'intègre au match terminé (« Intégrer l'analyse »).
+- Le second téléphone retrouve ses matchs observés, en bleu, dans **Historique → Matchs observés**, avec le code à renvoyer et la possibilité de supprimer (avec confirmation).
+
+### Points qualifiés par set
+Quand on qualifie les points seulement sur certains sets, l'application le sait : « Set #2 évalué », « Sets #2 et #4 évalués ». Les statistiques de saison portent sur le pourcentage de points qualifiés.
+
+### Fiche de match A4 repensée
+- Panneau de points qualifiés à gauche, réception et passes à droite ; si un seul module est utilisé, il occupe toute la largeur.
+- Le set analysé est indiqué sur chaque panneau, la photo facultative est mise en valeur avec l'icône 📸.
+- La « Lecture rapide » n'est plus sur la fiche (elle reste dans le détail du match).
+
+### Un onglet Équipe, des réglages allégés
+- **Équipe** : mes équipes, profil, joueurs, règles par défaut (repliables), partage avec le staff et réception d'un code.
+- **Réglages** : apparence, vibration, sauvegarde et restauration.
+- Un **rappel de sauvegarde** apparaît désormais en fenêtre au milieu de l'écran, de façon rare (après une semaine d'usage, ou si la dernière sauvegarde a plus de 7 jours).
+- « Saisir un match non suivi » n'est plus que dans l'Historique.
+
+### Mettre à jour
+Remplace simplement `index.html` dans ton dépôt (voir plus bas). Tes données ne bougent pas : le format de sauvegarde est inchangé. Fais une sauvegarde avant, par précaution.
 
 ## Fonctionnalités
 
@@ -24,6 +65,8 @@
 - Sets, changement de côté, set décisif, règles personnalisables (FFVolley, loisir, ou à la carte pour chaque match)
 - Chronomètre du match en haut de l'écran et durée de chaque set
 - Mode avancé : qualification de chaque point, activable ou désactivable en cours de match
+- Analyse de la réception : parfaite / bonne / jouable / zippée, manchette ou dix doigts, stats par joueur
+- Module passes (en 4, en 3, en 2), seul ou avec la réception, et analyse à deux observateurs
 - Notes pendant les temps morts, écrites ou dictées
 - Mise en pause d'un match et reprise plus tard, vibration à chaque point (Android)
 - Matchs interrompus (départage à la différence de points), forfaits, entraînements hors championnat
@@ -31,8 +74,9 @@
 
 ### Historique
 - Liste des matchs, modification, saisie d'un match non suivi
+- Matchs observés (en tant que second observateur), avec le code à renvoyer
 - Déroulé point par point de chaque set, séries max de chaque équipe
-- « Lecture rapide » : point fort, point faible, plus longue série
+- « Lecture rapide » dans le détail du match : point fort, point faible, plus longue série
 - Notation du match (1 à 5 étoiles) et commentaire facultatifs
 - Fiche de match A4 à partager en image, photo facultative (non conservée dans l'application)
 
@@ -77,9 +121,9 @@ Fais une sauvegarde de temps en temps : si tu vides les données du navigateur, 
 
 ## Partager avec un collègue du staff
 
-Dans **Réglages → Partager avec mon staff**, choisis une ou plusieurs équipes (et, si tu veux, seulement les 5 ou 10 derniers matchs), puis **Créer le code**. Envoie-le par message avec **Partager**, ou en fichier avec **Envoyer en fichier**.
+Dans **Équipe → Partager avec mon staff**, choisis une ou plusieurs équipes (et, si tu veux, seulement les 5 ou 10 derniers matchs), puis **Créer le code**. Envoie-le par message avec **Partager**, ou en fichier avec **Envoyer en fichier**.
 
-Ton collègue va dans **Réglages → Recevoir un code**, colle le message (ou choisit le fichier) et touche **Lire le code** : il voit un résumé (nouveaux matchs, mis à jour, déjà présents), puis **Fusionner**. Ses autres équipes et ses autres matchs restent intacts. Un bouton **Annuler la dernière fusion** permet de revenir en arrière.
+Ton collègue va dans **Équipe → Recevoir un code**, colle le message (ou choisit le fichier) et touche **Lire le code** : il voit un résumé (nouveaux matchs, mis à jour, déjà présents), puis **Fusionner**. Ses autres équipes et ses autres matchs restent intacts. Un bouton **Annuler la dernière fusion** permet de revenir en arrière.
 
 Règles : les équipes sont reconnues par leur nom ; un match déjà présent n'est jamais dupliqué (si les deux versions ont été modifiées, la plus récente gagne) ; un match supprimé sur un téléphone n'est pas supprimé sur l'autre. Les matchs en cours ne sont pas transférés.
 
